@@ -13,11 +13,18 @@ angular.module('angular-google-maps-example', ['google-maps']).controller('contr
         $scope.version = data.version;
     });*/
 
+    var resize = function(){
+        console.log(" window onresize ");
+        var height = window.innerHeight;
+        $(".angular-google-map-container").css("height", height+"px");
+    };
+
+    resize();
+    window.onresize = resize();
 
     var onMarkerClicked = function (marker) {
         marker.showWindow = !marker.showWindow;
         $scope.$apply();
-        //window.alert('Marker: lat: ' + marker.latitude + ', lon: ' + marker.longitude + ' clicked!!')
     };
 
     angular.extend($scope, {
@@ -91,12 +98,6 @@ angular.module('angular-google-maps-example', ['google-maps']).controller('contr
         $scope.map.markers.length = 0;
         $scope.map.clickedMarker = null;
         $scope.searchLocationMarker = null;
-    };
-    $scope.refreshMap = function () {
-        //optional param if you want to refresh you can pass null undefined or false or empty arg
-        $scope.map.control.refresh({latitude: 32.779680, longitude: -79.935493});
-        $scope.map.control.getGMap().setZoom(11);
-        return;
     };
 
     var setBounds = function(bounds, latitude, longitude) {
@@ -185,9 +186,4 @@ angular.module('angular-google-maps-example', ['google-maps']).controller('contr
     };
 
     $scope.onMarkerClicked = onMarkerClicked;
-
-    $scope.clackMarker = function($markerModel) {
-      $log.log('from clackMarker');
-	    $log.log($markerModel);
-    };
 });
