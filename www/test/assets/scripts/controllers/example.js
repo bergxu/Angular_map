@@ -15,12 +15,12 @@ angular.module('angular-google-maps-example', ['google-maps']).controller('contr
 
     var resize = function(){
         console.log(" window onresize ");
-        var height = window.innerHeight;
+        var height = window.innerHeight - 200;
         $(".angular-google-map-container").css("height", height+"px");
     };
 
     resize();
-    window.onresize = resize();
+    window.onresize = resize;
 
     var onMarkerClicked = function (marker) {
         marker.showWindow = !marker.showWindow;
