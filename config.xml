@@ -7,7 +7,8 @@
     <author email="qun.lin@itbconsult.com" href="http://www.itbconsult.com">
 	ITBconsult Mobile Team
     </author>
-    <content src="index.html" />
+    <!--content src="index.html" /-->
+    <content src="test/example.html" />
     <access origin="*" />
 	<preference name="SplashScreen" value="icon" />
 	<preference name="SplashScreenDelay" value="3000" />
