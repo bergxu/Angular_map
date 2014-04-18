@@ -177,7 +177,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var getData = function(){
     		var myData = {
-         		'accountId' : '001L000000PKm8x',
+         		'accountId' : '001L000000PKhEv',
               'lat': '31.110447',
               'lng': '121.374097',
               'distanceUnit': 'km',
@@ -206,12 +206,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
                 	}
             	};
             	angular.forEach(datas,function(data){
-            		console.log("Latitude__s = " + data.Location__Latitude__s);
                 	var markerObj = {
-                    	title: data.name,
-                    	icon: 'assets/images/blue_marker.png',
-                    	latitude: data.Location__Latitude__s,
-                    	longitude: data.Location__Longitude__s,
+					latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
+            			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
                     	showWindow: false,
                     	// list info
                     	name: data.Name,
@@ -223,6 +220,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
             	});
             	setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
 			$scope.map.control.refresh();
+			//$scope.$apply();
         	}).error(function(){
             	alert('get Date error');
         	});
