@@ -4,7 +4,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var resize = function(){
 		console.log(" window onresize ");
-		var height = window.innerHeight - 200;
+		var height = window.innerHeight - 145;
 		$(".angular-google-map-container").css("height", height+"px");
 	};
 
@@ -89,8 +89,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		}
 	});
 
-	var gotoLocation = function (lat, lon) {
-		if ($scope.map.center.latitude != lat || $scope.center.longitude != lon) {
+	var gotoLocation = function (lat, lon, flag) {
+		if(typeof flag === 'undefined') flag = true;
+		if (flag && ($scope.map.center.latitude != lat || $scope.center.longitude != lon)) {
 			$scope.map.center = {
 				latitude: lat, 
 				longitude: lon
@@ -142,11 +143,17 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
     			$scope.map.targetMarker.longitude = searchedLatlng.longitude;
     			$scope.map.targetMarker.name = 'targetMarker';
     			$scope.map.targetMarker.show = true;
-    			gotoLocation($scope.map.targetMarker.latitude, $scope.map.targetMarker.longitude);
+    			setBounds($scope.map.bounds, $scope.map.targetMarker.latitude, $scope.map.targetMarker.longitude);
+    			gotoLocation($scope.map.targetMarker.latitude, $scope.map.targetMarker.longitude, $scope.distance === 0);
     		}; 
 		if($scope.distance > 0){
-		    	searchLocation(slCb);
+	    		/*var cb = function(markers, bounds){
+		    		$scope.map.markers = markers;
+		    		$scope.map.bounds = bounds;
+		    		searchLocation(slCb);
+		    	};*/
 		    	getData();
+		    	searchLocation(slCb);
 	    	} else if ($scope.distance == 0){
     			searchLocation(slCb);
 	    	}
@@ -175,7 +182,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	    	}   
 	};
 
-	var getData = function(){
+	var getData = function(cb){
     		var myData = {
          		'accountId' : '001L000000PKhEv',
               'lat': '31.110447',
@@ -219,8 +226,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
                 	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
             	});
             	setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
-			$scope.map.control.refresh();
+			//$scope.map.control.refresh();
 			//$scope.$apply();
+			if(cb) { cb($scope.map.markers, $scope.map.bounds); }
         	}).error(function(){
             	alert('get Date error');
         	});
