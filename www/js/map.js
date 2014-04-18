@@ -1,5 +1,5 @@
 var app = angular.module('app', ['google-maps']);
-app.controller("appCtrl",function($scope, $http){
+app.controller("appCtrl",function($rootScope, $scope, $http){
 	google.maps.visualRefresh = true;
 
 	var resize = function(){
@@ -11,6 +11,16 @@ app.controller("appCtrl",function($scope, $http){
 	resize();
 	window.onresize = resize;
 
+	$scope.safeApply = function(fn) {
+		var phase = this.$root.$$phase;
+		if(phase == '$apply' || phase == '$digest') {
+			if(fn && (typeof(fn) === 'function')) {
+				fn();
+			}
+		} else {
+			this.$apply(fn);
+		}
+	};
 	$scope.onMarkerClicked = function (marker) {
 		marker.showWindow = !marker.showWindow;
 		$scope.$apply();
@@ -127,6 +137,7 @@ app.controller("appCtrl",function($scope, $http){
 
 	$scope.geoCode = function(){
     		var slCb = function(searchedLatlng){
+    			console.log("show searched position");
     			$scope.map.targetMarker.latitude = searchedLatlng.latitude;
     			$scope.map.targetMarker.longitude = searchedLatlng.longitude;
     			$scope.map.targetMarker.name = 'targetMarker';
@@ -134,8 +145,8 @@ app.controller("appCtrl",function($scope, $http){
     			gotoLocation($scope.map.targetMarker.latitude, $scope.map.targetMarker.longitude);
     		}; 
 		if($scope.distance > 0){
-		    	getData();
 		    	searchLocation(slCb);
+		    	getData();
 	    	} else if ($scope.distance == 0){
     			searchLocation(slCb);
 	    	}
@@ -184,8 +195,8 @@ app.controller("appCtrl",function($scope, $http){
         			return;
         		}
         		console.log('length = ' + datas.length);
-            	$scope.map.markers = [];
-            	/*$scope.map.bounds = {
+			$scope.map.markers = [];
+            	$scope.map.bounds = {
                 	northeast: {
                     	latitude : 0,
                     	longitude: 0
@@ -194,8 +205,8 @@ app.controller("appCtrl",function($scope, $http){
                     	latitude : 0,
                     	longitude: 0
                 	}
-            	};*/
-            	/*angular.forEach(datas,function(data){
+            	};
+            	angular.forEach(datas,function(data){
             		console.log("Latitude__s = " + data.Location__Latitude__s);
                 	var markerObj = {
                     	title: data.name,
@@ -209,17 +220,22 @@ app.controller("appCtrl",function($scope, $http){
                     	phone: '10086'
                 	};
                 	$scope.map.markers.push(markerObj);
-                	//setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
+                	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
             	});*/
-            	//setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
+            	setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
             	//$scope.$apply();
-            	/*if(!$scope.$$phase) {
-	            	$scope.$apply();
-			}*/
+			/*$scope.$apply(function() {
+	        		if(datas.length <= 0){
+	        			alert('none account');
+	        			return;
+	        		}
+	        		console.log('length = ' + datas.length);
+				$scope.map.markers = [];
+			});*/
 			setTimeout(function(){
-				console.log('setTimeout ok!');
-	            	$scope.$apply();
-			}, 1000);
+				$scope.$apply();
+			}, 2000);
+			//$scope.map.control.refresh();
         	}).error(function(){
             	alert('get Date error');
         	});
