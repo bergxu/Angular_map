@@ -1,5 +1,5 @@
 var app = angular.module('app', ['google-maps']);
-app.controller("appCtrl",function($rootScope, $scope, $http){
+app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	google.maps.visualRefresh = true;
 
 	var resize = function(){
@@ -194,7 +194,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http){
         			alert('none account');
         			return;
         		}
-        		console.log('length = ' + datas.length);
 			$scope.map.markers = [];
             	$scope.map.bounds = {
                 	northeast: {
@@ -221,21 +220,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http){
                 	};
                 	$scope.map.markers.push(markerObj);
                 	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
-            	});*/
+            	});
             	setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
-            	//$scope.$apply();
-			/*$scope.$apply(function() {
-	        		if(datas.length <= 0){
-	        			alert('none account');
-	        			return;
-	        		}
-	        		console.log('length = ' + datas.length);
-				$scope.map.markers = [];
-			});*/
-			setTimeout(function(){
-				$scope.$apply();
-			}, 2000);
-			//$scope.map.control.refresh();
+			$scope.map.control.refresh();
         	}).error(function(){
             	alert('get Date error');
         	});
