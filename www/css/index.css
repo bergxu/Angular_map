@@ -47,7 +47,7 @@ td{
 	position: absolute;
 	width: 100%;
     }
- #searchInput{
+ .inputArea{
    	height: 50px;
    	font-size: 25px;
    	border-radius: 0px;
@@ -170,4 +170,33 @@ td{
     z-index: 1;
     top: -15px;
     left: 118px;
+}
+
+
+
+.animate-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+  line-height:20px;
+  opacity:1;
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+ 
+.animate-hide.ng-hide-add,
+.animate-hide.ng-hide-remove {
+  display:block!important;
+}
+ 
+.animate-hide.ng-hide {
+  line-height:0;
+  opacity:0;
+  padding:0 10px;
+}
+ 
+.check-element {
+  padding:10px;
+  border:1px solid black;
+  background:white;
 }

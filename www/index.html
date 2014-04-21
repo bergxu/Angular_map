@@ -15,11 +15,11 @@
     <body ng-controller="appCtrl">
     
     <!--top menu-->
-    <a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  onclick="collapseTools();">
+    <a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();">
        <span id="iconId" class="text-left">
        <img src="img/arrowed_down.png" ></span>
        <span id="locationIcon" class="glyphicon glyphicon-map-marker"></span>
-       <span id="locationText" ></span>
+       <span id="locationText" >{{locationText}}</span>
        <span class="text-right" >
        <img src="img/logo.png" ></span>
     </a>
@@ -33,14 +33,15 @@
               </a>
             </td>
             <td colspan="2">
-              <input id="searchInput" ng-model="search" class="form-control hideInput" placeholder="Input Address">
+              <input id="searchInput" ng-model="myCurrentLocation" class="inputArea form-control" disabled="true" placeholder="Input Addresssssss" ng-show="ctrCheck">
+              <input ng-model="findSearch" class=" inputArea form-control" placeholder="Input Address" ng-hide="ctrCheck">
             </td>
           </tr>
           <tr>
             <td style="width:25%;"><span style="font-size:25px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;<span style="font-size:25px;">My Location</span></td>
             <td>
 				      <select id="selectedDistance" ng-model="distance"  class="form-control">
-                  <option   ng-repeat="c in metadata.picklists.distance" value="{{c}}">{{c}} km
+                  <option ng-repeat="c in metadata.picklists.distance" value="{{c}}">{{c}} km
                   </option>
                </select>      
             </td>
@@ -72,18 +73,18 @@
             >
 
             <!-- current -->
-            <marker show="map.currentMarker.show" coords="map.currentMarker" click="onMarkerClicked(map.currentMarker)">
-                <window ng-cloak show="map.currentMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                        <p>This is an info window at {{ map.currentMarker.latitude | number:4 }}, {{ map.currentMarker.longitude | number:4 }}!</p>
+            <marker show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon' click="onMarkerClicked(map.currentMarker)">
+                <window show="map.currentMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
+                        <p>This is an info window at current location!</p>
                         <br>
-                        <p class="muted">{{map.currentMarker.name}}</p>
+                       <!-- <p class="muted">{{map.currentMarker.name}}</p> -->
                 </window>
             </marker>
             <!-- target -->
             <marker show="map.targetMarker.show" coords="map.targetMarker" click="onMarkerClicked(map.targetMarker)">
                 <window ng-cloak show="map.targetMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                        <p>This is an info window at {{ map.targetMarker.latitude | number:4 }}, {{ map.targetMarker.longitude | number:4 }}!</p>
-                        <p class="muted">{{map.targetMarker.name}}</p>
+                        <p>This is an info window at targetlocation!</p>
+                        <!-- <p class="muted">{{map.targetMarker.name}}</p> -->
                 </window>
             </marker>
             <!-- account -->
@@ -113,7 +114,7 @@
 		
 		    <script type="text/javascript" src="libs/jquery.min.js"></script>
         <!--script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false" ></script-->
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en&v=3.14"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false&v=3.14"></script>
         <script type="text/javascript" src="libs/angular.min.js"></script>
         <!--script type="text/javascript" src="libs/angular-1.2.16.min.js"></script-->
         <script type="text/javascript" src="libs/underscore-min.js"></script>
