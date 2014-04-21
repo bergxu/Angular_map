@@ -131,6 +131,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 	$scope.ctrCheck = true;
 
+	$scope.myScroll = new IScroll('#maplistArea');
+
 
 	var searchLocation = function(callback){
 		if($scope.ctrCheck){
@@ -155,6 +157,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	$scope.geoCode = function(){
+
 		collapseTools();
 		var targetShow;
 		if(!$scope.ctrCheck){
@@ -186,11 +189,15 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			gotoLocation($scope.map.searchLocation.latitude, $scope.map.searchLocation.longitude, $scope.distance == 0);
 		}; 
 		if($scope.distance > 0){
+			startLoad();
+			spinner.spin(document.getElementById("mapArea"));
 	    	getData();
 	    	searchLocation(slCb);
     	} else if ($scope.distance == 0){
 			searchLocation(slCb);
     	}
+
+    	$(".navbar-fixed-bottom").css("bottom","0px");
 	};
 
 	var setBounds = function(bounds, latitude, longitude) {
@@ -254,6 +261,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
             	var markerObj = {
 					latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
         			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
+
                 	showWindow: false,
                 	// list info
                 	name: data.Name,
@@ -262,10 +270,13 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
             	};
             	$scope.map.markers.push(markerObj);
             	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
+
         	});
         	setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
+        	$scope.myScroll.refresh();
 			//$scope.map.control.refresh();
 			//$scope.$apply();
+			spinner.stop();
 		if(cb) { cb($scope.map.markers, $scope.map.bounds); }
     	}).error(function(){
         	alert('get Date error');
@@ -278,6 +289,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	$scope.listClick = function(){
+		setTimeout(function(){$scope.myScroll.refresh();},1000);		
 		$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
 		$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 	};
@@ -297,6 +309,28 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
             $("#iconId").find("img").attr("src","img/arrowed_up.png");
         }
 	};
+
+	 var startLoad = function(target){
+        var opts = {  
+          lines: 13,   
+          length: 20,  
+          width: 10, 
+          radius: 30, 
+          corners: 1,  
+          rotate: 0, 
+          direction: 1,  
+          color: "#000",   
+          speed: 1, 
+          trail: 60,  
+          shadow: false,   
+          hwaccel: false,   
+          className: "spinner", 
+          zIndex: 2e9, 
+          top: "auto", 
+          left: "auto" 
+        };   
+        spinner = new Spinner(opts); 
+    }
 
 	$scope.metadata = {
 			picklists : {
