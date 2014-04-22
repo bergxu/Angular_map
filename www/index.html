@@ -27,17 +27,17 @@
        <table style="width:100%;">
           <tr>          
             <td colspan="3">
-              <input id="searchInput" ng-model="myCurrentLocation" class="inputArea form-control" disabled="true" placeholder="Input Addresssssss" ng-show="ctrCheck">
-              <input ng-model="findSearch" class=" inputArea form-control" placeholder="Input Address" ng-hide="ctrCheck">
+              <textarea id="searchInput" ng-model="myCurrentLocation" class="inputArea form-control" disabled="true" placeholder="Input Addresssssss" ng-show="ctrCheck"></textarea>
+              <textarea ng-model="findSearch" class=" inputArea form-control" placeholder="Input Address" ng-hide="ctrCheck"></textarea>
             </td>
           </tr>
           <tr>
-            <td style="width:30px;">
-              <a class="btn" ng-click ="exchangePostion()">
-                <img style="width:30px;" src="img/arrows.png" >
+            <td style="width:20px;">
+              <a class="btn" style="padding:0px;" ng-click ="exchangePostion()">
+                <img style="width:25px;" src="img/arrows.png" >
               </a>
             </td>
-            <td style="width:180px;"><span style="font-size:20px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;<span style="font-size:20px;">My Location</span></td>
+            <td style="width:110px;"><span style="font-size:10px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;<span style="font-size:15px;">My Location</span></td>
             <td>
 				      <select id="selectedDistance" ng-model="distance"  class="form-control">
                   <option ng-repeat="c in metadata.picklists.distance" value="{{c}}">{{c}} km
