@@ -73,24 +73,28 @@
 
             <!-- current -->
             <marker show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon' click="onMarkerClicked(map.currentMarker)">
-                <window show="map.currentMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
+                <!--<window show="map.currentMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
                         <p>This is an info window at current location!</p>
                         <br>
-                       <!-- <p class="muted">{{map.currentMarker.name}}</p> -->
-                </window>
+                        <p class="muted">{{map.currentMarker.name}}</p> 
+                </window>-->
             </marker>
             <!-- target -->
             <marker show="map.targetMarker.show" coords="map.targetMarker" click="onMarkerClicked(map.targetMarker)">
-                <window ng-cloak show="map.targetMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
+                <!--<window ng-cloak show="map.targetMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
                         <p>This is an info window at targetlocation!</p>
-                        <!-- <p class="muted">{{map.targetMarker.name}}</p> -->
-                </window>
+                        <p class="muted">{{map.targetMarker.name}}</p> 
+                </window>-->
             </marker>
             <!-- account -->
             <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)">
                 <window ng-cloak show="m.showWindow" coords="map.infoWindowWithCustomClass.coords" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                        <p>This is an info window at {{ m.latitude | number:4 }}, {{ m.longitude | number:4 }}!</p>
-                        <p class="muted">{{m.name}}</p>
+                        <h5>Name:{{m.name}}</h5>
+                        <p>Phone: {{m.phone}}</p>
+                        <p>Street : {{m.street}}</p>
+                        <p>City : {{m.city}}</p>
+                        <p>Country : {{m.country}}</p>
+                        
                 </window>
             </marker>
 		    </google-map> 
@@ -101,9 +105,9 @@
 			     <ul style="list-style-type:none;padding:10px;">
   			     	<li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
                         <div style="font-size:18px;">{{listItem.name}}</div>
-                        <div style="margin-top:5px;font-size:16px;"><img src="img/home_icon.png">&nbsp;{{listItem.address}}</div>
-                        <div style="margin:5px; border-bottom: 1px solid gray; height: 2px; "></div>
-                        <div style="margin-top:5px;padding:3px;"><a class="btn btn-default" style="background:#EBEBEB;width:100%;text-align: left;font-size:15px;" href="tel:listItem.phone"><img src="img/phone_icon.png">&nbsp; {{listItem.phone}} </a></div>
+                        <div style="margin-top:5px;font-size:16px;"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                        <div style="margin:5px; border-bottom: 1px solid gray; height: 2px;"></div>
+                        <div style="margin-top:5px;padding:3px;"><a class="btn btn-default" style="background:#EBEBEB;width:100%;text-align: left;font-size:15px;" href="tel:{{listItem.phone}}"><img src="img/phone_icon.png">&nbsp; {{listItem.phone}} </a></div>
               </li>
 			     </ul>
 			 </div> 

@@ -209,13 +209,13 @@ td{
 }
 #maplistArea{
     z-index:1;
-
+    
 }
 #mapArea{
   margin-top: 70px;
 }
 #scroller {
-  margin-top: 70px;
+    margin-top: 70px;
     z-index:1;
     position: absolute;
     -webkit-tap-highlight-color: rgba(0,0,0,0);

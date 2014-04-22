@@ -263,10 +263,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
 
                 	showWindow: false,
-                	// list info
                 	name: data.Name,
-                	address: 'china',
-                	phone: 10086
+                	phone: data.Phone,
+                	street: data.geopointe__Geocode__r.geopointe__Street__c,
+                	city : data.geopointe__Geocode__r.geopointe__City__c,
+                	country: data.geopointe__Geocode__r.geopointe__Country__c
             	};
             	$scope.map.markers.push(markerObj);
             	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
