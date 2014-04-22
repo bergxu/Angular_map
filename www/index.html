@@ -89,11 +89,11 @@
             <!-- account -->
             <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)">
                 <window ng-cloak show="m.showWindow" coords="map.infoWindowWithCustomClass.coords" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                        <h5>Name:{{m.name}}</h5>
-                        <p>Phone: {{m.phone}}</p>
-                        <p>Street : {{m.street}}</p>
-                        <p>City : {{m.city}}</p>
-                        <p>Country : {{m.country}}</p>
+                        <h5>{{m.name}}</h5>
+                        <div>Phone: {{m.phone}}</div>
+                        <div>Street : {{m.street}}</div>
+                        <div>City : {{m.city}}</div>
+                        <div>Country : {{m.country}}</div>
                         
                 </window>
             </marker>

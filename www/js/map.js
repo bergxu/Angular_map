@@ -243,6 +243,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         	headers: {'Content-Type': 'application/json; charset=utf-8'}
     	}).success(function(datas){
         	if(datas.length <= 0){
+        		spinner.stop();
     			alert('none account');
     			return;
     		}
@@ -280,6 +281,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			spinner.stop();
 		if(cb) { cb($scope.map.markers, $scope.map.bounds); }
     	}).error(function(){
+    		spinner.stop();
         	alert('get Date error');
     	});
 	};
