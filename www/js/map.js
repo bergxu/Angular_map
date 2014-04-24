@@ -6,6 +6,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		console.log(" window onresize ");
 		var height = window.innerHeight - 145;
 		$(".angular-google-map-container").css("height", height+"px");
+		$("#maplistArea").css("height", height+"px");
 	};
 
 	resize();
@@ -21,8 +22,16 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			this.$apply(fn);
 		}
 	};
+
 	$scope.onMarkerClicked = function (marker) {
-		marker.showWindow = !marker.showWindow;
+			$scope.map.center = {};
+			$scope.map.center = {
+				latitude: marker.latitude, 
+				longitude: marker.longitude
+			};
+		//$('.layerContent').fadeIn(400);
+		//$scope.showWindow = !$scope.showWindow;
+		markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
 		$scope.$apply();
 	};
 
@@ -54,8 +63,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 				name:"currentMarker"
 			},
 			targetMarker: {
-				show: false,
-				showWindow: false
+				show: false
 			},
 			markers: [],
 			infoWindowWithCustomClass: {
@@ -69,6 +77,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		}
 	});
 
+	//set the target location to the center
 	var gotoLocation = function (lat, lon, flag) {
 		if(typeof flag === 'undefined') flag = true;
 		if (flag && ($scope.map.center.latitude != lat || $scope.map.center.longitude != lon)) {
@@ -77,20 +86,15 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 				longitude: lon
 			};
 			$scope.map.zoom = 14;
-			$scope.$apply();
 		}
 	};
 
-	var geoCodeToAddress = function(callback){
-		var latlng = new google.maps.LatLng($scope.getDataLocation.latitude, $scope.getDataLocation.longitude)
-		if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-        this.geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+	//geo code latlng to address
+	var geoCodeToAddress = function(latlng, callback){
+		var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-            	if($scope.ctrCheck){
             		$scope.myCurrentLocation = results[0].formatted_address;
-            	}
-            	$scope.locationText = results[0].formatted_address;
-
             	if(callback) callback();
             } else {
                 alert("Sorry, this search produced no results.");
@@ -98,22 +102,26 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         });
 	};
 	
-		
+	//go to current location		
 	$scope.gotoCurrentLocation= function(){
+
 		navigator.geolocation.getCurrentPosition(function (position) {
 			var c = position.coords;
-
 			$scope.map.currentMarker.latitude = c.latitude;
     		$scope.map.currentMarker.longitude = c.longitude;
     		$scope.map.currentMarker.name = 'currentMarker';
     		$scope.map.currentMarker.show = true;      					
 
-    		//$scope.$apply();
     		$scope.getDataLocation.latitude = c.latitude;
     		$scope.getDataLocation.longitude = c.longitude;
-
-
-    		geoCodeToAddress(function(){
+    		var latlng = new google.maps.LatLng(c.latitude, c.longitude);
+    		$scope.myLatLng = {
+    			lat: c.latitude,
+    			lng: c.longitude
+    		};
+    		// geo code latlng to address
+    		// to get current address
+    		geoCodeToAddress(latlng, function(){
     			$scope.$apply();
     		});
 
@@ -124,25 +132,19 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.gotoCurrentLocation();
 
 	$scope.search = '';
-	$scope.distance = 0;
+	$scope.c = 20;
 	$scope.getDataLocation = {
 		latitude: 0,
 		longitude: 0
 	};
-	$scope.ctrCheck = true;
-
+	$scope.showWindow = false;
 	$scope.myScroll = new IScroll('#maplistArea');
 
-
-	var searchLocation = function(callback){
-		if($scope.ctrCheck){
-			$scope.search = $scope.myCurrentLocation;
-		}else{
-			$scope.search = $scope.findSearch;
-		}
+	//geo code address to latlng
+	var geoCodeToLatLng = function(callback){
 		if ($scope.search && $scope.search.length > 0) {
-	        	if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-	        	this.geocoder.geocode({ 'address': $scope.search }, function (results, status) {
+	        	var geocoder = new google.maps.Geocoder();
+	        	geocoder.geocode({ 'address': $scope.search }, function (results, status) {
 	            	if (status == google.maps.GeocoderStatus.OK) {
 	                	var loc = results[0].geometry.location;
 	                	callback({
@@ -156,50 +158,93 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	    	}
 	};
 
-	$scope.geoCode = function(){
-
+	//searche button click
+	$scope.clickSearch = function(){
 		collapseTools();
-		var targetShow;
-		if(!$scope.ctrCheck){
-			$scope.map.searchLocation = $scope.map.targetMarker;
-			targetShow = true;
-		}else{
-			$scope.map.searchLocation = $scope.map.currentMarker;
-			targetShow = false;
-		}
-		var slCb = function(searchedLatlng){
-			$scope.map.searchLocation.latitude = searchedLatlng.latitude;
-			$scope.map.searchLocation.longitude = searchedLatlng.longitude;
-			$scope.map.searchLocation.name = 'targetMarker';
-			$scope.map.searchLocation.show = true;
-			$scope.map.targetMarker.show=targetShow;
+		startLoad();
+		spinner.spin(document.getElementById("mapBody"));
 
-			$scope.getDataLocation.latitude = searchedLatlng.latitude;
-    		$scope.getDataLocation.longitude = searchedLatlng.longitude;
+		var cb = function(searchedLatlng){
+			if($scope.search === $scope.myCurrentLocation){
+				$scope.map.markers = [];
+				$scope.map.targetMarker.show = false;
 
-    		geoCodeToAddress(function(){
-    			$scope.$apply();
-    		});
-    		if ($scope.distance == 0) {
-    			$scope.map.markers = [];
-    		}else{
-    			setBounds($scope.map.bounds, $scope.map.searchLocation.latitude, $scope.map.searchLocation.longitude);
-    		}
-    		
-			gotoLocation($scope.map.searchLocation.latitude, $scope.map.searchLocation.longitude, $scope.distance == 0);
-		}; 
-		if($scope.distance > 0){
-			startLoad();
-			spinner.spin(document.getElementById("mapArea"));
-	    	getData();
-	    	searchLocation(slCb);
-    	} else if ($scope.distance == 0){
-			searchLocation(slCb);
-    	}
+				gotoLocation($scope.myLatLng.lat, $scope.myLatLng.lng);
+			}else{
+				$scope.map.targetMarker.latitude = searchedLatlng.latitude;
+				$scope.map.targetMarker.longitude = searchedLatlng.longitude;
+				$scope.map.targetMarker.name = 'targetMarker';
+				$scope.map.targetMarker.show = false;
 
-    	$(".navbar-fixed-bottom").css("bottom","0px");
+				$scope.getDataLocation.latitude = searchedLatlng.latitude;
+	    		$scope.getDataLocation.longitude = searchedLatlng.longitude;
+
+				gotoLocation($scope.map.targetMarker.latitude, $scope.map.targetMarker.longitude);
+			}
+			getData();
+		};
+		geoCodeToLatLng(cb);
+
+
 	};
 
+	var getData = function(){
+		var myData = {
+     		'accountId' : '001L000000PKhEv',
+          	'lat': $scope.getDataLocation.latitude + '',
+          	'lng': $scope.getDataLocation.longitude + '',
+          	'distanceUnit': 'km',
+          	'distance': $scope.distance + ""
+     	};
+    	
+    	$http({
+     		url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/listNearbyAccounts/v1/',
+        	method: 'POST',
+        	data : JSON.stringify(myData),
+        	headers: {'Content-Type': 'application/json; charset=utf-8'}
+    	}).success(function(datas){
+        	if(datas.length <= 0){
+        		spinner.stop();
+        		alertShow("no account......");
+    			return;
+    		}
+			$scope.map.markers = [];
+        	$scope.map.bounds = {
+            	northeast: {
+                	latitude : 0,
+                	longitude: 0
+            	},
+            	southwest: {
+                	latitude : 0,
+                	longitude: 0
+            	} 
+            }
+
+            setBounds($scope.map.bounds, $scope.getDataLocation.latitude, $scope.getDataLocation.longitude);
+	    	angular.forEach(datas,function(data){
+            	var markerObj = {
+					latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
+        			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
+                	showWindow: false,
+                	name: data.Name,
+                	phone: data.Phone,
+                	street: data.geopointe__Geocode__r.geopointe__Street__c,
+                	city : data.geopointe__Geocode__r.geopointe__City__c,
+                	country: data.geopointe__Geocode__r.geopointe__Country__c
+            	};
+            	$scope.map.markers.push(markerObj);
+            	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
+        	});
+        	
+        	$scope.myScroll.refresh();
+			spinner.stop();
+    	}).error(function(){
+    		spinner.stop();
+        	alertShow('get Date error');
+    	});
+	};
+
+	//set all the markers bounds to fit the screen
 	var setBounds = function(bounds, latitude, longitude) {
 	    	if((bounds.northeast.latitude === 0 || bounds.northeast.latitude === undefined) && 
 	        	(bounds.southwest.latitude === 0 || bounds.southwest.latitude === undefined) &&
@@ -222,70 +267,42 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	        	bounds.southwest.longitude = longitude;
 	    	}   
 	};
-
-	var getData = function(flag, cb){
-		if( typeof flag === "undefined") flag = true;
-		var myData = {
-     		'accountId' : '001L000000PKhEv',
-          	'lat': $scope.getDataLocation.latitude + '',
-          	'lng': $scope.getDataLocation.longitude + '',
-          	'distanceUnit': 'km',
-          	'distance': $scope.distance + ""
-     	};
- 
-    	if (!flag) {
-    		return; 	
-    	}
-    	$http({
-     		url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/listNearbyAccounts/v1/',
-        	method: 'POST',
-        	data : JSON.stringify(myData),
-        	headers: {'Content-Type': 'application/json; charset=utf-8'}
-    	}).success(function(datas){
-        	if(datas.length <= 0){
-        		spinner.stop();
-    			alert('none account');
-    			return;
-    		}
-			$scope.map.markers = [];
-        	$scope.map.bounds = {
-            	northeast: {
-                	latitude : 0,
-                	longitude: 0
-            	},
-            	southwest: {
-                	latitude : 0,
-                	longitude: 0
-            	} 
-            }
-	    	angular.forEach(datas,function(data){
-            	var markerObj = {
-					latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
-        			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
-
-                	showWindow: false,
-                	name: data.Name,
-                	phone: data.Phone,
-                	street: data.geopointe__Geocode__r.geopointe__Street__c,
-                	city : data.geopointe__Geocode__r.geopointe__City__c,
-                	country: data.geopointe__Geocode__r.geopointe__Country__c
-            	};
-            	$scope.map.markers.push(markerObj);
-            	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
-
-        	});
-        	setBounds($scope.map.bounds, $scope.map.currentMarker.latitude, $scope.map.currentMarker.longitude);
-        	$scope.myScroll.refresh();
-			//$scope.map.control.refresh();
-			//$scope.$apply();
-			spinner.stop();
-		if(cb) { cb($scope.map.markers, $scope.map.bounds); }
-    	}).error(function(){
-    		spinner.stop();
-        	alert('get Date error');
-    	});
-	};
 	
+	var alertShow = function(showText){
+		$(".alertContent").fadeIn(800);
+    	setTimeout(function(){
+    		$(".alertContent").fadeOut(800);
+    	},3000);
+    	$scope.alertText = showText;
+	};
+
+	var markerContentShow = function(name, phone, street, city, country){
+		$scope.markerName = name;
+		$scope.markerPhone = phone;
+		$scope.markerStreet = street;
+		$scope.markerCity = city;
+		$scope.markerCountry = country;
+		$(".b").fadeOut(40);
+		$(".markerContent").fadeOut(40);
+		
+		$(".b").fadeIn(400);
+		$(".markerContent").fadeIn(400);
+		setTimeout(function(){
+			$(".b").fadeOut(400);
+			$(".markerContent").fadeOut(400);
+		},2500);
+	};
+
+	// var startLoading = function(){
+	// 	$(".alertContent").fadeIn(800);
+ //    	$scope.alertText = "loading......";
+	// };
+
+	// var stopLoading = function(){
+	// 	$(".alertContent").fadeOut(800);
+	// };
+
+
 	$scope.mapClick = function(){
 		$("#clickMap").addClass("bottomBtnClick").removeClass("bottomBtnUnclick");
 		$("#clickList").addClass("bottomBtnUnclick").removeClass("bottomBtnClick");
@@ -302,7 +319,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	$scope.exchangePostion = function(){
-		$scope.ctrCheck = !$scope.ctrCheck;
+		$scope.search = $scope.myCurrentLocation;
+		$scope.getDataLocation.latitude = $scope.myLatLng.lat;
+		$scope.getDataLocation.longitude = $scope.myLatLng.lng;
 	};
 
 	var collapseTools = function(){
@@ -313,7 +332,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         }
 	};
 
-	 var startLoad = function(target){
+	var startLoad = function(target){
         var opts = {  
           lines: 13,   
           length: 20,  
@@ -337,7 +356,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	$scope.metadata = {
 			picklists : {
-				distance : [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,500]
+				distance : [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,500]
 			} 
 	}
 });

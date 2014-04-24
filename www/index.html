@@ -12,13 +12,11 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" >   
           
     </head>
-    <body ng-controller="appCtrl"> 
+    <body ng-controller="appCtrl" id="mapBody"> 
     <!--top menu-->
     <div id="topMenu"><a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();">
        <span id="iconId" class="text-left">
        <img src="img/arrowed_down.png" ></span>
-       <!--<span id="locationIcon" class="glyphicon glyphicon-map-marker"></span>
-       <span id="locationText" >{{locationText}}</span> -->
        <span class="text-right" >
        <img src="img/logo.png" ></span>
     </a></div>
@@ -26,26 +24,22 @@
     <div id="menuTool" class="collapse">
        <table style="width:100%;">
           <tr>          
-            <td colspan="3">
-              <textarea id="searchInput" ng-model="myCurrentLocation" class="inputArea form-control" disabled="true" placeholder="Input Addresssssss" ng-show="ctrCheck"></textarea>
-              <textarea ng-model="findSearch" class=" inputArea form-control" placeholder="Input Address" ng-hide="ctrCheck"></textarea>
+            <td colspan="2">
+              <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="Input Address">
             </td>
           </tr>
           <tr>
-            <td style="width:20px;">
-              <a class="btn" style="padding:0px;" ng-click ="exchangePostion()">
-                <img style="width:25px;" src="img/arrows.png" >
-              </a>
-            </td>
-            <td style="width:110px;"><span style="font-size:10px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;<span style="font-size:15px;">My Location</span></td>
+            <td style="width:150px;" ng-click ="exchangePostion()"><span style="font-size:20px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;
+            <span style="font-size:20px;color:green">Locate Me</span></td>
             <td>
-				      <select id="selectedDistance" ng-model="distance"  class="form-control">
-                  <option ng-repeat="c in metadata.picklists.distance" value="{{c}}">{{c}} km
+				      <!--<select id="selectedDistance" ng-model="distance"  class="form-control">
+                  <option ng-init="c = options[3]" ng-repeat="c in metadata.picklists.distance" value="{{c}}">{{c}} km
                   </option>
-               </select>      
+               </select> -->
+               <select id="selectedDistance" ng-init="distance = metadata.picklists.distance[3]" ng-model="distance" ng-options="c for c in metadata.picklists.distance"></select>     
             </td>
           </tr>
-          <tr><td colspan="3"><button id="searchBtn" ng-click="geoCode()" class="btn btn-default" data-toggle="collapse" data-target="#menuTool">Go</button></td></tr>
+          <tr><td colspan="3"><button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default" data-toggle="collapse" data-target="#menuTool">Go</button></td></tr>
        </table>
     </div>
 
@@ -58,7 +52,7 @@
 		
 		<!-- Tab panes -->
 		<div class="tab-content" >
-		  <div class="tab-pane active" id="mapArea" >
+		  <div class="tab-pane active" id="mapArea" ng-click="clickMapArea()" >
         <google-map class=""
              center="map.center"
              zoom="map.zoom"
@@ -72,47 +66,53 @@
             >
 
             <!-- current -->
-            <marker show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon' click="onMarkerClicked(map.currentMarker)">
-                <!--<window show="map.currentMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                        <p>This is an info window at current location!</p>
-                        <br>
-                        <p class="muted">{{map.currentMarker.name}}</p> 
-                </window>-->
-            </marker>
+            <marker ng-show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon'></marker>
+
             <!-- target -->
-            <marker show="map.targetMarker.show" coords="map.targetMarker" click="onMarkerClicked(map.targetMarker)">
-                <!--<window ng-cloak show="map.targetMarker.showWindow" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                        <p>This is an info window at targetlocation!</p>
-                        <p class="muted">{{map.targetMarker.name}}</p> 
-                </window>-->
-            </marker>
+            <marker ng-show="map.targetMarker.show" coords="map.targetMarker" ></marker>
+            
             <!-- account -->
             <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)">
-                <window ng-cloak show="m.showWindow" coords="map.infoWindowWithCustomClass.coords" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
+                <!-- <window ng-cloak ng-show="showWindow" coords="map.infoWindowWithCustomClass.coords" options="map.infoWindowWithCustomClass.options" closeClick="false">
                         <h5>{{m.name}}</h5>
                         <div>Phone: {{m.phone}}</div>
                         <div>Street : {{m.street}}</div>
                         <div>City : {{m.city}}</div>
                         <div>Country : {{m.country}}</div>
                         
-                </window>
+                </window> -->
+
             </marker>
 		    </google-map> 
     	  </div>
 		  
-		  <div class="tab-pane" id="maplistArea" style="background:#EBEBEB;height:100%;">
+		  <div class="tab-pane" id="maplistArea">
 		  	 <div id="scroller">
 			     <ul style="list-style-type:none;padding:10px;">
   			     	<li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
-                        <div style="font-size:18px;">{{listItem.name}}</div>
-                        <div style="margin-top:5px;font-size:16px;"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
-                        <div style="margin:5px; border-bottom: 1px solid gray; height: 2px;"></div>
-                        <div style="margin-top:5px;padding:3px;"><a class="btn btn-default" style="background:#EBEBEB;width:100%;text-align: left;font-size:15px;" href="tel:{{listItem.phone}}"><img src="img/phone_icon.png">&nbsp; {{listItem.phone}} </a></div>
+                    <div style="font-size:18px;">{{listItem.name}}</div>
+                    <div style="margin-top:5px;font-size:16px;"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                    <div style="margin:5px; border-bottom: 1px solid gray; height: 2px;"></div>
+                    <div style="margin-top:5px;padding:3px;"><a class="btn btn-default" style="background:#EBEBEB;width:100%;text-align: left;font-size:15px;" href="tel:{{listItem.phone}}"><img src="img/phone_icon.png">&nbsp; {{listItem.phone}} </a></div>
               </li>
 			     </ul>
 			 </div> 
 		  </div>
 		</div>
+
+    <div class="b"></div>
+    <div class="markerContent">
+        <p>{{markerName}}</p>
+        <div>Phone: {{markerPhone}}</div>
+        <div>Street : {{markerStreet}}</div>
+        <div>City : {{markerCity}}</div>
+        <div>Country : {{markerCountry}}</div>
+    </div>
+
+    <div class="alertContent">
+        {{alertText}}
+    </div>
+
 		
 		    <script type="text/javascript" src="libs/jquery.min.js"></script>
         <!--script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false" ></script-->
