@@ -132,7 +132,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.gotoCurrentLocation();
 
 	$scope.search = '';
-	$scope.c = 20;
 	$scope.getDataLocation = {
 		latitude: 0,
 		longitude: 0
@@ -194,7 +193,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
           	'lat': $scope.getDataLocation.latitude + '',
           	'lng': $scope.getDataLocation.longitude + '',
           	'distanceUnit': 'km',
-          	'distance': $scope.distance + ""
+          	'distance': parseDistance($scope.metadata.distance)
      	};
     	
     	$http({
@@ -284,7 +283,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$scope.markerCountry = country;
 		$(".b").fadeOut(40);
 		$(".markerContent").fadeOut(40);
-		
+
 		$(".b").fadeIn(400);
 		$(".markerContent").fadeIn(400);
 		setTimeout(function(){
@@ -332,6 +331,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         }
 	};
 
+	var parseDistance = function(str){
+		return str.substring(0,3).trim();
+	};
+
 	var startLoad = function(target){
         var opts = {  
           lines: 13,   
@@ -357,6 +360,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.metadata = {
 			picklists : {
 				distance : [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,500]
-			} 
+			},
+			distance : "20 km"
 	}
+
 });

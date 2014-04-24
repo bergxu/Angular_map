@@ -32,12 +32,10 @@
             <td style="width:150px;" ng-click ="exchangePostion()"><span style="font-size:20px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;
             <span style="font-size:20px;color:green">Locate Me</span></td>
             <td>
-				      <!--<select id="selectedDistance" ng-model="distance"  class="form-control">
-                  <option ng-init="c = options[3]" ng-repeat="c in metadata.picklists.distance" value="{{c}}">{{c}} km
-                  </option>
-               </select> -->
-               <select id="selectedDistance" ng-init="distance = metadata.picklists.distance[3]" ng-model="distance" ng-options="c for c in metadata.picklists.distance"></select>     
-            </td>
+				      <select id="selectedDistance" ng-model="metadata.distance"  class="form-control">
+                  <option ng-repeat="c in metadata.picklists.distance">{{c}} km</option>
+              </select> 
+             </td> 
           </tr>
           <tr><td colspan="3"><button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default" data-toggle="collapse" data-target="#menuTool">Go</button></td></tr>
        </table>
