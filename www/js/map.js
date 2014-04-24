@@ -57,7 +57,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			dragging: false,
 			bounds: {},
 			currentMarker: {
-				icon: 'test/assets/images/blue_marker.png',
+				icon: 'img/blue_marker.png',
 				show: false,
 				showWindow: false,
 				name:"currentMarker"
