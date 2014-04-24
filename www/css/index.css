@@ -263,6 +263,29 @@
       line-height: 200px;
     }
 
+    .nameDiv{
+      font-size:18px;
+    }
+    .addressDiv{
+      margin-top:5px;
+      font-size:16px;
+    }
+    .lineDiv{
+      margin:5px; 
+      border-bottom: 1px solid gray; 
+      height: 2px;
+    }
+    .telDiv{
+      margin-top:5px;
+      padding:3px;
+    }
+    .telA{
+      background:#EBEBEB;
+      width:100%;
+      text-align: left;
+      font-size:15px;
+    }
+
     #scroller {
       margin-top: 70px;
       z-index:1;

@@ -88,10 +88,14 @@
 		  	 <div id="scroller">
 			     <ul style="list-style-type:none;padding:10px;">
   			     	<li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
-                    <div style="font-size:18px;">{{listItem.name}}</div>
-                    <div style="margin-top:5px;font-size:16px;"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
-                    <div style="margin:5px; border-bottom: 1px solid gray; height: 2px;"></div>
-                    <div style="margin-top:5px;padding:3px;"><a class="btn btn-default" style="background:#EBEBEB;width:100%;text-align: left;font-size:15px;" href="tel:{{listItem.phone}}"><img src="img/phone_icon.png">&nbsp; {{listItem.phone}} </a></div>
+                    <div class="nameDiv">{{listItem.name}}</div>
+                    <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                    <div class="lineDiv"></div>
+                    <div class="telDiv">
+                      <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
+                        <img src="img/phone_icon.png">&nbsp; {{listItem.phone}} 
+                      </a>
+                    </div>
               </li>
 			     </ul>
 			 </div> 
