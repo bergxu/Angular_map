@@ -1,5 +1,6 @@
 var app = angular.module('app', ['google-maps']);
 app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
+
 	google.maps.visualRefresh = true;
 
 	var resize = function(){
@@ -137,7 +138,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		longitude: 0
 	};
 	$scope.showWindow = false;
-	$scope.myScroll = new IScroll('#maplistArea');
+	//$scope.myScroll = new IScroll('#maplistArea');
 
 	//geo code address to latlng
 	var geoCodeToLatLng = function(callback){
@@ -235,7 +236,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
             	setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
         	});
         	
-        	$scope.myScroll.refresh();
+        	//$scope.myScroll.refresh();
 			spinner.stop();
     	}).error(function(){
     		spinner.stop();
@@ -308,7 +309,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	$scope.listClick = function(){
-		setTimeout(function(){$scope.myScroll.refresh();},1000);		
+		//setTimeout(function(){$scope.myScroll.refresh();},1000);		
 		$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
 		$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 	};

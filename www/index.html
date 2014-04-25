@@ -14,7 +14,7 @@
     </head>
     <body ng-controller="appCtrl" id="mapBody"> 
     <!--top menu-->
-    <div id="topMenu"><a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();">
+    <div id="topMenu" class=" nav nav-tabs navbar-fixed-top"><a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();">
        <span id="iconId" class="text-left">
        <img src="img/arrowed_down.png" ></span>
        <span class="text-right" >
@@ -85,20 +85,21 @@
     	  </div>
 		  
 		  <div class="tab-pane" id="maplistArea">
-		  	 <div id="scroller">
-			     <ul style="list-style-type:none;padding:10px;">
-  			     	<li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
-                    <div class="nameDiv">{{listItem.name}}</div>
-                    <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
-                    <div class="lineDiv"></div>
-                    <div class="telDiv">
-                      <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
-                        <img src="img/phone_icon.png">&nbsp; {{listItem.phone}} 
-                      </a>
-                    </div>
-              </li>
-			     </ul>
-			 </div> 
+    		 <div style="margin-top:70px;">
+    			     <ul style="list-style-type:none;padding:10px;">
+      			     	<li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
+                        <div class="nameDiv">{{listItem.name}}</div>
+                        <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                        <div class="lineDiv"></div>
+                        <div class="telDiv">
+                          <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
+                            <img src="img/phone_icon.png">&nbsp; {{listItem.phone}} 
+                          </a>
+                        </div>
+                  </li>
+    			     </ul>
+    		 </div>
+         <div style="height:70px;width:100%"><div>
 		  </div>
 		</div>
 
@@ -131,6 +132,6 @@
           directives.api.utils.Logger.doLog = true;
         </script>   
 
-    </div>       
+      
     </body>
 </html>
