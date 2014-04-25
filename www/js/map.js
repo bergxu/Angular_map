@@ -9,6 +9,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var resize = function(){
 		console.log(" window onresize ");
 		var height = window.innerHeight - 145;
+		var alertHeight = window.innerHeight/2;
+		$scope.bottomHeight = window.innerHeight - 72;
+		$(".alertContent").css("top", alertHeight +"px");
+		$(".markerContent").css("top", alertHeight +"px");
+		$(".b").css("top", alertHeight +"px");
 		$(".angular-google-map-container").css("height", height+"px");
 		$("#maplistArea").css("height", height+"px");
 	};
@@ -188,7 +193,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		};
 		geoCodeToLatLng(cb);
 
-
+		$(".navbar-fixed-bottom").css("margin-top", $scope.bottomHeight+"px");
 	};
 
 	var getData = function(){
@@ -307,6 +312,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 
 	$scope.mapClick = function(){
+		$("#mapArea").attr("margin-top","70px;");
 		$("#clickMap").addClass("bottomBtnClick").removeClass("bottomBtnUnclick");
 		$("#clickList").addClass("bottomBtnUnclick").removeClass("bottomBtnClick");
 	};

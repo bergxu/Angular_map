@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" >   
           
     </head>
-    <body ng-controller="appCtrl" id="mapBody"> 
+    <body ng-controller="appCtrl"> 
     <!--top menu-->
     <div id="topMenu" class=" nav nav-tabs navbar-fixed-top"><a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();">
        <span id="iconId" class="text-left">
@@ -49,8 +49,8 @@
 		</ul>
 		
 		<!-- Tab panes -->
-		<div class="tab-content" >
-		  <div class="tab-pane active" id="mapArea" ng-click="clickMapArea()" >
+		<div class="tab-content" id="mapBody">
+		  <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" >
         <google-map class=""
              center="map.center"
              zoom="map.zoom"
@@ -84,7 +84,7 @@
 		    </google-map> 
     	  </div>
 		  
-		  <div class="tab-pane" id="maplistArea">
+		  <div class="tab-pane fade" id="maplistArea">
     		 <div style="margin-top:70px;">
     			     <ul style="list-style-type:none;padding:10px;">
       			     	<li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
@@ -99,7 +99,7 @@
                   </li>
     			     </ul>
     		 </div>
-         <div style="height:70px;width:100%"></div>
+         <div style="height:70px;width:100%;"></div>
 		  </div>
 		</div>
 
