@@ -199,7 +199,6 @@
       z-index:1;
       background:#EBEBEB;
       margin-top: 70;
-      margin-bottom: 75px;
       width: 100%;
     }
 
@@ -208,7 +207,7 @@
     }
 
     .b {
-      display:none;
+      display: none;
       width: 0px;
       border:20px solid; 
       /*border-color:transparent transparent #C4C4C4 transparent; */
@@ -221,7 +220,7 @@
       opacity: 0.7;
     }
     .markerContent{
-      display:none;
+      display: none;
       width:300px;
       height:250px;
       position:fixed;
@@ -240,6 +239,7 @@
       padding-left: 10px;
 
     }
+
 
     .alertContent{
       display:none;

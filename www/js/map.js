@@ -1,6 +1,9 @@
+  document.addEventListener('deviceready', function () {
+  	angular.bootstrap(document, ['app']);
+  },false);
+
 var app = angular.module('app', ['google-maps']);
 app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
-
 	google.maps.visualRefresh = true;
 
 	var resize = function(){
@@ -269,14 +272,14 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 	
 	var alertShow = function(showText){
+		$scope.alertText = showText;
 		$(".alertContent").fadeIn(800);
     	setTimeout(function(){
     		$(".alertContent").fadeOut(800);
-    	},3000);
-    	$scope.alertText = showText;
+    	},3000);    	
 	};
 
-	var markerContentShow = function(name, phone, street, city, country){
+	var markerContentShow = function( name, phone, street, city, country){
 		$scope.markerName = name;
 		$scope.markerPhone = phone;
 		$scope.markerStreet = street;
@@ -290,7 +293,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		setTimeout(function(){
 			$(".b").fadeOut(400);
 			$(".markerContent").fadeOut(400);
-		},2500);
+		},5000);
 	};
 
 	// var startLoading = function(){
