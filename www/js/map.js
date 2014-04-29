@@ -303,9 +303,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	$scope.mapClick = function(){
 		if($("#clickMap").hasClass("bottomBtnUnclick")){
-			$("#mapAlert").fadeOut(400);
 			$("#clickMap").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 			$("#clickList").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
+			setTimeout(function(){
+				$("#loadDiv").fadeOut(20);
+				$("#mapAlert").fadeOut(20);
+			},500);
 		}		
 	};
 
