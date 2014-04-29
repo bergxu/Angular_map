@@ -300,19 +300,26 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 
 	$scope.mapClick = function(){
-		$("#clickMap").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
-		$("#clickList").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
-		$("#mapListAlert").fadeOut(400);
+		if(!$("#clickMap").hasClass("active")){
+			setTimeout(function(){$("#mapAlert").fadeOut(200);}, 800);
+			$("#clickMap").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
+			$("#clickList").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
+			$("#mapListAlert").fadeOut(400);
+		}
+		
 	};
 
 	$scope.listClick = function(){	
-		$("#mapAlert").fadeOut(800);	
-		$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
-		$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
-		if(!$scope.isHaveData){
-			setTimeout(function(){
-				$("#mapListAlert").fadeIn(400);
-			},500);
+		if(!$("#clickList").hasClass("active")){
+			$("#loadDiv").fadeOut(200);	
+
+			$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
+			$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
+			if(!$scope.isHaveData){
+				setTimeout(function(){
+					$("#mapListAlert").fadeIn(400);
+				},500);
+			}
 		}
 	};
 
