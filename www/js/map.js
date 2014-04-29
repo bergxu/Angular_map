@@ -11,7 +11,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		var height = window.innerHeight - 145;
 		var alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 72;
-		$(".alertContent").css("top", alertHeight +"px");
+		$("#mapAlert").css("top", alertHeight +"px");
 		$(".markerContent").css("top", alertHeight +"px");
 		$(".b").css("top", alertHeight +"px");
 		$(".angular-google-map-container").css("height", height+"px");
@@ -30,18 +30,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		} else {
 			this.$apply(fn);
 		}
-	};
-
-	$scope.onMarkerClicked = function (marker) {
-			$scope.map.center = {};
-			$scope.map.center = {
-				latitude: marker.latitude, 
-				longitude: marker.longitude
-			};
-		//$('.layerContent').fadeIn(400);
-		//$scope.showWindow = !$scope.showWindow;
-		markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
-		$scope.$apply();
 	};
 
 	angular.extend($scope, {
@@ -72,7 +60,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 				name:"currentMarker"
 			},
 			targetMarker: {
+				icon: 'img/green_marker.png',
 				show: false
+			},
+			accountMarker: {
+				icon: 'img/red_marker.png'
+				
 			},
 			markers: [],
 			infoWindowWithCustomClass: {
@@ -139,13 +132,15 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	$scope.gotoCurrentLocation();
-
 	$scope.search = '';
 	$scope.getDataLocation = {
 		latitude: 0,
 		longitude: 0
 	};
+	$scope.isHaveData = false;
 	$scope.showWindow = false;
+	$scope.topBarDisabled = false;
+
 	//$scope.myScroll = new IScroll('#maplistArea');
 
 	//geo code address to latlng
@@ -169,9 +164,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	//searche button click
 	$scope.clickSearch = function(){
 		collapseTools();
-		startLoad();
-		spinner.spin(document.getElementById("mapBody"));
-
+		startLoading();
+		
 		var cb = function(searchedLatlng){
 			if($scope.search === $scope.myCurrentLocation){
 				$scope.map.markers = [];
@@ -212,10 +206,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         	headers: {'Content-Type': 'application/json; charset=utf-8'}
     	}).success(function(datas){
         	if(datas.length <= 0){
-        		spinner.stop();
-        		alertShow("no account......");
+        		$scope.isHaveData = false;
+        		stopLoading();
+        		alertShow("Not Found......");
     			return;
     		}
+    		$scope.isHaveData = true;
 			$scope.map.markers = [];
         	$scope.map.bounds = {
             	northeast: {
@@ -245,9 +241,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
         	});
         	
         	//$scope.myScroll.refresh();
-			spinner.stop();
+			stopLoading();
     	}).error(function(){
-    		spinner.stop();
+    		$scope.isHaveData = false;
+    		stopLoading();
         	alertShow('get Date error');
     	});
 	};
@@ -278,9 +275,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	
 	var alertShow = function(showText){
 		$scope.alertText = showText;
-		$(".alertContent").fadeIn(800);
+		$("#mapAlert").fadeIn(800);
     	setTimeout(function(){
-    		$(".alertContent").fadeOut(800);
+    		$("#mapAlert").fadeOut(800);
     	},3000);    	
 	};
 
@@ -295,32 +292,32 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 		$(".b").fadeIn(400);
 		$(".markerContent").fadeIn(400);
-		setTimeout(function(){
-			$(".b").fadeOut(400);
-			$(".markerContent").fadeOut(400);
-		},5000);
+		// setTimeout(function(){
+		// 	$(".b").fadeOut(400);
+		// 	$(".markerContent").fadeOut(400);
+		// },5000);
 	};
-
-	// var startLoading = function(){
-	// 	$(".alertContent").fadeIn(800);
- //    	$scope.alertText = "loading......";
-	// };
-
-	// var stopLoading = function(){
-	// 	$(".alertContent").fadeOut(800);
-	// };
 
 
 	$scope.mapClick = function(){
-		$("#mapArea").attr("margin-top","70px;");
-		$("#clickMap").addClass("bottomBtnClick").removeClass("bottomBtnUnclick");
-		$("#clickList").addClass("bottomBtnUnclick").removeClass("bottomBtnClick");
+		$("#clickMap").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
+		$("#clickList").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
+		$("#mapListAlert").fadeOut(400);
 	};
 
-	$scope.listClick = function(){
-		//setTimeout(function(){$scope.myScroll.refresh();},1000);		
+	$scope.listClick = function(){	
+		$("#mapAlert").fadeOut(800);	
 		$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
 		$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
+		if(!$scope.isHaveData){
+			setTimeout(function(){
+				$("#mapListAlert").fadeIn(400);
+			},500);
+		}
+	};
+
+	$scope.alertClick = function(){
+		$("#mapListAlert").fadeOut(400);
 	};
 
 	$scope.makeCollapse = function(){
@@ -333,6 +330,23 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$scope.getDataLocation.longitude = $scope.myLatLng.lng;
 	};
 
+	$scope.onMarkerClicked = function (marker) {
+			$scope.map.center = {};
+			$scope.map.center = {
+				latitude: marker.latitude, 
+				longitude: marker.longitude
+			};
+		setTimeout(function(){$("#markerClickBlock").fadeIn(200);},500);
+		markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
+		$scope.$apply();
+	};
+
+	$scope.blockClick = function(){
+		$("#markerClickBlock").fadeOut(200);
+		$(".b").fadeOut(200);
+		$(".markerContent").fadeOut(200);
+	};
+
 	var collapseTools = function(){
 		if($("#menuTool").hasClass("in")){
 			$("#iconId").find("img").attr("src","img/arrowed_down.png");
@@ -343,6 +357,20 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var parseDistance = function(str){
 		return str.substring(0,3).trim();
+	};
+
+	var startLoading = function(){
+		$scope.topBarDisabled = true;
+		startLoad();
+		$("#loadDiv").fadeIn(400);
+		spinner.spin(document.getElementById("loadDiv"));
+	};
+
+	var stopLoading = function(){
+		$scope.topBarDisabled = false;
+		spinner.stop();
+		$("#loadDiv").fadeOut(400);
+
 	};
 
 	var startLoad = function(target){

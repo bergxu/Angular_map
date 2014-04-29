@@ -14,14 +14,14 @@
     </head>
     <body ng-controller="appCtrl"> 
     <!--top menu-->
-    <div id="topMenu" class=" nav nav-tabs navbar-fixed-top"><a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();">
+    <div id="topMenu" class=" nav nav-tabs navbar-fixed-top"><a id="myself" class="btn btn-default collapsed" data-toggle="collapse" data-target="#menuTool"  ng-click="makeCollapse();" ng-disabled="topBarDisabled">
        <span id="iconId" class="text-left">
        <img src="img/arrowed_down.png" ></span>
        <span class="text-right" >
        <img src="img/logo.png" ></span>
     </a></div>
 
-    <div id="menuTool" class="collapse">
+    <div id="menuTool" class="collapse in">
        <table style="width:100%;">
           <tr>          
             <td colspan="2">
@@ -43,9 +43,9 @@
 
     
 		<!-- buttom menu -->
-		<ul class="nav nav-tabs navbar-fixed-bottom" style="" >
-		  <li id="clickMap" class="active bottomBtnClick" style="width:50%" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</li>
-		  <li id="clickList" style="width:50%" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</li>
+		<ul class="nav nav-tabs navbar-fixed-bottom" >
+		  <li id="clickMap" class="active bottomBtnClick" style="width:50%" href="#mapArea" data-toggle="tab" ng-click="mapClick()" ng-disabled="mapbtnDisabled">Map</li>
+		  <li id="clickList" style="width:50%" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()" ng-disabled="listbtnDisabled">List</li>
 		</ul>
 		
 		<!-- Tab panes -->
@@ -67,21 +67,30 @@
             <marker ng-show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon'></marker>
 
             <!-- target -->
-            <marker ng-show="map.targetMarker.show" coords="map.targetMarker" ></marker>
+            <marker ng-show="map.targetMarker.show" coords="map.targetMarker" icon='map.targetMarker.icon'></marker>
             
             <!-- account -->
-            <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)">
-                <!-- <window ng-cloak ng-show="showWindow" coords="map.infoWindowWithCustomClass.coords" options="map.infoWindowWithCustomClass.options" closeClick="false">
-                        <h5>{{m.name}}</h5>
-                        <div>Phone: {{m.phone}}</div>
-                        <div>Street : {{m.street}}</div>
-                        <div>City : {{m.city}}</div>
-                        <div>Country : {{m.country}}</div>
-                        
-                </window> -->
+            <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='map.accountMarker.icon'>
+
 
             </marker>
 		    </google-map> 
+
+        <div id="mapAlert" class="alertContent">
+            {{alertText}}
+        </div>  
+
+        <div id="loadDiv" class="block"></div>
+        <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
+
+        <div class="b"></div>
+              <div class="markerContent">
+                  <p>{{markerName}}</p>
+                  <div>Phone: {{markerPhone}}</div>
+                  <div>Street : {{markerStreet}}</div>
+                  <div>City : {{markerCity}}</div>
+                  <div>Country : {{markerCountry}}</div>
+              </div>
     	  </div>
 		  
 		  <div class="tab-pane fade" id="maplistArea">
@@ -100,21 +109,15 @@
     			     </ul>
     		 </div>
          <div style="height:70px;width:100%;"></div>
+           
+          <div id="mapListAlert" class="listDataAlert">
+                  <p style="text-align:center">No Account...</p><br><br>
+                  <button id="alertBtn" class="btn btn-info" ng-click="alertClick()">OK</button>
+          </div> 
 		  </div>
 		</div>
 
-    <div class="b"></div>
-    <div  class="markerContent">
-        <p>{{markerName}}</p>
-        <div>Phone: {{markerPhone}}</div>
-        <div>Street : {{markerStreet}}</div>
-        <div>City : {{markerCity}}</div>
-        <div>Country : {{markerCountry}}</div>
-    </div>
-
-    <div class="alertContent">
-        {{alertText}}
-    </div>	
+      
 
 		    <script type="text/javascript" src="libs/jquery.min.js"></script>
         <!--script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false" ></script-->
