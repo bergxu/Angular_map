@@ -10,7 +10,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		console.log(" window onresize ");
 		var height = window.innerHeight - 145;
 		var alertHeight = window.innerHeight/2;
-		$scope.bottomHeight = window.innerHeight - 72;
+		$scope.bottomHeight = window.innerHeight - 80;
 		$("#mapAlert").css("top", alertHeight +"px");
 		$(".markerContent").css("top", alertHeight +"px");
 		$(".b").css("top", alertHeight +"px");
@@ -187,7 +187,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		};
 		geoCodeToLatLng(cb);
 
-		$(".navbar-fixed-bottom").css("margin-top", $scope.bottomHeight+"px");
+		$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
 	};
 
 	var getData = function(){
@@ -278,7 +278,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$("#mapAlert").fadeIn(800);
     	setTimeout(function(){
     		$("#mapAlert").fadeOut(800);
-    	},3000);    	
+    	},2000);    	
 	};
 
 	var markerContentShow = function( name, phone, street, city, country){
