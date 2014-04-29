@@ -13,12 +13,12 @@
       border-radius: 0px;
     }
 
-    .nav-tabs > li {
+/*    .nav-tabs > li {
       padding-top: 0px;
       padding-bottom: 0px;
       line-height: 70px;
       text-align:center;
-    }
+    }*/
 
     .angular-google-map-container {
       margin-top: 70;
@@ -90,7 +90,7 @@
       background:#E1AE2E;
       color:white;
       border:0px;
-      height:70px;
+      height:71px;
       font-size:25px;
     }
 
@@ -98,7 +98,7 @@
       background:#C3C3C3;
       color:#999999;
       border:0px;
-      height:70px;
+      height:71px;
       font-size:25px;
     }
 

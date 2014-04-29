@@ -140,6 +140,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.isHaveData = false;
 	$scope.showWindow = false;
 	$scope.topBarDisabled = false;
+	$scope.mapbtnDisabled = false;
+	$scope.listbtnDisabled = false;
 
 	//$scope.myScroll = new IScroll('#maplistArea');
 
@@ -300,19 +302,16 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 
 	$scope.mapClick = function(){
-		if(!$("#clickMap").hasClass("active")){
-			setTimeout(function(){$("#mapAlert").fadeOut(200);}, 800);
+		if($("#clickMap").hasClass("bottomBtnUnclick")){
+			$("#mapAlert").fadeOut(400);
 			$("#clickMap").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 			$("#clickList").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
-			$("#mapListAlert").fadeOut(400);
-		}
-		
+		}		
 	};
 
 	$scope.listClick = function(){	
-		if(!$("#clickList").hasClass("active")){
-			$("#loadDiv").fadeOut(200);	
-
+		if($("#clickList").hasClass("bottomBtnUnclick")){
+			$("#mapAlert").fadeOut(400);
 			$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
 			$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 			if(!$scope.isHaveData){
@@ -368,6 +367,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var startLoading = function(){
 		$scope.topBarDisabled = true;
+		$scope.mapbtnDisabled = true;
+		$scope.listbtnDisabled = true;
 		startLoad();
 		$("#loadDiv").fadeIn(400);
 		spinner.spin(document.getElementById("loadDiv"));
@@ -375,6 +376,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var stopLoading = function(){
 		$scope.topBarDisabled = false;
+		$scope.mapbtnDisabled = false;
+		$scope.listbtnDisabled = false;
 		spinner.stop();
 		$("#loadDiv").fadeOut(400);
 

@@ -43,10 +43,11 @@
 
     
 		<!-- buttom menu -->
-		<ul class="nav nav-tabs navbar-fixed-bottom" >
-		  <li id="clickMap" class="active bottomBtnClick" style="width:50%" href="#mapArea" data-toggle="tab" ng-click="mapClick()" ng-disabled="mapbtnDisabled">Map</li>
-		  <li id="clickList" style="width:50%" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()" ng-disabled="listbtnDisabled">List</li>
-		</ul>
+		<div class="nav nav-tabs navbar-fixed-bottom" >
+		  <button id="clickMap" class="bottomBtnClick" style="width:49.9999%;" href="#mapArea" data-toggle="tab" ng-click="mapClick()" ng-disabled="mapbtnDisabled">Map</button>
+		  <button id="clickList" style="width:50%;margin-left:-3px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()" ng-disabled="listbtnDisabled">List</button>
+		</div>
+
 		
 		<!-- Tab panes -->
 		<div class="tab-content" id="mapBody">
