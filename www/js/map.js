@@ -9,8 +9,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var resize = function(){
 		console.log(" window onresize ");
 		var height = window.innerHeight - 145;
+		$scope.windowWidth = window.innerWidth-120;
+		$scope.marginWindowWidth = window.innerWidth-320;
 		var alertHeight = window.innerHeight/2;
-		$scope.bottomHeight = window.innerHeight - 80;
+		$scope.bottomHeight = window.innerHeight - 130;
 		$("#mapAlert").css("top", alertHeight +"px");
 		$(".markerContent").css("top", alertHeight +"px");
 		$(".b").css("top", alertHeight +"px");
@@ -20,6 +22,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	resize();
 	window.onresize = resize;
+	
 
 	$scope.safeApply = function(fn) {
 		var phase = this.$root.$$phase;
@@ -137,6 +140,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		latitude: 0,
 		longitude: 0
 	};
+	$scope.menuDown = true;
 	$scope.isHaveData = false;
 	$scope.showWindow = false;
 	$scope.topBarDisabled = false;
@@ -165,7 +169,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	//searche button click
 	$scope.clickSearch = function(){
-		collapseTools();
+		$("#menuTool").animate({top:"-400px"},"slow");
+		//$("#iconId").find("img").attr("src","img/arrowed_down.png");
 		startLoading();
 		
 		var cb = function(searchedLatlng){
@@ -300,6 +305,16 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		// },5000);
 	};
 
+	$scope.brandClick = function(){
+		$scope.menuDown = !$scope.menuDown;
+		if(!$scope.menuDown){
+			 $("#menuTool").animate({top:"-180px"},"normal");
+			// $("#iconId").find("img").attr("src","img/arrowed_down.png");
+		}else{
+			 $("#menuTool").animate({top:"70px"},"normal");
+			 //$("#iconId").find("img").attr("src","img/arrowed_up.png");
+		}
+	};
 
 	$scope.mapClick = function(){
 		if($("#clickMap").hasClass("bottomBtnUnclick")){
@@ -329,10 +344,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$("#mapListAlert").fadeOut(400);
 	};
 
-	$scope.makeCollapse = function(){
-		collapseTools();
-	};
-
 	$scope.exchangePostion = function(){
 		$scope.search = $scope.myCurrentLocation;
 		$scope.getDataLocation.latitude = $scope.myLatLng.lat;
@@ -354,14 +365,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$("#markerClickBlock").fadeOut(200);
 		$(".b").fadeOut(200);
 		$(".markerContent").fadeOut(200);
-	};
-
-	var collapseTools = function(){
-		if($("#menuTool").hasClass("in")){
-			$("#iconId").find("img").attr("src","img/arrowed_down.png");
-        }else if($("#menuTool").hasClass("collapse")){        
-            $("#iconId").find("img").attr("src","img/arrowed_up.png");
-        }
 	};
 
 	var parseDistance = function(str){
