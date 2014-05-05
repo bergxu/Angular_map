@@ -1,6 +1,6 @@
   document.addEventListener('deviceready', function () {
  	angular.bootstrap(document, ['app']);
- 	setTimeout(function() {$.slidebars();}, 2000);
+ 	//setTimeout(function() {$.slidebars();}, 2000);
  	
   },false);
 
@@ -10,16 +10,16 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var resize = function(){
 		console.log(" window onresize ");
-		var height = window.innerHeight - 145;
+		$scope.height = window.innerHeight - 145;
 		$scope.windowWidth = window.innerWidth-120;
 		$scope.marginWindowWidth = window.innerWidth-320;
-		var alertHeight = window.innerHeight/2;
+		$scope.alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 82;
-		$("#mapAlert").css("top", alertHeight +"px");
-		$(".markerContent").css("top", alertHeight +"px");
-		$(".b").css("top", alertHeight +"px");
-		$(".angular-google-map-container").css("height", height+"px");
-		$("#maplistArea").css("height", height+"px");
+		//$("#mapAlert").css("top", alertHeight +"px");
+		//$(".markerContent").css("top", alertHeight +"px");
+		//$(".b").css("top", alertHeight +"px");
+		$(".angular-google-map-container").css("height", $scope.height+"px");
+		//$("#maplistArea").css("height", height+"px");
 
 	};
 
@@ -197,7 +197,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		};
 		geoCodeToLatLng(cb);
 
-		$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
+		//$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
 		
 	};
 
