@@ -1,5 +1,7 @@
   document.addEventListener('deviceready', function () {
-  	angular.bootstrap(document, ['app']);
+ 	angular.bootstrap(document, ['app']);
+ 	setTimeout(function() {$.slidebars();}, 2000);
+ 	
   },false);
 
 var app = angular.module('app', ['google-maps']);
@@ -12,12 +14,13 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$scope.windowWidth = window.innerWidth-120;
 		$scope.marginWindowWidth = window.innerWidth-320;
 		var alertHeight = window.innerHeight/2;
-		$scope.bottomHeight = window.innerHeight - 130;
+		$scope.bottomHeight = window.innerHeight - 82;
 		$("#mapAlert").css("top", alertHeight +"px");
 		$(".markerContent").css("top", alertHeight +"px");
 		$(".b").css("top", alertHeight +"px");
 		$(".angular-google-map-container").css("height", height+"px");
 		$("#maplistArea").css("height", height+"px");
+
 	};
 
 	resize();
@@ -195,6 +198,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		geoCodeToLatLng(cb);
 
 		$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
+		
 	};
 
 	var getData = function(){
@@ -367,6 +371,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$(".markerContent").fadeOut(200);
 	};
 
+	$scope.partDemandClick = function(){
+		window.open('https://portal.saf-axles.com/', '_blank', 'location=yes');
+	};
+
 	var parseDistance = function(str){
 		return str.substring(0,3).trim();
 	};
@@ -417,5 +425,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			},
 			distance : "20 km"
 	}
+
+
 
 });

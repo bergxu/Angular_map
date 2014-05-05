@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=0">-->
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         
         <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap-glyphicons.css" >  
@@ -18,22 +19,7 @@
     <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top sb-slide" role="navigation">
       <div class="container-fluid">
-      <!-- <a id="myself" class="btn btn-default " ng-disabled="topBarDisabled">
-         <button class="text-left sb-toggle-left" style=" width: 50px; ">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>  
-                
-         </button>
-         <span class="text-right">
-         <img src="img/logo.png" ></span>
-      </a>  -->
-      <!-- <a class="btn btn-info sb-toggle-left" style="width:70px;height:70px;">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </a>
-     <a class="btn btn-danger" ng-click="brandClick()" style="width:{{windowWidth}}px;height:70px;margin-left:100px;margin-top:-93px;"></a> -->
+
      <ul class="nav navbar-nav sb-toggle-left">
        <div class="navbar-header" >
          <a class="navbar-brand" href="#" style="width:70px;height:70px;margin-top:-8px;">
@@ -76,9 +62,9 @@
       <nav>
         <ul class="sb-menu">
           <li style="height:65px;border-bottom: 1px solid #888;"><img style="margin-top:15px;margin-left:60px;" src="img/logo.png" ></li>
-          <li><a>Trader</a></li>
-          <li><a>Garage(workshop)</a></li>
-          <li><a>Parts on demand shop</a></li>
+          <li><a>Trader Search</a></li>
+          <li><a>Garage(workshop) Search</a></li>
+          <li><a ng-click="partDemandClick()">Parts on demand shop</a></li>
           <li><a>emergency call</a></li>          
         </ul>
       </nav>
@@ -177,7 +163,6 @@
         <script type="text/javascript" src="libs/slidebar/slidebars.min.js"></script>
         <script type="text/javascript" src="js/map.js"></script>        
         <script type="text/javascript">
-          $.slidebars();
           directives.api.utils.Logger.doLog = true;
         </script>   
 
