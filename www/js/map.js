@@ -1,6 +1,6 @@
   document.addEventListener('deviceready', function () {
  	angular.bootstrap(document, ['app']);
- 	setTimeout(function() {$.slidebars();}, 2000);
+ 	//setTimeout(function() {$.slidebars();}, 2000);
  	
   },false);
 
@@ -309,14 +309,55 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		// },5000);
 	};
 
+	$scope.menuFlag = false;
+
+	$scope.menuShowClick = function(){
+		if(!$scope.menuFlag){
+			rightBodyShow();
+		}else{
+			rightBodyHide();
+		}
+	};
+
+	var rightBodyShow = function(){
+		$('#myself').animate({ left: 350 }, 300);
+		$('#bottomBar').animate({ left: 350 }, 300);
+		$('.tab-content').animate({ left: 350 }, 300);
+		$('#menuTool').animate({ left: 350 }, 300);
+		$(".leftMenu").fadeIn(300);
+		$scope.menuFlag = !$scope.menuFlag;
+	};
+
+	var rightBodyHide = function(){
+		$('#myself').animate({ left: 0 }, 300);
+		$('#bottomBar').animate({ left: 0 }, 300);
+		$('.tab-content').animate({ left: 0 }, 300);
+		$('#menuTool').animate({ left: 0 }, 300);
+		$(".leftMenu").fadeOut(300);
+		$scope.menuFlag = !$scope.menuFlag;
+	};
+
+	var rightBodyClick = function(){
+		if($scope.menuFlag){
+			rightBodyHide();
+		}
+	};
+
+	$scope.leftBodyClick = function(){
+		rightBodyHide();		
+	};
+
+	$scope.menuToolClick = function(){
+		rightBodyClick();
+	};
+
 	$scope.brandClick = function(){
+		rightBodyClick();
 		$scope.menuDown = !$scope.menuDown;
 		if(!$scope.menuDown){
 			 $("#menuTool").animate({top:"-180px"},"normal");
-			// $("#iconId").find("img").attr("src","img/arrowed_down.png");
 		}else{
 			 $("#menuTool").animate({top:"70px"},"normal");
-			 //$("#iconId").find("img").attr("src","img/arrowed_up.png");
 		}
 	};
 

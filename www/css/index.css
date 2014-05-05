@@ -1,6 +1,6 @@
   body{
       width: 100%;
-      height: 20%;
+      height: 100%;
       margin:0px;
       background:#EBEBEB;
       padding-bottom: 2px;
@@ -116,10 +116,24 @@
       font-size:25px;
     }
 
+    .leftMenu {
+        float:left;
+        width: 350px;
+        height: 100%;
+        background: #4F4F4F;
+    }
+
     .sb-menu {
       padding: 0;
       margin: 0;
       list-style-type: none;
+      }
+
+    .sb-menu li {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      border-bottom: 1px solid #888;
       }
 
    .sb-menu li a {
@@ -130,14 +144,6 @@
       color: #f2f2f2;
       text-decoration: none;
       }
-
-    .sb-menu li {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      border-bottom: 1px solid #888;
-      }
-
 
     /*label & window*/
     .shrink {
