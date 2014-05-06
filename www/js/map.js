@@ -8,6 +8,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var resize = function(){
 		console.log(" window onresize ");
+		$scope.blockHeight = window.innerHeight;
+		$scope.blockWidth = window.innerWidth - 250;
 		$scope.height = window.innerHeight - 145;
 		$scope.windowWidth = window.innerWidth-255;
 		$scope.BottomWidth = (window.innerWidth -10)/2;
@@ -148,9 +150,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.menuDown = true;
 	$scope.isHaveData = false;
 	$scope.showWindow = false;
-	$scope.topBarDisabled = false;
-	$scope.mapbtnDisabled = false;
-	$scope.listbtnDisabled = false;
 
 	//$scope.myScroll = new IScroll('#maplistArea');
 
@@ -174,6 +173,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	//search button click
 	$scope.clickSearch = function(){
+
 		$("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
 
 		startLoading();
@@ -201,7 +201,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		};
 		geoCodeToLatLng(cb);
 
-		//$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
+		// //$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
 		
 	};
 
@@ -325,11 +325,14 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('.tab-content').animate({ left: 250 }, 300);
 		$('#menuTool').animate({ left: 250 }, 300);
 		$(".leftMenu").fadeIn(300);
+		$("#menuBlocak").fadeIn(300);
 		$("#loadDiv").fadeOut(300);
 		$("#mapListAlert").fadeOut(300);
 		$(".b").fadeOut(300);
 		$(".markerContent").fadeOut(300);
 		$("#markerClickBlock").fadeOut(300);
+		$("#maplistArea").css("position","fixed");
+		$("#mapArea").css("position","fixed");
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -338,14 +341,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#bottomBar').animate({ left: 0 }, 300);
 		$('.tab-content').animate({ left: 0 }, 300);
 		$('#menuTool').animate({ left: 0 }, 300);
+		$("#menuBlocak").fadeOut(300);
 		$(".leftMenu").fadeOut(300);
+		$("#maplistArea").css("position","");
+		$("#mapArea").css("position","");
 		$scope.menuFlag = !$scope.menuFlag;
-	};
-
-	var rightBodyClick = function(){
-		if($scope.menuFlag){
-			leftBodyHide();
-		}
 	};
 
 	$scope.leftBodyClick = function(){
@@ -353,11 +353,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	$scope.menuToolClick = function(){
-		rightBodyClick();
+		if($scope.menuFlag){
+			leftBodyHide();
+		}
 	};
 
 	$scope.brandClick = function(){
-		rightBodyClick();
 		if($scope.menuDown){			
 			 $("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
 		}else{
@@ -425,18 +426,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	var startLoading = function(){
-		$scope.topBarDisabled = true;
-		$scope.mapbtnDisabled = true;
-		$scope.listbtnDisabled = true;
 		startLoad();
 		$("#loadDiv").fadeIn(400);
 		spinner.spin(document.getElementById("loadDiv"));
 	};
 
 	var stopLoading = function(){
-		$scope.topBarDisabled = false;
-		$scope.mapbtnDisabled = false;
-		$scope.listbtnDisabled = false;
 		spinner.stop();
 		$("#loadDiv").fadeOut(400);
 

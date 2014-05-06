@@ -21,7 +21,7 @@
     <div class="leftMenu" style="display:none;" ng-click="leftBodyClick()">
       <nav>
         <ul class="sb-menu">
-          <li style="height:65px;border-bottom: 1px solid #888;"><img style="width: 175px;margin-top: 18px;margin-left: 12px;" src="img/logo.png" ></li>
+<!--           <li style="height:65px;border-bottom: 1px solid #888;"><img style="width: 175px;margin-top: 18px;margin-left: 12px;" src="img/logo.png" ></li> -->
           <li><a>Trader Search</a></li>
           <li><a>Garage(workshop) Search</a></li>
           <li><a ng-click="partDemandClick()">Parts on demand shop</a></li>
@@ -34,21 +34,6 @@
     <div class="rightBody" >
       <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top " role="navigation">
-         <!-- <ul class="nav navbar-nav " ng-click="menuShowClick()">
-             <div style="width: 70px;height:70px;padding-top: 7px;">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-             </div>
-         </ul>
-         <ul class="nav navbar-nav navbar-right" style="width:{{windowWidth}}px;height:70px;" ng-click="brandClick()">
-            <li>
-            <h3>{{curentLat}}, {{currentLng}}</h3>
-              <span style="position:absolute;top:20px;left:{{marginWindowWidth}}px">
-                <img style=" width: 175px; " src="img/logo.png" >
-              </span>
-            </li>
-         </ul> -->
        <a class="btn" style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
             <div>
               <span class="icon-bar"></span>
@@ -59,10 +44,9 @@
        <a class="btn" style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
        </a>
        <img style=" width: 175px;" src="img/logo.png" ng-click="brandClick()">
-
     </nav>
 
-      <div id="menuTool" ng-click="menuToolClick();">
+      <div id="menuTool">
          <table style="width:100%;">
             <tr>          
               <td colspan="2">
@@ -84,15 +68,15 @@
 
     
     <!-- buttom menu -->
-    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom " style="top:{{bottomHeight}}px" ng-click="menuToolClick();">
-      <button id="clickMap" class="bottomBtnClick" style="width:{{BottomWidth}}px" href="#mapArea" data-toggle="tab" ng-click="mapClick()" ng-disabled="mapbtnDisabled">Map</button>
-      <button id="clickList" style="width:{{BottomWidth}}px;margin-left:-4px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()" ng-disabled="listbtnDisabled">List</button>
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom " style="top:{{bottomHeight}}px">
+      <button id="clickMap" class="bottomBtnClick" style="width:{{BottomWidth}}px" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
+      <button id="clickList" style="width:{{BottomWidth}}px;margin-left:-4px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
     </nav>
     
     <!-- Tab panes -->
-    <div class="tab-content" id="mapBody" ng-click="menuToolClick();">
-      <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" >
+    <div class="tab-content" id="mapBody">
 
+      <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" >
         <google-map class=""
              center="map.center"
              zoom="map.zoom"
@@ -117,7 +101,7 @@
         </google-map> 
 
         <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px">{{alertText}}</div>  
-        <div id="loadDiv" class="block"></div>
+        <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
         <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
         <div class="b" style="top:{{alertHeight}}px"></div>
         <div class="markerContent" style="top:{{alertHeight}}px">
@@ -154,7 +138,7 @@
     </div>
 
     </div>
-
+    <div id="menuBlocak" class="menuBlock" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuToolClick()"></div>
       
 
         <script type="text/javascript" src="libs/jquery.min.js"></script>
