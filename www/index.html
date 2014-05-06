@@ -34,7 +34,7 @@
     <div class="rightBody" >
       <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top " role="navigation">
-         <ul class="nav navbar-nav " ng-click="menuShowClick()">
+         <!-- <ul class="nav navbar-nav " ng-click="menuShowClick()">
              <div style="width: 70px;height:70px;padding-top: 7px;">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -43,12 +43,23 @@
          </ul>
          <ul class="nav navbar-nav navbar-right" style="width:{{windowWidth}}px;height:70px;" ng-click="brandClick()">
             <li>
-            <!--<h3>{{curentLat}}, {{currentLng}}</h3>-->
+            <h3>{{curentLat}}, {{currentLng}}</h3>
               <span style="position:absolute;top:20px;left:{{marginWindowWidth}}px">
                 <img style=" width: 175px; " src="img/logo.png" >
               </span>
             </li>
-         </ul>
+         </ul> -->
+       <button style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
+            <div>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+           </div>
+       </button>
+       <button style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
+       </button>
+       <img style=" width: 175px; margin-top: -65px;" src="img/logo.png" ng-click="brandClick()">
+
     </nav>
 
       <div id="menuTool" ng-click="menuToolClick();">

@@ -9,7 +9,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var resize = function(){
 		console.log(" window onresize ");
 		$scope.height = window.innerHeight - 145;
-		$scope.windowWidth = window.innerWidth-70;
+		$scope.windowWidth = window.innerWidth-255;
 		$scope.BottomWidth = (window.innerWidth -10)/2;
 		$scope.marginWindowWidth = window.innerWidth-250;
 		$scope.alertHeight = window.innerHeight/2;
