@@ -1,7 +1,5 @@
   document.addEventListener('deviceready', function () {
  	angular.bootstrap(document, ['app']);
- 	//setTimeout(function() {$.slidebars();}, 2000);
- 	
   },false);
 
 var app = angular.module('app', ['google-maps']);
@@ -12,6 +10,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		console.log(" window onresize ");
 		$scope.height = window.innerHeight - 145;
 		$scope.windowWidth = window.innerWidth-120;
+		$scope.BottomWidth = (window.innerWidth -10)/2;
 		$scope.marginWindowWidth = window.innerWidth-320;
 		$scope.alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 82;
@@ -170,10 +169,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	    	}
 	};
 
-	//searche button click
+	//search button click
 	$scope.clickSearch = function(){
-		$("#menuTool").animate({top:"-400px"},"slow");
-		//$("#iconId").find("img").attr("src","img/arrowed_down.png");
+		$("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
+
 		startLoading();
 		
 		var cb = function(searchedLatlng){
@@ -303,32 +302,32 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 		$(".b").fadeIn(400);
 		$(".markerContent").fadeIn(400);
-		// setTimeout(function(){
-		// 	$(".b").fadeOut(400);
-		// 	$(".markerContent").fadeOut(400);
-		// },5000);
 	};
 
 	$scope.menuFlag = false;
 
 	$scope.menuShowClick = function(){
 		if(!$scope.menuFlag){
-			rightBodyShow();
+			leftBodyShow();
 		}else{
-			rightBodyHide();
+			leftBodyHide();
 		}
 	};
 
-	var rightBodyShow = function(){
+	var leftBodyShow = function(){
 		$('#myself').animate({ left: 350 }, 300);
 		$('#bottomBar').animate({ left: 350 }, 300);
 		$('.tab-content').animate({ left: 350 }, 300);
 		$('#menuTool').animate({ left: 350 }, 300);
 		$(".leftMenu").fadeIn(300);
+		$("#loadDiv").fadeOut(300);
+		$("#mapListAlert").fadeOut(300);
+		$(".b").fadeOut(300);
+		$(".markerContent").fadeOut(300);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
-	var rightBodyHide = function(){
+	var leftBodyHide = function(){
 		$('#myself').animate({ left: 0 }, 300);
 		$('#bottomBar').animate({ left: 0 }, 300);
 		$('.tab-content').animate({ left: 0 }, 300);
@@ -339,12 +338,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var rightBodyClick = function(){
 		if($scope.menuFlag){
-			rightBodyHide();
+			leftBodyHide();
 		}
 	};
 
 	$scope.leftBodyClick = function(){
-		rightBodyHide();		
+		leftBodyHide();		
 	};
 
 	$scope.menuToolClick = function(){
@@ -353,11 +352,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	$scope.brandClick = function(){
 		rightBodyClick();
-		$scope.menuDown = !$scope.menuDown;
-		if(!$scope.menuDown){
-			 $("#menuTool").animate({top:"-180px"},"normal");
+		if($scope.menuDown){			
+			 $("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
 		}else{
-			 $("#menuTool").animate({top:"70px"},"normal");
+			 $("#menuTool").animate({top:"70px"},"normal",function(){$scope.menuDown = !$scope.menuDown;});
 		}
 	};
 

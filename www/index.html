@@ -16,7 +16,8 @@
           
     </head>
     <body ng-controller="appCtrl"> 
-    
+
+    <!-- left toggle menu -->    
     <div class="leftMenu" style="display:none;" ng-click="leftBodyClick()">
       <nav>
         <ul class="sb-menu">
@@ -29,26 +30,27 @@
       </nav>
     </div>
 
-
+    <!-- main body-->
     <div class="rightBody" >
       <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top " role="navigation">
       <div class="container-fluid">
-
-     <ul class="nav navbar-nav " ng-click="menuShowClick()">
-       <div class="navbar-header" >
-         <a class="navbar-brand"  style="width:70px;height:70px;margin-top:-8px;">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-         </a>
-       </div>
-     </ul>
-
-     <ul class="nav navbar-nav navbar-right" style="width:{{windowWidth}}px;height:70px;" ng-click="brandClick()">
-     <li><span style="position:absolute;top:20px;left:{{marginWindowWidth}}px"><img src="img/logo.png" ></span></li>
-     </ul>
-
+         <ul class="nav navbar-nav " ng-click="menuShowClick()">
+           <div class="navbar-header" >
+             <a class="navbar-brand"  style="width:70px;height:70px;margin-top:-8px;">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+             </a>
+           </div>
+         </ul>
+         <ul class="nav navbar-nav navbar-right" style="width:{{windowWidth}}px;height:70px;" ng-click="brandClick()">
+            <li>
+              <span style="position:absolute;top:20px;left:{{marginWindowWidth}}px">
+                <img src="img/logo.png" >
+              </span>
+            </li>
+         </ul>
      </div>
     </nav>
 
@@ -65,19 +67,19 @@
               <td>
                 <select id="selectedDistance" ng-model="metadata.distance"  class="form-control">
                     <option ng-repeat="c in metadata.picklists.distance">{{c}} km</option>
-                </select> 
-               </td> 
+                </select>
+               </td>
             </tr>
-            <tr><td colspan="3"><button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default" data-toggle="collapse" data-target="#menuTool">Go</button></td></tr>
+            <tr><td colspan="3"><button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default">Go</button></td></tr>
          </table>
       </div>
 
     
     <!-- buttom menu -->
-    <div id="bottomBar" class="nav nav-tabs navbar-fixed-bottom " style="top:{{bottomHeight}}px" ng-click="menuToolClick();">
-      <button id="clickMap" class="bottomBtnClick" style="width:49.9999%;" href="#mapArea" data-toggle="tab" ng-click="mapClick()" ng-disabled="mapbtnDisabled">Map</button>
-      <button id="clickList" style="width:50%;margin-left:-3px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()" ng-disabled="listbtnDisabled">List</button>
-    </div>
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom " style="top:{{bottomHeight}}px" ng-click="menuToolClick();">
+      <button id="clickMap" class="bottomBtnClick" style="width:{{BottomWidth}}px" href="#mapArea" data-toggle="tab" ng-click="mapClick()" ng-disabled="mapbtnDisabled">Map</button>
+      <button id="clickList" style="width:{{BottomWidth}}px;margin-left:-4px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()" ng-disabled="listbtnDisabled">List</button>
+    </nav>
     
     <!-- Tab panes -->
     <div class="tab-content" id="mapBody" ng-click="menuToolClick();">
@@ -103,41 +105,34 @@
             
             <!-- account -->
             <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='map.accountMarker.icon'>
-
-
             </marker>
         </google-map> 
 
-        <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px">
-            {{alertText}}
-        </div>  
-
+        <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px">{{alertText}}</div>  
         <div id="loadDiv" class="block"></div>
         <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
-
         <div class="b" style="top:{{alertHeight}}px"></div>
-              <div class="markerContent" style="top:{{alertHeight}}px">
-                  <p>{{markerName}}</p>
-                  <div>Phone: {{markerPhone}}</div>
-                  <div>Street : {{markerStreet}}</div>
-                  <div>City : {{markerCity}}</div>
-                  <div>Country : {{markerCountry}}</div>
-              </div>
+        <div class="markerContent" style="top:{{alertHeight}}px">
+            <p>{{markerName}}</p>
+            <div>Phone: {{markerPhone}}</div>
+            <div>Street : {{markerStreet}}</div>
+            <div>City : {{markerCity}}</div>
+            <div>Country : {{markerCountry}}</div>
+        </div>
         </div>
       
       <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px">
          <div style="margin-top:70px;">
                <ul style="list-style-type:none;padding:10px;">
                   <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
-
-                        <div class="nameDiv">{{listItem.name}}</div>
-                        <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
-                        <div class="lineDiv"></div>
-                        <div class="telDiv">
-                          <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
-                            <img src="img/phone_icon.png">&nbsp; {{listItem.phone}} 
-                          </a>
-                        </div>
+                      <div class="nameDiv">{{listItem.name}}</div>
+                      <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                      <div class="lineDiv"></div>
+                      <div class="telDiv">
+                        <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
+                          <img src="img/phone_icon.png">&nbsp; {{listItem.phone}} 
+                        </a>
+                      </div>
                   </li>
                </ul>
          </div>
