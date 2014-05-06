@@ -9,9 +9,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var resize = function(){
 		console.log(" window onresize ");
 		$scope.height = window.innerHeight - 145;
-		$scope.windowWidth = window.innerWidth-120;
+		$scope.windowWidth = window.innerWidth-70;
 		$scope.BottomWidth = (window.innerWidth -10)/2;
-		$scope.marginWindowWidth = window.innerWidth-320;
+		$scope.marginWindowWidth = window.innerWidth-250;
 		$scope.alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 82;
 		//$("#mapAlert").css("top", alertHeight +"px");
@@ -320,10 +320,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	var leftBodyShow = function(){
-		$('#myself').animate({ left: 350 }, 300);
-		$('#bottomBar').animate({ left: 350 }, 300);
-		$('.tab-content').animate({ left: 350 }, 300);
-		$('#menuTool').animate({ left: 350 }, 300);
+		$('#myself').animate({ left: 250 }, 300);
+		$('#bottomBar').animate({ left: 250 }, 300);
+		$('.tab-content').animate({ left: 250 }, 300);
+		$('#menuTool').animate({ left: 250 }, 300);
 		$(".leftMenu").fadeIn(300);
 		$("#loadDiv").fadeOut(300);
 		$("#mapListAlert").fadeOut(300);
