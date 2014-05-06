@@ -11,4 +11,5 @@
     <!--content src="test/example.html" /-->
     <access origin="*" />
 	<preference name="SplashScreen" value="icon" />
+	<preference name="Fullscreen" value="true" />
 </widget>
