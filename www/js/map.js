@@ -324,6 +324,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$("#mapListAlert").fadeOut(300);
 		$(".b").fadeOut(300);
 		$(".markerContent").fadeOut(300);
+		$("#markerClickBlock").fadeOut(300);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
