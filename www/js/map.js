@@ -121,6 +121,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
     		$scope.getDataLocation.latitude = c.latitude;
     		$scope.getDataLocation.longitude = c.longitude;
+    		$scope.curentLat = $scope.getDataLocation.latitude;
+			$scope.currentLng = $scope.getDataLocation.longitude;
+
     		var latlng = new google.maps.LatLng(c.latitude, c.longitude);
     		$scope.myLatLng = {
     			lat: c.latitude,
@@ -189,6 +192,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 				$scope.getDataLocation.latitude = searchedLatlng.latitude;
 	    		$scope.getDataLocation.longitude = searchedLatlng.longitude;
+	    		$scope.curentLat = $scope.getDataLocation.latitude;
+				$scope.currentLng = $scope.getDataLocation.longitude;
 
 				gotoLocation($scope.map.targetMarker.latitude, $scope.map.targetMarker.longitude);
 			}
