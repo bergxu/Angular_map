@@ -333,21 +333,21 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	var leftBodyShow = function(){
-		$('#myself').animate({ left: 250 }, 300);
-		$('#bottomBar').animate({ left: 250 }, 300);
-		$('.tab-content').animate({ left: 250 }, 300);
-		$('#menuTool').animate({ left: 250 }, 300);
-		$(".leftMenu").fadeIn(300);
-		$("#menuBlocak").fadeIn(300);
-		$("#loadDiv").fadeOut(300);
-		$("#mapListAlert").fadeOut(300);
-		$(".b").fadeOut(300);
-		$(".markerContent").fadeOut(300);
-		$("#markerClickBlock").fadeOut(300);
+		$('#myself').animate({ left: 250 }, 500);
+		$('#bottomBar').animate({ left: 250 }, 500);
+		$('.tab-content').animate({ left: 250 }, 500);
+		$('#menuTool').animate({ left: 250 }, 500);
+		$(".leftMenu").show();
+		$("#menuBlocak").fadeIn(500);
+		$("#loadDiv").fadeOut(500);
+		$("#mapListAlert").fadeOut(500);
+		$(".b").fadeOut(500);
+		$(".markerContent").fadeOut(500);
+		$("#markerClickBlock").fadeOut(500);
 		setTimeout(function(){
 			$("#maplistArea").css("position","fixed");
 			$("#mapArea").css("position","fixed");
-		},300);
+		},500);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -357,7 +357,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('.tab-content').animate({ left: 0 }, 300);
 		$('#menuTool').animate({ left: 0 }, 300);
 		$("#menuBlocak").fadeOut(300);
-		$(".leftMenu").fadeOut(300);
+		setTimeout(function(){$(".leftMenu").hide();},500);
 		$("#maplistArea").css("position","");
 		$("#mapArea").css("position","");
 		$scope.menuFlag = !$scope.menuFlag;
