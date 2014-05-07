@@ -27,6 +27,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$scope.marginWindowWidth = window.innerWidth-10;
 		$scope.alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 82;
+		$scope.$apply();
 		$(".angular-google-map-container").css("height", $scope.height+"px");
 		if($scope.menuFlag){
 			$('#bottomBar').animate({ left: 250 }, 100);
