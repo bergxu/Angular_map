@@ -352,11 +352,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 	var leftBodyHide = function(){
-		$('#myself').animate({ left: 0 }, 300);
-		$('#bottomBar').animate({ left: 0 }, 300);
-		$('.tab-content').animate({ left: 0 }, 300);
-		$('#menuTool').animate({ left: 0 }, 300);
-		$("#menuBlocak").fadeOut(300);
+		$('#myself').animate({ left: 0 }, 500);
+		$('#bottomBar').animate({ left: 0 }, 500);
+		$('.tab-content').animate({ left: 0 }, 500);
+		$('#menuTool').animate({ left: 0 }, 500);
+		$("#menuBlocak").fadeOut(500);
 		setTimeout(function(){$(".leftMenu").hide();},500);
 		$("#maplistArea").css("position","");
 		$("#mapArea").css("position","");
