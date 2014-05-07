@@ -335,7 +335,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var leftBodyShow = function(){
 		$('#myself').animate({ left: 250 }, 300);
 		$('#bottomBar').animate({ left: 250 }, 300);
-		$('#uuuu').animate({ left: 250 }, 300);
 		$('.tab-content').animate({ left: 250 }, 300);
 		$('#menuTool').animate({ left: 250 }, 300);
 		$(".leftMenu").fadeIn(300);
