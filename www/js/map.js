@@ -344,8 +344,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$(".b").fadeOut(300);
 		$(".markerContent").fadeOut(300);
 		$("#markerClickBlock").fadeOut(300);
-		$("#maplistArea").css("position","fixed");
-		$("#mapArea").css("position","fixed");
+		setTimeout(function(){
+			$("#maplistArea").css("position","fixed");
+			$("#mapArea").css("position","fixed");
+		},300);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -365,7 +367,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		leftBodyHide();		
 	};
 
-	$scope.menuToolClick = function(){
+	$scope.menuBlockClick = function(){
+		refreshMap();
 		if($scope.menuFlag){
 			leftBodyHide();
 		}
@@ -387,6 +390,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 				$("#loadDiv").fadeOut(20);
 				$("#mapAlert").fadeOut(20);
 			},500);
+			$("#mapListAlert").fadeOut(20);
+			refreshMap();
 		}		
 	};
 
@@ -434,6 +439,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		window.open('https://portal.saf-axles.com/', '_blank', 'location=yes');
 	};
 
+	var refreshMap = function(){
+		window.setTimeout(function(){
+	         $scope.map.control.refresh();
+	     },300);
+	};
 	var parseDistance = function(str){
 		return str.substring(0,3).trim();
 	};
@@ -478,7 +488,5 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			},
 			distance : "20 km"
 	}
-
-
 
 });
