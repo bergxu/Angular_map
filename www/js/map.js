@@ -2,23 +2,16 @@
  	angular.bootstrap(document, ['app']);
   },false);
 
-
-
-
-var startCoords = {}, endCoords = {};
- document.addEventListener("touchstart", function(event) {
-    startCoords = endCoords = event.originalEvent.targetTouches[0];
-});
- document.addEventListener("touchmove", function(event) {
-    endCoords = event.originalEvent.targetTouches[0];
-});
- document.addEventListener("touchend", function(event) {
-    console.log("Your touch on the axis: " + Math.abs(startCoords.pageY-endCoords.pageY) + "x, " + Math.abs(startCoords.pageY-endCoords.pageY) + "y");
-});
-
-
-
-
+// var startCoords = {}, endCoords = {};
+//  document.addEventListener("touchstart", function(event) {
+//     startCoords = endCoords = event.originalEvent.targetTouches[0];
+// });
+//  document.addEventListener("touchmove", function(event) {
+//     endCoords = event.originalEvent.targetTouches[0];
+// });
+//  document.addEventListener("touchend", function(event) {
+//     console.log("Your touch on the axis: " + Math.abs(startCoords.pageY-endCoords.pageY) + "x, " + Math.abs(startCoords.pageY-endCoords.pageY) + "y");
+// });
 
 var app = angular.module('app', ['google-maps']);
 app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
@@ -37,10 +30,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$(".angular-google-map-container").css("height", $scope.height+"px");
 		if($scope.menuFlag){
 			$('#bottomBar').animate({ left: 250 }, 100);
+			setTimeout(function(){$("#menuBlocak").show();},100);
 		}else{
 			$('#bottomBar').animate({ left: 0 }, 100);
 		}
-
 	};
 
 	resize();
