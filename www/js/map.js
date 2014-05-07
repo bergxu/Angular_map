@@ -2,6 +2,24 @@
  	angular.bootstrap(document, ['app']);
   },false);
 
+
+
+
+var startCoords = {}, endCoords = {};
+ document.addEventListener("touchstart", function(event) {
+    startCoords = endCoords = event.originalEvent.targetTouches[0];
+});
+ document.addEventListener("touchmove", function(event) {
+    endCoords = event.originalEvent.targetTouches[0];
+});
+ document.addEventListener("touchend", function(event) {
+    console.log("Your touch on the axis: " + Math.abs(startCoords.pageY-endCoords.pageY) + "x, " + Math.abs(startCoords.pageY-endCoords.pageY) + "y");
+});
+
+
+
+
+
 var app = angular.module('app', ['google-maps']);
 app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	google.maps.visualRefresh = true;
@@ -13,14 +31,15 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$scope.height = window.innerHeight - 145;
 		$scope.windowWidth = window.innerWidth-255;
 		$scope.BottomWidth = (window.innerWidth -10)/2;
-		$scope.marginWindowWidth = window.innerWidth-250;
+		$scope.marginWindowWidth = window.innerWidth-10;
 		$scope.alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 82;
-		//$("#mapAlert").css("top", alertHeight +"px");
-		//$(".markerContent").css("top", alertHeight +"px");
-		//$(".b").css("top", alertHeight +"px");
 		$(".angular-google-map-container").css("height", $scope.height+"px");
-		//$("#maplistArea").css("height", height+"px");
+		if($scope.menuFlag){
+			$('#bottomBar').animate({ left: 250 }, 100);
+		}else{
+			$('#bottomBar').animate({ left: 0 }, 100);
+		}
 
 	};
 
@@ -322,6 +341,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var leftBodyShow = function(){
 		$('#myself').animate({ left: 250 }, 300);
 		$('#bottomBar').animate({ left: 250 }, 300);
+		$('#uuuu').animate({ left: 250 }, 300);
 		$('.tab-content').animate({ left: 250 }, 300);
 		$('#menuTool').animate({ left: 250 }, 300);
 		$(".leftMenu").fadeIn(300);

@@ -7,7 +7,7 @@
 
 
     .navbar-fixed-bottom {
-      min-height: 70px;
+      height: 70px;
       margin: 5px;
       box-shadow:0 3px 25px black;
       border-radius: 0px;
