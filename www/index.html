@@ -78,7 +78,7 @@
     <!-- Tab panes -->
     <div class="tab-content slidAnimate" id="mapBody">
 
-      <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" >
+      <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" style="height:{{height}}px">
         <google-map class=""
              center="map.center"
              zoom="map.zoom"
@@ -133,8 +133,8 @@
          <div style="height:70px;width:100%;"></div>
            
           <div id="mapListAlert" class="listDataAlert">
-                  <p style="text-align:center">No Account...</p><br><br>
-                  <button id="alertBtn" class="btn btn-info" ng-click="alertClick()">OK</button>
+            <p style="text-align:center">No Account...</p><br><br>
+            <button id="alertBtn" class="btn btn-info" ng-click="alertClick()">OK</button>
           </div> 
       </div>
     </div>

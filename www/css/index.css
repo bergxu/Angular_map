@@ -144,11 +144,13 @@
       z-index:1;
       background:#EBEBEB;
       width: 100%;
+      margin-top: 70px;
     }
 
     #mapArea{
+      z-index:1;
+      width: 100%;
       margin-top: 70px;
-      height: 100%;
     }
 
     .b {
