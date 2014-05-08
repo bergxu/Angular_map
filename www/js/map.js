@@ -1,6 +1,8 @@
   document.addEventListener('deviceready', function () {
  	angular.bootstrap(document, ['app']);
- 	
+ 	setTimeout(function() {
+		navigator.splashscreen.hide();
+	}, 500);
   },false);
 
 var app = angular.module('app', ['google-maps']);
