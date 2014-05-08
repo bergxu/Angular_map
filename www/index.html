@@ -33,7 +33,7 @@
     <!-- main body-->
     <div class="rightBody" >
       <!--top menu-->
-    <nav id="myself" class="navbar navbar-default navbar-fixed-top " role="navigation">
+    <nav id="myself" class="navbar navbar-default navbar-fixed-top slidAnimate" role="navigation">
        <a class="btn" style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
             <div>
               <span class="icon-bar"></span>
@@ -46,7 +46,7 @@
        <img style=" width: 175px;" src="img/logo.png" ng-click="brandClick()">
     </nav>
 
-      <div id="menuTool">
+      <div id="menuTool" class="slidAnimate">
          <table style="width:100%;">
             <tr>          
               <td colspan="2">
@@ -68,13 +68,13 @@
 
     
     <!-- buttom menu -->
-    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom " style="top:{{bottomHeight}}px;width:{{marginWindowWidth}}px">
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="top:{{bottomHeight}}px;width:{{marginWindowWidth}}px">
       <button id="clickMap" class="bottomBtnClick" style="width:{{BottomWidth}}px" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
       <button id="clickList" style="width:{{BottomWidth}}px;margin-left:-4px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
     </nav>
     
     <!-- Tab panes -->
-    <div class="tab-content" id="mapBody">
+    <div class="tab-content slidAnimate" id="mapBody">
 
       <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" >
         <google-map class=""

@@ -1,17 +1,7 @@
   document.addEventListener('deviceready', function () {
  	angular.bootstrap(document, ['app']);
+ 	
   },false);
-
-// var startCoords = {}, endCoords = {};
-//  document.addEventListener("touchstart", function(event) {
-//     startCoords = endCoords = event.originalEvent.targetTouches[0];
-// });
-//  document.addEventListener("touchmove", function(event) {
-//     endCoords = event.originalEvent.targetTouches[0];
-// });
-//  document.addEventListener("touchend", function(event) {
-//     console.log("Your touch on the axis: " + Math.abs(startCoords.pageY-endCoords.pageY) + "x, " + Math.abs(startCoords.pageY-endCoords.pageY) + "y");
-// });
 
 var app = angular.module('app', ['google-maps']);
 app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
@@ -37,9 +27,39 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		}
 	};
 
+	var moveTouchToOpen = function(){
+		var obj = document.getElementById("myself");
+		var blockObj = document.getElementById("menuBlocak");
+		var startX,endX;
+		obj.addEventListener("touchstart", function(event) {
+		   startX = event.touches[0].screenX ;
+		});
+
+		obj.addEventListener("touchend", function(event) {
+		   endX = event.changedTouches[0].screenX;
+		 	var moveDistance = endX - startX;
+		 	if(moveDistance > 100){
+		 		leftBodyShow();
+		 	}
+		});
+		
+		blockObj.addEventListener("touchstart", function(event) {
+		   startX = event.touches[0].screenX ;
+		});
+
+		blockObj.addEventListener("touchend", function(event) {
+		   endX = event.changedTouches[0].screenX;
+		 	var moveDistance = endX - startX;
+		 	if(moveDistance < -100){
+		 		leftBodyHide();
+		 	}
+		});
+	};
+
+
 	resize();
+	moveTouchToOpen();
 	window.onresize = resize;
-	
 
 	$scope.safeApply = function(fn) {
 		var phase = this.$root.$$phase;

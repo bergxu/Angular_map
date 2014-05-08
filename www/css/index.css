@@ -316,4 +316,14 @@
         display:none;
     }
     
-    
+
+.slidAnimate{
+  transition:width 0.5s;
+  -moz-transition:width 0.5s; /* Firefox 4 */
+  -webkit-transition:width 0.5s; /* Safari and Chrome */
+  -o-transition:width 0.5s; /* Opera */
+  -moz-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  -webkit-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+}
