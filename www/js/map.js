@@ -31,7 +31,29 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	var moveTouchToOpen = function(){
 		var obj = document.getElementById("myself");
+		var menuObj = document.getElementById("menuTool");
+		var bottomObj = document.getElementById("bottomBar");
+		var obj = document.getElementById("myself");
 		var blockObj = document.getElementById("menuBlocak");
+		var startX,endX;
+		
+		objSlideRight(obj);
+		objSlideRight(menuObj);
+		objSlideRight(bottomObj);
+		blockObj.addEventListener("touchstart", function(event) {
+		   startX = event.touches[0].screenX ;
+		});
+
+		blockObj.addEventListener("touchend", function(event) {
+		   endX = event.changedTouches[0].screenX;
+		 	var moveDistance = endX - startX;
+		 	if(moveDistance < -50){
+		 		leftBodyHide();
+		 	}
+		});
+	};
+
+	var objSlideRight = function(obj){
 		var startX,endX;
 		obj.addEventListener("touchstart", function(event) {
 		   startX = event.touches[0].screenX ;
@@ -40,22 +62,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		obj.addEventListener("touchend", function(event) {
 		   endX = event.changedTouches[0].screenX;
 		 	var moveDistance = endX - startX;
-		 	if(moveDistance > 100){
+		 	if(moveDistance > 50){
 		 		leftBodyShow();
 		 	}
 		});
 
-		blockObj.addEventListener("touchstart", function(event) {
-		   startX = event.touches[0].screenX ;
-		});
-
-		blockObj.addEventListener("touchend", function(event) {
-		   endX = event.changedTouches[0].screenX;
-		 	var moveDistance = endX - startX;
-		 	if(moveDistance < -100){
-		 		leftBodyHide();
-		 	}
-		});
 	};
 
 
