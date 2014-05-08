@@ -42,7 +42,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		 		leftBodyShow();
 		 	}
 		});
-		
+
 		blockObj.addEventListener("touchstart", function(event) {
 		   startX = event.touches[0].screenX ;
 		});
@@ -357,6 +357,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#bottomBar').animate({ left: 250 }, 500);
 		$('.tab-content').animate({ left: 250 }, 500);
 		$('#menuTool').animate({ left: 250 }, 500);
+		$('#bottomDiv').animate({ left: 250 }, 500);
 		$(".leftMenu").show();
 		$("#menuBlocak").fadeIn(500);
 		$("#loadDiv").fadeOut(500);
@@ -376,6 +377,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#bottomBar').animate({ left: 0 }, 500);
 		$('.tab-content').animate({ left: 0 }, 500);
 		$('#menuTool').animate({ left: 0 }, 500);
+		$('#bottomDiv').animate({ left: 0 }, 500);
 		$("#menuBlocak").fadeOut(500);
 		setTimeout(function(){$(".leftMenu").hide();},500);
 		$("#maplistArea").css("position","");
