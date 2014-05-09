@@ -222,6 +222,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	//search button click
 	$scope.clickSearch = function(){
 
+		$("#mapArea").css("position","");
+
 		$("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
 
 		startLoading();
@@ -488,7 +490,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var stopLoading = function(){
 		spinner.stop();
 		$("#loadDiv").fadeOut(400);
-
+		$("#mapArea").css("position","fixed");
 	};
 
 	var startLoad = function(target){
