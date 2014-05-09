@@ -118,9 +118,9 @@
          <div>
                <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
                   <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
-                      <div class="nameDiv">{{listItem.name}}</div>
-                      <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
-                      <div class="lineDiv"></div>
+                      <div class="nameDiv" ng-show="listItem.name">{{listItem.name}}</div>
+                      <div class="addressDiv" ng-show="listItem.country"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                      <div class="lineDiv" ></div>
                       <div class="telDiv" ng-show="listItem.phone">
                         <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
                           <img src="img/phone_icon.png">&nbsp; {{listItem.phone}} 

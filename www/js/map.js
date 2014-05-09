@@ -438,8 +438,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
 			$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 			if(!$scope.isHaveData){
-					alertShow("No Data");
-				
+				alertShow("No Data");				
 			}
 		}
 	};
