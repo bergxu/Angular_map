@@ -116,8 +116,8 @@
         </div>
       
       <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px">
-         <div style="margin-top:70px;">
-               <ul style="list-style-type:none;padding:10px;">
+         <div>
+               <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
                   <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
                       <div class="nameDiv">{{listItem.name}}</div>
                       <div class="addressDiv"><img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
@@ -140,7 +140,7 @@
     </div>
 
     </div>
-    <div id="menuBlocak" class="menuBlock" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuBlockClick()"></div>
+    <div id="menuBlocak" class="menuBlock rightShadow" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuBlockClick()"></div>
       
 
         <script type="text/javascript" src="libs/jquery.min.js"></script>

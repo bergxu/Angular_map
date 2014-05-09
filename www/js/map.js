@@ -372,7 +372,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#menuTool').animate({ left: 250 }, 500);
 		$('#bottomDiv').animate({ left: 250 }, 500);
 		$(".leftMenu").show();
-		$("#menuBlocak").fadeIn(500);
 		$("#loadDiv").fadeOut(500);
 		$("#mapListAlert").fadeOut(500);
 		$(".b").fadeOut(500);
@@ -381,6 +380,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		setTimeout(function(){
 			$("#maplistArea").css("position","fixed");
 			$("#mapArea").css("position","fixed");
+			$("#menuBlocak").fadeIn(100);
 		},500);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
@@ -391,7 +391,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('.tab-content').animate({ left: 0 }, 500);
 		$('#menuTool').animate({ left: 0 }, 500);
 		$('#bottomDiv').animate({ left: 0 }, 500);
-		$("#menuBlocak").fadeOut(500);
+		$("#menuBlocak").hide();
 		setTimeout(function(){$(".leftMenu").hide();},500);
 		$("#maplistArea").css("position","");
 		$("#mapArea").css("position","");
