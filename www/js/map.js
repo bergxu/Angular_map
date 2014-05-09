@@ -9,17 +9,17 @@ var app = angular.module('app', ['google-maps']);
 app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	google.maps.visualRefresh = true;
 
-	var resize = function(){
+	var resize = function(onSizeFlag){
 		console.log(" window onresize ");
 		$scope.blockHeight = window.innerHeight;
-		$scope.blockWidth = window.innerWidth - 250;
+		$scope.blockWidth = window.innerWidth;
 		$scope.height = window.innerHeight - 145;
 		$scope.windowWidth = window.innerWidth-255;
 		$scope.BottomWidth = (window.innerWidth -10)/2;
 		$scope.marginWindowWidth = window.innerWidth-10;
 		$scope.alertHeight = window.innerHeight/2;
 		$scope.bottomHeight = window.innerHeight - 82;
-		$scope.$apply();
+		if(onSizeFlag){$scope.$apply();}else{};		
 		$(".angular-google-map-container").css("height", $scope.height+"px");
 		if($scope.menuFlag){
 			$('#bottomBar').animate({ left: 250 }, 100);
@@ -70,9 +70,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	};
 
 
-	resize();
+	resize(false);
 	moveTouchToOpen();
-	window.onresize = resize;
+	window.onresize = function(){
+		resize(true);
+	};
 
 	$scope.safeApply = function(fn) {
 		var phase = this.$root.$$phase;
@@ -370,6 +372,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#bottomBar').animate({ left: 250 }, 500);
 		$('.tab-content').animate({ left: 250 }, 500);
 		$('#menuTool').animate({ left: 250 }, 500);
+		$('#menuBlocak').show();
+		$('#menuBlocak').animate({ left: 250 }, 500);
 		$('#bottomDiv').animate({ left: 250 }, 500);
 		$(".leftMenu").show();
 		$("#loadDiv").fadeOut(500);
@@ -380,7 +384,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		setTimeout(function(){
 			$("#maplistArea").css("position","fixed");
 			$("#mapArea").css("position","fixed");
-			$("#menuBlocak").fadeIn(100);
 		},500);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
@@ -391,7 +394,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('.tab-content').animate({ left: 0 }, 500);
 		$('#menuTool').animate({ left: 0 }, 500);
 		$('#bottomDiv').animate({ left: 0 }, 500);
-		$("#menuBlocak").hide();
+		$('#menuBlocak').animate({ left: 0 }, 500);
+		$('#menuBlocak').hide();
 		setTimeout(function(){$(".leftMenu").hide();},500);
 		$("#maplistArea").css("position","");
 		$("#mapArea").css("position","");
