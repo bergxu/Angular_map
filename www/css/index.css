@@ -192,27 +192,6 @@
 
     }
 
-    .listDataAlert{
-      display: none;
-      width:300px;
-      height:250px;
-      position:fixed;
-      /*background:#C4C4C4;*/
-      background: #E1AE2E;
-      z-index:10;
-      left:50%;
-      top:50%;
-      margin-top: -125px;
-      margin-left:-150px;
-      opacity: 0.7;
-      border-radius: 10px;
-      font-size: 20px;
-      color: white;
-      padding-top: 80px;
-      padding-left: 10px;
-    }
-
-
     .alertContent{
       display:none;
       width:300px;

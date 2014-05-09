@@ -377,7 +377,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#bottomDiv').animate({ left: 250 }, 500);
 		$(".leftMenu").show();
 		$("#loadDiv").fadeOut(500);
-		$("#mapListAlert").fadeOut(500);
+		$("#mapAlert").fadeOut(500);
 		$(".b").fadeOut(500);
 		$(".markerContent").fadeOut(500);
 		$("#markerClickBlock").fadeOut(500);
@@ -429,26 +429,19 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 				$("#loadDiv").fadeOut(20);
 				$("#mapAlert").fadeOut(20);
 			},500);
-			$("#mapListAlert").fadeOut(20);
 			refreshMap();
 		}		
 	};
 
 	$scope.listClick = function(){	
 		if($("#clickList").hasClass("bottomBtnUnclick")){
-			$("#mapAlert").fadeOut(400);
 			$("#clickMap").removeClass("bottomBtnClick").addClass("bottomBtnUnclick");
 			$("#clickList").removeClass("bottomBtnUnclick").addClass("bottomBtnClick");
 			if(!$scope.isHaveData){
-				setTimeout(function(){
-					$("#mapListAlert").fadeIn(400);
-				},500);
+					alertShow("No Data");
+				
 			}
 		}
-	};
-
-	$scope.alertClick = function(){
-		$("#mapListAlert").fadeOut(400);
 	};
 
 	$scope.exchangePostion = function(){
