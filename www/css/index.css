@@ -74,12 +74,11 @@
 
     .icon-bar {
       display: block;
-      width: 40px;
-      height: 8px;
-      background-color: #cccccc;
+      width: 35px;
+      height: 6px;
+      background-color: white;
       border-radius: 2px;
-      margin-top: 8px;
-      margin-left: 8px;
+      margin-top: 6px;
     }
 
     .leftBtn{
