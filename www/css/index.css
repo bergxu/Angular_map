@@ -194,7 +194,7 @@
 
     .alertContent{
       display:none;
-      width:300px;
+      width:250px;
       height:200px;
       position:fixed;
       /*background:#C4C4C4;*/
@@ -203,8 +203,8 @@
       top:50%;
       left:50%;
       margin-top: -100px;
-      margin-left:-150px;
-      opacity: 0.9;
+      margin-left:-125px;
+      opacity: 0.5;
       border-radius: 10px;
       font-size: 20px;
       color: white;
