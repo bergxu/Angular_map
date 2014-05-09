@@ -381,6 +381,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$(".b").fadeOut(500);
 		$(".markerContent").fadeOut(500);
 		$("#markerClickBlock").fadeOut(500);
+		setTimeout(function(){
+			$("#maplistArea").css("position","fixed");
+			$("#mapArea").css("position","fixed");
+		},500);
+
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -393,6 +398,11 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#menuBlocak').animate({ left: 0 }, 500);
 		$('#menuBlocak').hide();
 		setTimeout(function(){$(".leftMenu").hide();},500);
+		
+		if($scope.isHaveData){
+			$("#maplistArea").css("position","");
+		}		
+
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 

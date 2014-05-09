@@ -286,4 +286,8 @@
   transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   -o-transition-timing-function: ease-out;
-}
+  }
+
+  .gmnoprint a, .gmnoprint span {
+      display:none;
+  }
