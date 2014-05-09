@@ -101,8 +101,7 @@
             <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='map.accountMarker.icon'>
             </marker>
         </google-map> 
- 
-        <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
+
         <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
         <div class="b" style="top:{{alertHeight}}px"></div>
         <div class="markerContent" style="top:{{alertHeight}}px">
@@ -135,7 +134,8 @@
 
     </div>
     <div id="menuBlocak" class="menuBlock rightShadow" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuBlockClick()"></div>
-    <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px">{{alertText}}</div> 
+    <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px">{{alertText}}</div>
+    <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div> 
       
 
         <script type="text/javascript" src="libs/jquery.min.js"></script>

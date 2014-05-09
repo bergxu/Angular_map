@@ -42,6 +42,7 @@
       position: fixed;
       width: 100%;
       top: 70px;
+      box-shadow: 0 3px 25px black;
     }
 
     .tab-content{
@@ -148,12 +149,14 @@
       background:#EBEBEB;
       width: 100%;
       margin-top: 70px;
+      position: fixed;
     }
 
     #mapArea{
       z-index:1;
       width: 100%;
       margin-top: 70px;
+      /*position: fixed;*/
     }
 
     .b {
@@ -216,7 +219,7 @@
       display: none;
       top:0px;
       z-index:9999;
-      position: absolute;
+      position: fixed;
       width: 100%;
       background: #EBEBEB;
     }
@@ -270,36 +273,7 @@
       width:100%;
       text-align: left;
       font-size:15px;
-    }
-
-    #scroller {
-      margin-top: 70px;
-      margin-bottom: 75px;
-      z-index:1;
-      position: absolute;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      width: 100%;
-      -webkit-transform: translateZ(0);
-      -moz-transform: translateZ(0);
-      -ms-transform: translateZ(0);
-      -o-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-text-size-adjust: none;
-      -moz-text-size-adjust: none;
-      -ms-text-size-adjust: none;
-      -o-text-size-adjust: none;
-      text-size-adjust: none;
-    }
-
-    .gmnoprint a, .gmnoprint span {
-        display:none;
-    }
-    
+    }    
 
 .slidAnimate{
   transition:width 0.5s;
