@@ -221,8 +221,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 
 	//search button click
 	$scope.clickSearch = function(){
-
-		$("#mapArea").css("position","");
 		$scope.blockClick();
 		$("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
 
@@ -250,8 +248,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			getData();
 		};
 		geoCodeToLatLng(cb);
-
-		// //$(".navbar-fixed-bottom").css("top", $scope.bottomHeight+"px");
 		
 	};
 
@@ -272,10 +268,12 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
     	}).success(function(datas){
         	if(datas.length <= 0){
         		$scope.isHaveData = false;
+        		$("#maplistArea").css("position","fixed");
         		stopLoading();
         		alertShow("Not Found......");
     			return;
     		}
+    		$("#maplistArea").css("position","");
     		$scope.isHaveData = true;
 			$scope.map.markers = [];
         	$scope.map.bounds = {
@@ -383,10 +381,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$(".b").fadeOut(500);
 		$(".markerContent").fadeOut(500);
 		$("#markerClickBlock").fadeOut(500);
-		// setTimeout(function(){
-		// 	$("#maplistArea").css("position","fixed");
-		// 	$("#mapArea").css("position","fixed");
-		// },500);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -399,8 +393,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$('#menuBlocak').animate({ left: 0 }, 500);
 		$('#menuBlocak').hide();
 		setTimeout(function(){$(".leftMenu").hide();},500);
-		// $("#maplistArea").css("position","");
-		// $("#mapArea").css("position","");
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -492,7 +484,6 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	var stopLoading = function(){
 		spinner.stop();
 		$("#loadDiv").fadeOut(400);
-		$("#mapArea").css("position","fixed");
 	};
 
 	var startLoad = function(target){

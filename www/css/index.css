@@ -46,7 +46,7 @@
 
     .menuBoxShadow
     {
-      box-shadow: 0 3px 25px black;
+      box-shadow: 0 -2px 25px black;
     }
 
     .tab-content{
@@ -153,14 +153,12 @@
       background:#EBEBEB;
       width: 100%;
       margin-top: 70px;
-      position: fixed;
     }
 
     #mapArea{
       z-index:1;
       width: 100%;
       margin-top: 70px;
-      /*position: fixed;*/
     }
 
     .b {
