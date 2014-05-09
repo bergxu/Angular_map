@@ -418,8 +418,10 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.brandClick = function(){
 		if($scope.menuDown){			
 			 $("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
+			 $("#menuTool").removeClass("menuBoxShadow");
 		}else{
 			 $("#menuTool").animate({top:"70px"},"normal",function(){$scope.menuDown = !$scope.menuDown;});
+			 $("#menuTool").addClass("menuBoxShadow");
 		}
 	};
 

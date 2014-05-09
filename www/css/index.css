@@ -42,6 +42,10 @@
       position: fixed;
       width: 100%;
       top: 70px;
+    }
+
+    .menuBoxShadow
+    {
       box-shadow: 0 3px 25px black;
     }
 
