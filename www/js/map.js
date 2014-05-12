@@ -1,10 +1,4 @@
 'use strict';
-document.addEventListener('deviceready', function() {
-	angular.bootstrap(document, ['app']);
-	/*setTimeout(function() {
-		navigator.splashscreen.hide();
-	}, 500);*/
-}, false);
 
 var app = angular.module('app', ['google-maps']);
 app.controller('appCtrl', function($rootScope, $scope, $http) {
@@ -380,58 +374,67 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'distance': utility.parseDistance($scope.metadata.distance)
 			};
 
-			$http({
-				url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/listNearbyAccounts/v1/',
-				method: 'POST',
-				data: JSON.stringify(myData),
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8'
-				}
-			}).success(function(datas) {
-				if (datas.length <= 0) {
-					$scope.isHaveData = false;
-					$('#maplistArea').css('position', 'fixed');
-					viewHelp.stopLoading();
-					viewHelp.alertShow('Not Found......');
-					return;
-				}
-				$('#maplistArea').css('position', '');
-				$scope.isHaveData = true;
-				$scope.map.markers = [];
-				$scope.map.bounds = {
-					northeast: {
-						latitude: 0,
-						longitude: 0
-					},
-					southwest: {
-						latitude: 0,
-						longitude: 0
-					}
-				};
+	    		var onSuccess = function(datas){
+		        	if(datas.length <= 0){
+		        		$scope.isHaveData = false;
+		        		$('#maplistArea').css('position', 'fixed');
+		        		viewHelp.stopLoading();
+		        		viewHelp.alertShow('Not Found......');
+		    			return;
+		    		}
+	    			$scope.safeApply(function(){
+	    				$('#maplistArea').css('position', '');
+			    		$scope.isHaveData = true;
+					$scope.map.markers = [];
+			        	$scope.map.bounds = {
+			            	northeast: {
+			                	latitude : 0,
+			                	longitude: 0
+			            	},
+			            	southwest: {
+			                	latitude : 0,
+			                	longitude: 0
+			            	} 
+			         };
 
-				mapUtility.setBounds($scope.map.bounds, $scope.getDataLocation.latitude, $scope.getDataLocation.longitude);
-				angular.forEach(datas, function(data) {
-					var markerObj = {
-						latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
-						longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
-						showWindow: false,
-						name: data.Name,
-						phone: data.Phone,
-						street: data.geopointe__Geocode__r.geopointe__Street__c,
-						city: data.geopointe__Geocode__r.geopointe__City__c,
-						country: data.geopointe__Geocode__r.geopointe__Country__c
-					};
-					$scope.map.markers.push(markerObj);
-					mapUtility.setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
+		         		mapUtility.setBounds($scope.map.bounds, $scope.getDataLocation.latitude, $scope.getDataLocation.longitude);
+			    		angular.forEach(datas,function(data){
+			            	var markerObj = {
+							latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
+			        			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
+			                	showWindow: false,
+			                	name: data.Name,
+			                	phone: data.Phone,
+			                	street: data.geopointe__Geocode__r.geopointe__Street__c,
+			                	city : data.geopointe__Geocode__r.geopointe__City__c,
+			                	country: data.geopointe__Geocode__r.geopointe__Country__c
+			            	};
+			            	$scope.map.markers.push(markerObj);
+			            	mapUtility.setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
+		        		});
 				});
+				viewHelp.stopLoading();
+	    		};
 
-				//$scope.myScroll.refresh();
-				viewHelp.stopLoading();
-			}).error(function() {
-				$scope.isHaveData = false;
-				viewHelp.stopLoading();
-				viewHelp.alertShow('get Date error');
-			});
+	    		var onError = function(){
+		    		$scope.isHaveData = false;
+		    		viewHelp.stopLoading();
+		        	viewHelp.alertShow('get Date error');
+	    		};
+	    		if(window.device)
+			    	$http({
+			     	url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/listNearbyAccounts/v1/',
+			        	method: 'POST',
+			        	data : JSON.stringify(myData),
+			        	headers: {'Content-Type': 'application/json; charset=utf-8'}
+			    	}).success(function(datas){
+			    		onSuccess(datas);
+			    	}).error(function(){
+			    		onError();
+			    	});
+			else {
+				window.getData(onError, onSuccess);
+			}
 		}
 	};
 
@@ -594,3 +597,16 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		window.open('https://portal.saf-axles.com/', '_blank', 'location=yes');
 	};
 });
+
+(function(){
+	if(window.device){
+		document.addEventListener('deviceready', function () {
+			angular.bootstrap(document, ['app']);
+			/*setTimeout(function() {
+				navigator.splashscreen.hide();
+			}, 500);*/
+		},false);
+	} else {
+		angular.bootstrap(document, ['app']);
+	}
+})();
