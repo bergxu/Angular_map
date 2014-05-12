@@ -223,7 +223,7 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 	$scope.clickSearch = function(){
 		$scope.blockClick();
 		$("#menuTool").animate({top:"-110px"},"fast",function(){$scope.menuDown = !$scope.menuDown;});
-
+		$("#menuTool").removeClass("menuBoxShadow");
 		startLoading();
 		
 		var cb = function(searchedLatlng){
@@ -341,7 +341,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		$("#mapAlert").fadeIn(800);
     	setTimeout(function(){
     		$("#mapAlert").fadeOut(800);
-    	},2000);    	
+    	},2000);    
+    		
 	};
 
 	var markerContentShow = function( name, phone, street, city, country){
@@ -386,6 +387,8 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 			$("#mapArea").css("position","fixed");
 		},500);
 
+		new mq('m1');
+		mqRotate(mqr);
 		$scope.menuFlag = !$scope.menuFlag;
 	};
 
@@ -401,7 +404,9 @@ app.controller("appCtrl",function($rootScope, $scope, $http, $timeout){
 		
 		if($scope.isHaveData){
 			$("#maplistArea").css("position","");
-		}		
+		}	
+
+		clearTimeout(mqr[0].TO);	
 
 		$scope.menuFlag = !$scope.menuFlag;
 	};
