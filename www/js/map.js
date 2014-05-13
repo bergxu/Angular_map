@@ -255,7 +255,10 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			}, 500);
 
 			if(!window.test)
-				window.test = new mq('m1');
+				{
+					window.test = new mq('m1');
+					mapUtility.getCurrentEmergencyCall();
+			}
 			$scope.menuFlag = !$scope.menuFlag;
 		},
 		leftBodyHide : function() {
@@ -374,67 +377,79 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'distance': utility.parseDistance($scope.metadata.distance)
 			};
 
-	    		var onSuccess = function(datas){
-		        	if(datas.length <= 0){
-		        		$scope.isHaveData = false;
-		        		$('#maplistArea').css('position', 'fixed');
-		        		viewHelp.stopLoading();
-		        		viewHelp.alertShow('Not Found......');
-		    			return;
-		    		}
-	    			$scope.safeApply(function(){
-	    				$('#maplistArea').css('position', '');
-			    		$scope.isHaveData = true;
+    		var onSuccess = function(datas){
+	        	if(datas.length <= 0){
+	        		$scope.isHaveData = false;
+	        		$('#maplistArea').css('position', 'fixed');
+	        		viewHelp.stopLoading();
+	        		viewHelp.alertShow('Not Found......');
+	    			return;
+	    		}
+    			$scope.safeApply(function(){
+    				$('#maplistArea').css('position', '');
+		    		$scope.isHaveData = true;
 					$scope.map.markers = [];
-			        	$scope.map.bounds = {
-			            	northeast: {
-			                	latitude : 0,
-			                	longitude: 0
-			            	},
-			            	southwest: {
-			                	latitude : 0,
-			                	longitude: 0
-			            	} 
-			         };
+		        	$scope.map.bounds = {
+		            	northeast: {
+		                	latitude : 0,
+		                	longitude: 0
+		            	},
+		            	southwest: {
+		                	latitude : 0,
+		                	longitude: 0
+		            	} 
+		         };
 
-		         		mapUtility.setBounds($scope.map.bounds, $scope.getDataLocation.latitude, $scope.getDataLocation.longitude);
-			    		angular.forEach(datas,function(data){
-			            	var markerObj = {
-							latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
-			        			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
-			                	showWindow: false,
-			                	name: data.Name,
-			                	phone: data.Phone,
-			                	street: data.geopointe__Geocode__r.geopointe__Street__c,
-			                	city : data.geopointe__Geocode__r.geopointe__City__c,
-			                	country: data.geopointe__Geocode__r.geopointe__Country__c
-			            	};
-			            	$scope.map.markers.push(markerObj);
-			            	mapUtility.setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
-		        		});
-				});
-				viewHelp.stopLoading();
-	    		};
+     		mapUtility.setBounds($scope.map.bounds, $scope.getDataLocation.latitude, $scope.getDataLocation.longitude);
+    		angular.forEach(datas,function(data){
+            	var markerObj = {
+				latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
+        			longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
+                	showWindow: false,
+                	name: data.Name,
+                	phone: data.Phone,
+                	street: data.geopointe__Geocode__r.geopointe__Street__c,
+                	city : data.geopointe__Geocode__r.geopointe__City__c,
+                	country: data.geopointe__Geocode__r.geopointe__Country__c
+            	};
+            	$scope.map.markers.push(markerObj);
+            	mapUtility.setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
+        		});
+			});
+			viewHelp.stopLoading();
+    		};
 
-	    		var onError = function(){
-		    		$scope.isHaveData = false;
-		    		viewHelp.stopLoading();
-		        	viewHelp.alertShow('get Date error');
-	    		};
-	    		if(window.device)
-			    	$http({
-			     	url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/listNearbyAccounts/v1/',
-			        	method: 'POST',
-			        	data : JSON.stringify(myData),
-			        	headers: {'Content-Type': 'application/json; charset=utf-8'}
-			    	}).success(function(datas){
-			    		onSuccess(datas);
-			    	}).error(function(){
-			    		onError();
-			    	});
-			else {
-				window.getData(onError, onSuccess);
-			}
+    		var onError = function(){
+	    		$scope.isHaveData = false;
+	    		viewHelp.stopLoading();
+	        	viewHelp.alertShow('get Date error');
+    		};
+    		//if(window.device)
+	    	$http({
+		     	url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/listNearbyAccounts/v1/',
+		        	method: 'POST',
+		        	data : JSON.stringify(myData),
+		        	headers: {'Content-Type': 'application/json; charset=utf-8'}
+		    	}).success(function(datas){
+		    		onSuccess(datas);
+		    	}).error(function(){
+		    		onError();
+		    	});
+			//else {
+			//	window.getData(onError, onSuccess);
+			//}
+		},
+
+		// get emergency call from salesforce
+		getCurrentEmergencyCall : function(){
+			$http({
+	     	url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/getEmergencyCallNumber/v1/',
+	        	method: 'GET'
+	    	}).success(function(result){
+	    		$scope.emergencyCall = result;
+	    	}).error(function(){
+	    		console.log("emergencyCall error");
+	    	});
 		}
 	};
 

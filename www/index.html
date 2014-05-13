@@ -28,7 +28,7 @@
         </li>
         <li><a ng-click="partDemandClick()">Parts on demand shop</a>
         </li>
-        <li><a>emergency call</a>
+        <li><a href="tel:{{emergencyCall}}">emergency call</a>
         </li>
       </ul>
     </nav>
@@ -80,9 +80,9 @@
     </div>
 
     <!-- buttom menu -->
-    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="top:{{bottomHeight}}px;width:{{marginWindowWidth}}px">
-      <button id="clickMap" class="bottomBtnClick" style="width:{{BottomWidth}}px" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
-      <button id="clickList" style="width:{{BottomWidth}}px;margin-left:-4px;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%">
+      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
+      <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
     </nav>
 
     <div id="bottomDiv" style="width:100%;height:75px;background:#EBEBEB;position:fixed;bottom:0px;"></div>
@@ -136,7 +136,7 @@
     </div>
   </div>
   <div id="menuBlocak" class="menuBlock rightShadow" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuBlockClick()"></div>
-  <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px">{{alertText}}</div>
+  <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px;">{{alertText}}</div>
   <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
 
 
