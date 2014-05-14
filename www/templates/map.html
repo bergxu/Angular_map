@@ -1,0 +1,101 @@
+  <!-- main body-->
+  <div class="rightBody">
+    <!--top menu-->
+    <nav id="myself" class="navbar navbar-default navbar-fixed-top slidAnimate" role="navigation">
+      <a href="#/home" class="btn" style="width: 70px;height:70px;border:0px;background:#E1AE2E;">
+        <div style="margin-top: 14px;">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </div>
+      </a>
+      <a class="btn" style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
+      </a>
+      <img style=" width: 175px;" src="img/logo.png" ng-click="brandClick()">
+    </nav>
+
+    <div id="menuTool" class="slidAnimate menuBoxShadow">
+      <table style="width:100%;">
+        <tr>
+          <td colspan="2">
+            <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="Input Address">
+          </td>
+        </tr>
+        <tr>
+          <td style="width:150px;" ng-click="exchangePostion()">
+            <span style="font-size:20px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;
+            <span style="font-size:20px;color:green">Locate Me</span>
+          </td>
+          <td>
+            <select id="selectedDistance" ng-model="metadata.distance" class="form-control">
+              <option ng-repeat="c in metadata.picklists.distance">{{c}} km</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default">Go</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- buttom menu -->
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%">
+      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
+      <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
+    </nav>
+
+    <div id="bottomDiv" style="width:100%;height:75px;background:#EBEBEB;position:fixed;bottom:0px;"></div>
+
+    <!-- Tab panes -->
+    <div class="tab-content slidAnimate" id="mapBody">
+
+      <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" style="height:{{height}}px;position: fixed;">
+        <google-map class="" center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" bounds="map.bounds" events="map.events" options="map.options" pan="true" control="map.control">
+
+          <!-- current -->
+          <marker ng-show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon'></marker>
+
+          <!-- target -->
+          <marker ng-show="map.targetMarker.show" coords="map.targetMarker" icon='map.targetMarker.icon'></marker>
+
+          <!-- account -->
+          <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='map.accountMarker.icon'>
+          </marker>
+        </google-map>
+
+        <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
+        <div class="b" style="top:{{alertHeight}}px"></div>
+        <div class="markerContent" style="top:{{alertHeight}}px">
+          <div>{{markerName}}</div>
+          <div>Phone : {{markerPhone}}</div>
+          <div>Street : {{markerStreet}}</div>
+          <div>City : {{markerCity}}</div>
+          <div>Country : {{markerCountry}}</div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px; position: fixed;">
+        <div>
+          <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
+            <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
+              <div class="nameDiv" ng-show="listItem.name">{{listItem.name}}</div>
+              <div class="addressDiv" ng-show="listItem.country">
+                <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+              <div class="lineDiv"></div>
+              <div class="telDiv" ng-show="listItem.phone">
+                <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
+                  <img src="img/phone_icon.png">&nbsp; {{listItem.phone}}
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div style="height:70px;width:100%;"></div>
+      </div>
+    </div>
+  </div>
+  <div id="menuBlocak" class="menuBlock rightShadow" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuBlockClick()"></div>
+  <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px;">{{alertText}}</div>
+  <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>

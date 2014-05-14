@@ -1,7 +1,8 @@
 'use strict';
 
-var app = angular.module('app', ['google-maps']);
-app.controller('appCtrl', function($rootScope, $scope, $http) {
+var app = angular.module('appControllers', ['google-maps']);
+
+app.controller('mapCtrl', function($rootScope, $scope, $http) {
 	google.maps.visualRefresh = true;
 	// init
 	(function(){
@@ -63,47 +64,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		}*/
 	};
 
-	var moveTouchToOpen = function() {
-		var obj = document.getElementById('myself');
-		var menuObj = document.getElementById('menuTool');
-		var bottomObj = document.getElementById('bottomBar');
-		var blockObj = document.getElementById('menuBlocak');
-		var startX, endX;
-
-		objSlideRight(obj);
-		objSlideRight(menuObj);
-		objSlideRight(bottomObj);
-		blockObj.addEventListener('touchstart', function(event) {
-			startX = event.touches[0].screenX;
-		});
-
-		blockObj.addEventListener('touchend', function(event) {
-			endX = event.changedTouches[0].screenX;
-			var moveDistance = endX - startX;
-			if (moveDistance < -50) {
-				viewHelp.leftBodyHide();
-			}
-		});
-	};
-
-	var objSlideRight = function(obj) {
-		var startX, endX;
-		obj.addEventListener('touchstart', function(event) {
-			startX = event.touches[0].screenX;
-		});
-
-		obj.addEventListener('touchend', function(event) {
-			endX = event.changedTouches[0].screenX;
-			var moveDistance = endX - startX;
-			if (moveDistance > 50) {
-				viewHelp.leftBodyShow();
-			}
-		});
-	};
-
-
 	resize(false);
-	moveTouchToOpen();
 	window.onresize = function() {
 		resize(true);
 	};
@@ -615,15 +576,15 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 });
 
-(function(){
-	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-		document.addEventListener('deviceready', function () {
-			angular.bootstrap(document, ['app']);
-			/*setTimeout(function() {
-				navigator.splashscreen.hide();
-			}, 500);*/
-		},false);
-	} else {
-	  angular.bootstrap(document, ['app']); //this is the browser
-	}
-})();
+// (function(){
+// 	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+// 		document.addEventListener('deviceready', function () {
+// 			angular.bootstrap(document, ['app']);
+// 			/*setTimeout(function() {
+// 				navigator.splashscreen.hide();
+// 			}, 500);*/
+// 		},false);
+// 	} else {
+// 	  angular.bootstrap(document, ['app']); //this is the browser
+// 	}
+// })();
