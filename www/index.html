@@ -18,10 +18,9 @@
 <body ng-controller="appCtrl">
 
   <!-- left toggle menu -->
-  <div class="leftMenu" style="display:none;" ng-click="leftBodyClick()">
+  <!-- <div class="leftMenu" style="display:none;" ng-click="leftBodyClick()">
     <nav>
       <ul class="sb-menu">
-        <!-- <li style="height:65px;border-bottom: 1px solid #888;"><img style="width: 175px;margin-top: 18px;margin-left: 12px;" src="img/logo.png" ></li> -->
         <li><a>Trader Search</a>
         </li>
         <li><a>Garage(workshop) Search</a>
@@ -35,7 +34,7 @@
     <div id="m1" class="marquee">
       <span>The quick brown fox jumped over the lazy dog. She sells sea shells by the sea shore.</span>
     </div>
-  </div>
+  </div> -->
 
   <!-- main body-->
   <div class="rightBody">
@@ -53,7 +52,7 @@
       <img style=" width: 175px;" src="img/logo.png" ng-click="brandClick()">
     </nav>
 
-    <div id="menuTool" class="slidAnimate menuBoxShadow">
+    <div id="menuTool" class="slidAnimate">
       <table style="width:100%;">
         <tr>
           <td colspan="2">
@@ -118,7 +117,7 @@
       <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px; position: fixed;">
         <div>
           <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
-            <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;">
+            <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;" ng-click="onMarkerClicked(listItem)">
               <div class="nameDiv" ng-show="listItem.name">{{listItem.name}}</div>
               <div class="addressDiv" ng-show="listItem.country">
                 <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
@@ -138,6 +137,67 @@
   <div id="menuBlocak" class="menuBlock rightShadow" style="height:{{blockHeight}}px;width:{{blockWidth}}px;" ng-click="menuBlockClick()"></div>
   <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px;">{{alertText}}</div>
   <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
+
+<!-- main menu-->
+  <div id="menuView" class="mainViewBlock" >
+      <nav id="myself" class="navbar navbar-default navbar-fixed-top" style=" text-align: right; " role="navigation">
+
+        <img style=" width: 175px;margin-top:20px;"  src="img/logo.png">
+      </nav>
+
+      <a class="menuBtnCls btn btn-lg" style="margin-top:120px;" ng-click="workshopSearch()"><img style="height:30px;" src="img/tool.png"> Workshop</a>
+      <a class="menuBtnCls btn btn-lg" ng-click="partsdealerSearch()"><img style="height:30px;" src="img/hand.png"> Partsdealer</a>
+      <a class="menuBtnCls btn btn-lg" ng-click="partDemandClick()"><img style="height:30px;" src="img/pod.png"> Parts On Demand Shop</a>
+      <a class="menuBtnCls btn btn-lg" href="tel:{{emergencyCall}}"><img style="height:30px;" src="img/phone.png"> Emergency Call</a>
+
+  </div>
+
+  <!--detail view-->
+ <div id="detailView" class="detailViewBlock" >
+ <a class="btn btn-info" style="margin-top:20px;margin-left:20px;" ng-click="closeDetail()">close</a>
+ <br><br>
+ <table class="table" style="font-size:20px;">
+  <tr>
+    <td>Account name</td>           
+    <td><div id="accountrName">{{accountName}}</div></td>
+  </tr>
+  <tr>
+    <td>Additional name</td>          
+    <td><div id="AdditionalName">{{additionalName}}</div></td>
+  </tr>
+  <tr>
+    <td>physical Account Address </td>      
+    <td><div id="accountAddress">{{physicalAddress}}</div></td>
+  </tr>
+  <tr>
+    <td>phone number</td>           
+    <td><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></td>
+  </tr>
+  <tr>
+    <td>24 hours emergency call number</td>   
+    <td><a href="tel:{{emergencyCallNumber}}">{{emergencyCallNumber}}</a></td>
+  </tr>
+  <tr>
+    <td>Website</td>              
+    <td><a ng-click="websiteClick()">{{website}}</a></td>
+  </tr>
+  <tr>
+    <td>Workshop / divartsdealer type</td>    
+    <td><div id="wptype">{{wdType}}</div></td>
+  </tr>
+  <tr>
+    <td>GPS data</td>             
+    <td><div id="gpsData">{{gpsData}}</div></td>
+  </tr>
+  <tr>
+    <td> supporting manufacturer</td>     
+    <td><div id="">this is supporting manufacturer</div></td>
+  </tr>
+</table>
+
+ </div>
+
+
 
 
   <script type="text/javascript" src="libs/jquery.min.js"></script>

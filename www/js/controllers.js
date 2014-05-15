@@ -1,7 +1,17 @@
 'use strict';
 
-var app = angular.module('app', ['google-maps']);
-app.controller('appCtrl', function($rootScope, $scope, $http) {
+
+document.addEventListener('backbutton', function(){
+
+    if(confirm('Are you sure exit?')){
+        navigator.app.exitApp();
+    } 
+               
+
+}, false);
+var app = angular.module('appControllers', ['google-maps']);
+
+app.controller('mapCtrl', function($rootScope, $scope, $http) {
 	google.maps.visualRefresh = true;
 	// init
 	(function(){
@@ -23,17 +33,17 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		};
 		$scope.metadata = {
 			picklists: {
-				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 500]
+				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 50000]
 			},
 			distance: '20 km'
 		};
 
 		// flags
+		window.searchType = '';
 		$scope.menuDown = true;
 		$scope.isHaveData = false;
 		$scope.showWindow = false;
 		$scope.menuFlag = false;
-		$scope.clickParameter = '';
 	})();
 
 	var resize = function(onSizeFlag) {
@@ -62,50 +72,9 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				left: 0
 			}, 100);
 		}*/
-		
 	};
 
-	// var moveTouchToOpen = function() {
-	// 	var obj = document.getElementById('myself');
-	// 	var menuObj = document.getElementById('menuTool');
-	// 	var bottomObj = document.getElementById('bottomBar');
-	// 	var blockObj = document.getElementById('menuBlocak');
-	// 	var startX, endX;
-
-	// 	objSlideRight(obj);
-	// 	objSlideRight(menuObj);
-	// 	objSlideRight(bottomObj);
-	// 	blockObj.addEventListener('touchstart', function(event) {
-	// 		startX = event.touches[0].screenX;
-	// 	});
-
-	// 	blockObj.addEventListener('touchend', function(event) {
-	// 		endX = event.changedTouches[0].screenX;
-	// 		var moveDistance = endX - startX;
-	// 		if (moveDistance < -50) {
-	// 			viewHelp.leftBodyHide();
-	// 		}
-	// 	});
-	// };
-
-	// var objSlideRight = function(obj) {
-	// 	var startX, endX;
-	// 	obj.addEventListener('touchstart', function(event) {
-	// 		startX = event.touches[0].screenX;
-	// 	});
-
-	// 	obj.addEventListener('touchend', function(event) {
-	// 		endX = event.changedTouches[0].screenX;
-	// 		var moveDistance = endX - startX;
-	// 		if (moveDistance > 50) {
-	// 			viewHelp.leftBodyShow();
-	// 		}
-	// 	});
-	// };
-
-
 	resize(false);
-	//moveTouchToOpen();
 	window.onresize = function() {
 		resize(true);
 	};
@@ -162,9 +131,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 					boxClass: 'custom-info-window'
 				}
 			}
-		},
-		toggleColor: function(color) {
-			return color === 'red' ? '#6060FB' : 'red';
 		}
 	});
 
@@ -304,7 +270,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	var mapUtility = {
-
 		//set the target location to the center
 		gotoLocation : function(lat, lon, flag) {
 			if (typeof flag === 'undefined') flag = true;
@@ -372,7 +337,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				bounds.southwest.longitude = longitude;
 			}
 		},
-
 		// get Data from salesforce
 		getData: function() {
 			var myData = {
@@ -382,7 +346,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'distanceUnit': 'km',
 				//'distance': utility.parseDistance($scope.metadata.distance),
 				'distance': '50000',
-				'industries' :$scope.clickParameter 
+				'industries':window.searchType
 			};
 
 			var onSuccess = function(datas) {
@@ -462,17 +426,15 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 					onSuccess(datas);
 				}).error(function() {
 					onError();
+
 				});
 			} else {
 				window.getData(onError, onSuccess);
 			}
-		}
+		},
 
-		
-	};
-
-	// get emergency call from salesforce
-	$scope.getCurrentEmergencyCall = function() {
+		// get emergency call from salesforce
+		getCurrentEmergencyCall: function() {
 			$http({
 				url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/getEmergencyCallNumber/v1/',
 				method: 'GET'
@@ -481,6 +443,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			}).error(function() {
 				console.log('emergencyCall error');
 			});
+		}
 	};
 
 	//go to current location		
@@ -510,24 +473,11 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			});
 
 			mapUtility.gotoLocation(c.latitude, c.longitude);
+			mapUtility.getCurrentEmergencyCall();
 		});
 	};
-	$scope.getCurrentEmergencyCall();
+
 	$scope.gotoCurrentLocation();
-
-	$scope.workshopSearch = function(){
-		$scope.clickParameter = 'Workshop';
-		$('#menuView').fadeOut('400');
-	};
-
-	$scope.partsdealerSearch = function(){
-		$scope.clickParameter = 'Partsdealer';
-		$('#menuView').fadeOut('400');
-	};
-
-	$scope.websiteClick = function(){
-		window.open('http://'+$scope.website , '_blank', 'location=yes');
-	};
 
 	//search button click
 	$scope.clickSearch = function() {
@@ -537,7 +487,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		}, 'fast', function() {
 			$scope.menuDown = !$scope.menuDown;
 		});
-		$('#menuTool').removeClass('menuBoxShadow');
+		//$('#menuTool').removeClass('menuBoxShadow');
 		viewHelp.startLoading();
 
 		var cb = function(searchedLatlng) {
@@ -565,25 +515,24 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.menuShowClick = function() {
-		// if (!$scope.menuFlag) {
-		// 	viewHelp.leftBodyShow();
-		// } else {
-		// 	viewHelp.leftBodyHide();
-		// }
-		$('#menuView').fadeIn(400);
+		if (!$scope.menuFlag) {
+			viewHelp.leftBodyShow();
+		} else {
+			viewHelp.leftBodyHide();
+		}
 	};
 
 
 
-	// $scope.leftBodyClick = function() {
-	// 	viewHelp.leftBodyHide();
-	// };
+	$scope.leftBodyClick = function() {
+		viewHelp.leftBodyHide();
+	};
 
-	$scope.menuBlockClick = function() {
-		refreshMap();
-		if ($scope.menuFlag) {
-			viewHelp.leftBodyHide();
-		}
+	$scope.traderSearch = function(){
+		setTimeout(function(){window.searchType = 'Trader';},500);  
+	};
+	$scope.workshopSearch = function(){
+		setTimeout(function(){window.searchType = 'Workshop';},500);  
 	};
 
 	$scope.brandClick = function() {
@@ -593,14 +542,14 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			}, 'fast', function() {
 				$scope.menuDown = !$scope.menuDown;
 			});
-			$('#menuTool').removeClass('menuBoxShadow');
+			//$('#menuTool').removeClass('menuBoxShadow');
 		} else {
 			$('#menuTool').animate({
 				top: '70px'
 			}, 'normal', function() {
 				$scope.menuDown = !$scope.menuDown;
 			});
-			$('#menuTool').addClass('menuBoxShadow');
+			//$('#menuTool').addClass('menuBoxShadow');
 		}
 	};
 
@@ -643,19 +592,29 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		// }, 500);
 		// viewHelp.markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
 		// $scope.$apply();
-		$('#detailView').fadeIn(400);
-		$scope.accountName = marker.name;
-		$scope.additionalName = marker.additionalName;
-		$scope.physicalAddress = marker.street + ' ' + marker.city + ' ' + marker.zipcode+ ' ' +marker.state+ ' ' +marker.country;
-		$scope.phoneNumber = marker.phone;
-		$scope.emergencyCallNumber = marker.emergencyCall;
-		$scope.website = marker.website;
-		$scope.wdType = marker.wptype;
-		$scope.gpsData = marker.latitude +','+marker.longitude;
+		location.href = '#/detail';
+		$('body').css('background','#EBEBEB');
+		//setTimeout(function(){window.markerInfo = marker;},500);
+		setTimeout(function(){setInfoInDetail(marker);},500);
+
 	};
 
-	$scope.closeDetail = function(){
-		$('#detailView').fadeOut(400);
+	$scope.backToHome = function(){
+		$('body').css('background','#3D3E3E');
+	};
+
+	var setInfoInDetail = function(info){
+		$('#accountrName').html(info.name);
+		$('#AdditionalName').html(info.additionalName);
+		$('#accountAddress').html(info.street + ' '  +info.city + ' ' +info.state + ' ' +info.country + ' ' +info.zipcode);
+		$('#number').html(info.phone);
+		$('#emerCall').html($scope.emergencyCall);
+		$('#wbsite').html(info.website);
+		$('#wptype').html(info.wptype);
+		$('#gpsData').html(info.latitude+','+info.longitude);
+		$('#number').attr('href','tel:' + info.phone);
+		$('#emerCall').attr('href','tel:'+ $scope.emergencyCall);
+		$('#wbsite').attr('href','http://'+info.website);
 	};
 
 	$scope.blockClick = function() {
@@ -669,15 +628,16 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 });
 
-(function(){
-	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-		document.addEventListener('deviceready', function () {
-			angular.bootstrap(document, ['app']);
-			/*setTimeout(function() {
-				navigator.splashscreen.hide();
-			}, 500);*/
-		},false);
-	} else {
-	  angular.bootstrap(document, ['app']); //this is the browser
-	}
-})();
+
+// (function(){
+// 	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+// 		document.addEventListener('deviceready', function () {
+// 			angular.bootstrap(document, ['app']);
+// 			/*setTimeout(function() {
+// 				navigator.splashscreen.hide();
+// 			}, 500);*/
+// 		},false);
+// 	} else {
+// 	  angular.bootstrap(document, ['app']); //this is the browser
+// 	}
+// })();

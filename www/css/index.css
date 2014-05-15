@@ -45,10 +45,10 @@
       top: 70px;
     }
 
-    .menuBoxShadow
+    /*.menuBoxShadow
     {
       box-shadow: 0 -2px 25px black;
-    }
+    }*/
 
     .tab-content{
       position: absolute;
@@ -227,6 +227,26 @@
       background: #EBEBEB;
     }
 
+    .mainViewBlock{
+
+      top:0px;
+      z-index:9999;
+      position: fixed;
+      width: 100%;
+      height:100%;
+      background: #3d3e3e;
+    }
+
+    .detailViewBlock{
+      display: none;
+      top:0px;
+      z-index:9999;
+      position: fixed;
+      width: 100%;
+      height:100%;
+      background: #EBEBEB;
+    }
+
     .menuBlock{
       opacity: 0.6;
       display: none;
@@ -304,3 +324,16 @@
      }
 
     .marquee span {white-space:nowrap;}
+
+
+    .menuBtnCls{
+      background: #E1AE2E;
+      width: 86%;
+      height: 80px;
+      margin-top: 50px;
+      margin-left: 7%;
+      border-radius: 5px;
+      color: white;
+      font-size: 22px;
+      line-height: 55px;
+    }
