@@ -13,6 +13,10 @@ app.config(['$routeProvider',
             templateUrl: 'templates/map.html',
             controller: 'mapCtrl'
         }).
+        when('/detail', {
+            templateUrl: 'templates/detail.html',
+            controller: 'mapCtrl'
+        }).
         when('/map/:accountId', {
             templateUrl: 'templates/detail.html'
         }).

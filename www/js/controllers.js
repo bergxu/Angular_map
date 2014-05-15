@@ -1,5 +1,14 @@
 'use strict';
 
+
+document.addEventListener('backbutton', function(){
+
+    if(confirm('Are you sure exit?')){
+        navigator.app.exitApp();
+    } 
+               
+
+}, false);
 var app = angular.module('appControllers', ['google-maps']);
 
 app.controller('mapCtrl', function($rootScope, $scope, $http) {
@@ -24,12 +33,13 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 		};
 		$scope.metadata = {
 			picklists: {
-				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 500]
+				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 50000]
 			},
 			distance: '20 km'
 		};
 
 		// flags
+		window.searchType = '';
 		$scope.menuDown = true;
 		$scope.isHaveData = false;
 		$scope.showWindow = false;
@@ -112,7 +122,7 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 				show: false
 			},
 			accountMarker: {
-				icon: 'img/red_marker.png'
+				icon: ''
 
 			},
 			markers: [],
@@ -121,9 +131,6 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 					boxClass: 'custom-info-window'
 				}
 			}
-		},
-		toggleColor: function(color) {
-			return color === 'red' ? '#6060FB' : 'red';
 		}
 	});
 
@@ -217,7 +224,6 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 
 			if (!window.test) {
 				window.test = new mq('m1');
-				mapUtility.getCurrentEmergencyCall();
 			}
 
 			$scope.menuFlag = !$scope.menuFlag;
@@ -257,6 +263,9 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 	var utility = {
 		parseDistance : function(str) {
 			return str.substring(0, 3).trim();
+		},
+		spiltStr : function(str){
+			return str.split('\"')[1];
 		}
 	};
 
@@ -335,7 +344,9 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 				'lat': $scope.getDataLocation.latitude + '',
 				'lng': $scope.getDataLocation.longitude + '',
 				'distanceUnit': 'km',
-				'distance': utility.parseDistance($scope.metadata.distance)
+				//'distance': utility.parseDistance($scope.metadata.distance),
+				'distance': '50000',
+				'industries':window.searchType
 			};
 
 			var onSuccess = function(datas) {
@@ -364,15 +375,33 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 					mapUtility.setBounds($scope.map.bounds, $scope.getDataLocation.latitude, $scope.getDataLocation.longitude);
 					angular.forEach(datas, function(data) {
 						var markerObj = {
-							latitude: data.geopointe__Geocode__r.Geolocation__Latitude__s,
-							longitude: data.geopointe__Geocode__r.Geolocation__Longitude__s,
+							latitude: data.FN__Lat__c,
+							longitude: data.FN__Lon__c,
 							showWindow: false,
 							name: data.Name,
 							phone: data.Phone,
-							street: data.geopointe__Geocode__r.geopointe__Street__c,
-							city: data.geopointe__Geocode__r.geopointe__City__c,
-							country: data.geopointe__Geocode__r.geopointe__Country__c
+							street: data.Visit_Street__c,
+							city: data.Visit_City__c,
+							country: data.Visit_Country__c,
+							zipcode:data.Visit_Zip_Code__c,
+							state:data.Visit_State__c,
+							emergencyCall : $scope.emergencyCall,
+							website : data.Website,
+							additionalName:data.Additional_Name__c,
+							wptype : data.Workshop_Partsdealer_Type__c
+
 						};
+						var wptType = data.Workshop_Partsdealer_Type__c;
+						if(wptType === 'Competence Partner'){
+							$scope.map.accountMarker.icon = 'img/red_marker.png';
+						}else if(wptType === 'Service 24 Partner'){
+							$scope.map.accountMarker.icon = 'img/red_marker.png';
+						}else if(wptType === 'Top Service Partner'){
+							$scope.map.accountMarker.icon = 'img/red_marker.png';
+						}else{
+							$scope.map.accountMarker.icon = 'img/yellow_marker.png';
+						}
+
 						$scope.map.markers.push(markerObj);
 						mapUtility.setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
 					});
@@ -397,6 +426,7 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 					onSuccess(datas);
 				}).error(function() {
 					onError();
+
 				});
 			} else {
 				window.getData(onError, onSuccess);
@@ -409,7 +439,7 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 				url: 'https://dev-saf-holland.cs8.force.com/services/apexrest/getEmergencyCallNumber/v1/',
 				method: 'GET'
 			}).success(function(result) {
-				$scope.emergencyCall = result;
+				$scope.emergencyCall = utility.spiltStr(result);
 			}).error(function() {
 				console.log('emergencyCall error');
 			});
@@ -443,12 +473,11 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 			});
 
 			mapUtility.gotoLocation(c.latitude, c.longitude);
+			mapUtility.getCurrentEmergencyCall();
 		});
 	};
 
 	$scope.gotoCurrentLocation();
-
-
 
 	//search button click
 	$scope.clickSearch = function() {
@@ -458,7 +487,7 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 		}, 'fast', function() {
 			$scope.menuDown = !$scope.menuDown;
 		});
-		$('#menuTool').removeClass('menuBoxShadow');
+		//$('#menuTool').removeClass('menuBoxShadow');
 		viewHelp.startLoading();
 
 		var cb = function(searchedLatlng) {
@@ -499,11 +528,11 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 		viewHelp.leftBodyHide();
 	};
 
-	$scope.menuBlockClick = function() {
-		refreshMap();
-		if ($scope.menuFlag) {
-			viewHelp.leftBodyHide();
-		}
+	$scope.traderSearch = function(){
+		setTimeout(function(){window.searchType = 'Trader';},500);  
+	};
+	$scope.workshopSearch = function(){
+		setTimeout(function(){window.searchType = 'Workshop';},500);  
 	};
 
 	$scope.brandClick = function() {
@@ -513,14 +542,14 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 			}, 'fast', function() {
 				$scope.menuDown = !$scope.menuDown;
 			});
-			$('#menuTool').removeClass('menuBoxShadow');
+			//$('#menuTool').removeClass('menuBoxShadow');
 		} else {
 			$('#menuTool').animate({
 				top: '70px'
 			}, 'normal', function() {
 				$scope.menuDown = !$scope.menuDown;
 			});
-			$('#menuTool').addClass('menuBoxShadow');
+			//$('#menuTool').addClass('menuBoxShadow');
 		}
 	};
 
@@ -553,16 +582,39 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.onMarkerClicked = function(marker) {
-		$scope.map.center = {};
-		$scope.map.center = {
-			latitude: marker.latitude,
-			longitude: marker.longitude
-		};
-		setTimeout(function() {
-			$('#markerClickBlock').fadeIn(200);
-		}, 500);
-		viewHelp.markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
-		$scope.$apply();
+		// $scope.map.center = {};
+		// $scope.map.center = {
+		// 	latitude: marker.latitude,
+		// 	longitude: marker.longitude
+		// };
+		// setTimeout(function() {
+		// 	$('#markerClickBlock').fadeIn(200);
+		// }, 500);
+		// viewHelp.markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
+		// $scope.$apply();
+		location.href = '#/detail';
+		$('body').css('background','#EBEBEB');
+		//setTimeout(function(){window.markerInfo = marker;},500);
+		setTimeout(function(){setInfoInDetail(marker);},500);
+
+	};
+
+	$scope.backToHome = function(){
+		$('body').css('background','#3D3E3E');
+	};
+
+	var setInfoInDetail = function(info){
+		$('#accountrName').html(info.name);
+		$('#AdditionalName').html(info.additionalName);
+		$('#accountAddress').html(info.street + ' '  +info.city + ' ' +info.state + ' ' +info.country + ' ' +info.zipcode);
+		$('#number').html(info.phone);
+		$('#emerCall').html($scope.emergencyCall);
+		$('#wbsite').html(info.website);
+		$('#wptype').html(info.wptype);
+		$('#gpsData').html(info.latitude+','+info.longitude);
+		$('#number').attr('href','tel:' + info.phone);
+		$('#emerCall').attr('href','tel:'+ $scope.emergencyCall);
+		$('#wbsite').attr('href','http://'+info.website);
 	};
 
 	$scope.blockClick = function() {
@@ -575,6 +627,7 @@ app.controller('mapCtrl', function($rootScope, $scope, $http) {
 		window.open('https://portal.saf-axles.com/', '_blank', 'location=yes');
 	};
 });
+
 
 // (function(){
 // 	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {

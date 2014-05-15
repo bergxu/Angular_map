@@ -1,12 +1,12 @@
-<!-- left toggle menu -->
+<!-- 
 <div class="leftMenu" ng-click="leftBodyClick()">
     <nav>
         <ul class="sb-menu">
             <li>
-                <!-- <a>Trader Search</a> -->
-                <a href="#/map">Trader Search</a>
+                
+                <a href="#/map" ng-click="traderSearch();">Trader Search</a>
             </li>
-            <li><a>Garage(workshop) Search</a>
+            <li><a href="#/map" ng-click="workshopSearch();">Garage(workshop) Search</a>
             </li>
             <li><a>Parts on demand shop</a>
             </li>
@@ -17,5 +17,27 @@
     <div id="m1" class="marquee">
         <span>The quick brown fox jumped over the lazy dog. She sells sea shells by the sea shore.</span>
     </div>
-</div>
+</div> -->
+<nav id="myself" class="navbar navbar-default navbar-fixed-top " style="text-align:right" role="navigation">
+  <img style="width:175px;margin-top:20px;" src="img/logo.png">
+</nav>
+<table style="margin-top:120px;width:100%;height:100%;">
+    <tr><td>
+        <a class="menubtn btn " href="#/map" ng-click="workshopSearch();"><img src="img/tool.png" style="height:30px;"> Worshop</a>
+    </td></tr>
+    <tr style="height:20px;">&nbsp;</tr>
+    <tr><td>
+        <a class="menubtn btn " href="#/map" ng-click="traderSearch();"><img src="img/hand.png" style="height:30px;"> Partsdealer</a>
+    </td></tr>
+    <tr style="height:20px;">&nbsp;</tr>
+    <tr><td>
+        <a class="menubtn btn" ng-click="partDemandClick()"><img src="img/pod.png" style="height:30px;"> Parts On demand shop</a>
+    </td></tr>
+    <tr style="height:20px;">&nbsp;</tr>
+    <tr><td>
+        <a class="menubtn btn" href="tel:{{emergencyCall}}"><img src="img/phone.png" style="height:30px;" > Emergency Call</a>
+    </td></tr>
+</table>
+
+
 
