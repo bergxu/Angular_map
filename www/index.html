@@ -24,9 +24,12 @@
       <a style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
        <img style="margin-left:10px;" src="img/back1_white.png" >
       </a>
-      <a class="btn" style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
+      <a class="btn " style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
       </a>
-      <img style=" width: 175px;" class="text-right" src="img/logo.png" ng-click="brandClick()">
+      <a class="text-right btn btn-lg" style="margin-top: -11px;margin-right: 30px;color:white;" ng-click="brandClick()"> 
+        <span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;
+        <img style=" width: 175px;"  src="img/logo.png" ng-click="brandClick()">
+      </a>
     </nav>
 
     <div id="menuTool" class="slidAnimate">
@@ -56,7 +59,7 @@
     </div>
 
     <!-- buttom menu -->
-    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%">
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%;top:{{bottomHeight}}px;">
       <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
       <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
     </nav>
@@ -75,9 +78,10 @@
           <!-- target -->
           <marker ng-show="map.targetMarker.show" coords="map.targetMarker" icon='map.targetMarker.icon'></marker>
 
-          <!-- account -->
-          <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='map.accountMarker.icon'>
+          <!--account -->
+          <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='m.accountMarkericon'>
           </marker>
+
         </google-map>
 
         <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
@@ -116,7 +120,7 @@
   <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
 
 <!-- main menu-->
-  <div id="menuView" class="mainViewBlock" >
+  <div id="menuView" class="mainViewBlock" style="height:{{blockHeight}}px;">
       <nav id="myself" class="navbar navbar-default navbar-fixed-top" style="padding-top: 18px;" role="navigation">
 
           <a class="text-right" style="">
@@ -132,7 +136,7 @@
   </div>
 
   <!--detail view-->
- <div id="detailView" class="detailViewBlock" >
+ <div id="detailView" class="detailViewBlock" style="padding-top: 75px;height:{{blockHeight}}px;">
 
      <nav id="myself" class="navbar navbar-default navbar-fixed-top" style="padding-top: 20px;" role="navigation">
         <a class="text-left" style="" ng-click="closeDetail()">
@@ -140,47 +144,64 @@
         </a>
         <img class="text-right" style=" width: 175px;"  src="img/logo.png">
       </nav>
-
- <br><br>
- <table class="table" style="font-size:20px;">
-  <tr>
-    <td>Account name</td>           
-    <td><div id="accountrName">{{accountName}}</div></td>
-  </tr>
-  <tr>
-    <td>Additional name</td>          
-    <td><div id="AdditionalName">{{additionalName}}</div></td>
-  </tr>
-  <tr>
-    <td>physical Account Address </td>      
-    <td><div id="accountAddress">{{physicalAddress}}</div></td>
-  </tr>
-  <tr>
-    <td>phone number</td>           
-    <td><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></td>
-  </tr>
-  <tr>
-    <td>24 hours emergency call number</td>   
-    <td><a href="tel:{{emergencyCallNumber}}">{{emergencyCallNumber}}</a></td>
-  </tr>
-  <tr>
-    <td>Website</td>              
-    <td><a ng-click="websiteClick()">{{website}}</a></td>
-  </tr>
-  <tr>
-    <td>Workshop / divartsdealer type</td>    
-    <td><div id="wptype">{{wdType}}</div></td>
-  </tr>
-  <tr>
-    <td>GPS data</td>             
-    <td><div id="gpsData">{{gpsData}}</div></td>
-  </tr>
-  <tr>
-    <td> supporting manufacturer</td>     
-    <td><div id="">this is supporting manufacturer</div></td>
-  </tr>
-</table>
-
+    <div>
+       <ul class="detailUl" >
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">Account name</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">{{accountName}}</div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">Additional name</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">{{additionalName}}</div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">physical Account Address</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">{{physicalAddress}}</div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">phone number</div>
+            <div class="col-xs-8 col-sm-8 col-md-8"><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></div>
+          </div>             
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">24 hours emergency call number</div>
+            <div class="col-xs-8 col-sm-8 col-md-8"><a href="tel:{{emergencyCallNumber}}">{{emergencyCallNumber}}</a></div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">Website</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">{{website}}</div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">Workshop/divartsdealer type</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">{{wdType}}</div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">GPS data</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">{{gpsData}}</div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">supporting manufacturer</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">this is supporting manufacturer</div>
+          </div>
+        </li>
+      </ul>
+    </div>
  </div>
 
 

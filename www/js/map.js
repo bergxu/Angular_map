@@ -38,7 +38,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	var resize = function(onSizeFlag) {
 		console.log(' window onresize ');
-		$scope.blockHeight = window.innerHeight;
+		//$scope.blockHeight = window.innerHeight;
 		$scope.blockWidth = window.innerWidth;
 		$scope.height = window.innerHeight - 145;
 		$scope.windowWidth = window.innerWidth - 255;
@@ -50,59 +50,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			$scope.$apply();
 		}
 		$('.angular-google-map-container').css('height', $scope.height + 'px');
-		/*if ($scope.menuFlag) {
-			$('#bottomBar').animate({
-				left: 250
-			}, 100);
-			setTimeout(function() {
-				$('#menuBlocak').show();
-			}, 100);
-		} else {
-			$('#bottomBar').animate({
-				left: 0
-			}, 100);
-		}*/
 		
 	};
-
-	// var moveTouchToOpen = function() {
-	// 	var obj = document.getElementById('myself');
-	// 	var menuObj = document.getElementById('menuTool');
-	// 	var bottomObj = document.getElementById('bottomBar');
-	// 	var blockObj = document.getElementById('menuBlocak');
-	// 	var startX, endX;
-
-	// 	objSlideRight(obj);
-	// 	objSlideRight(menuObj);
-	// 	objSlideRight(bottomObj);
-	// 	blockObj.addEventListener('touchstart', function(event) {
-	// 		startX = event.touches[0].screenX;
-	// 	});
-
-	// 	blockObj.addEventListener('touchend', function(event) {
-	// 		endX = event.changedTouches[0].screenX;
-	// 		var moveDistance = endX - startX;
-	// 		if (moveDistance < -50) {
-	// 			viewHelp.leftBodyHide();
-	// 		}
-	// 	});
-	// };
-
-	// var objSlideRight = function(obj) {
-	// 	var startX, endX;
-	// 	obj.addEventListener('touchstart', function(event) {
-	// 		startX = event.touches[0].screenX;
-	// 	});
-
-	// 	obj.addEventListener('touchend', function(event) {
-	// 		endX = event.changedTouches[0].screenX;
-	// 		var moveDistance = endX - startX;
-	// 		if (moveDistance > 50) {
-	// 			viewHelp.leftBodyShow();
-	// 		}
-	// 	});
-	// };
-
 
 	resize(false);
 	//moveTouchToOpen();
@@ -152,9 +101,17 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				icon: 'img/green_marker.png',
 				show: false
 			},
-			accountMarker: {
+			topServiceMarker: {
 				icon: ''
-
+			},
+			serviceTwoMarker: {
+				icon: ''
+			},
+			competenceMarker: {
+				icon: ''
+			},
+			officialMarker: {
+				icon: ''
 			},
 			markers: [],
 			infoWindowWithCustomClass: {
@@ -256,9 +213,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				$('#mapArea').css('position', 'fixed');
 			}, 500);
 
-			if (!window.test) {
-				window.test = new mq('m1');
-			}
 
 			$scope.menuFlag = !$scope.menuFlag;
 		},
@@ -425,19 +379,27 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 							website : data.Website,
 							additionalName:data.Additional_Name__c,
 							wptype : data.Workshop_Partsdealer_Type__c
+							//accountMarkericon : 'img/green2_marker.png'
 
 						};
 						var wptType = data.Workshop_Partsdealer_Type__c;
-						if(wptType === 'Competence Partner'){
-							$scope.map.accountMarker.icon = 'img/red_marker.png';
-						}else if(wptType === 'Service 24 Partner'){
-							$scope.map.accountMarker.icon = 'img/red_marker.png';
-						}else if(wptType === 'Top Service Partner'){
-							$scope.map.accountMarker.icon = 'img/red_marker.png';
+						if($scope.clickParameter === 'Workshop'){
+							if(wptType.indexOf('Top Service Partner') >= 0){
+								markerObj.accountMarkericon = 'img/red_marker.png';
+								
+							}else if(wptType.indexOf('Service 24 Partner') >= 0){
+								markerObj.accountMarkericon = 'img/green2_marker.png';
+								
+							}else if(wptType.indexOf('Competence') >= 0){
+								markerObj.accountMarkericon = 'img/yellow_marker.png';								
+							}
 						}else{
-							$scope.map.accountMarker.icon = 'img/yellow_marker.png';
+							if(wptType.indexOf('Official Partsdealer') >= 0){
+								markerObj.accountMarkericon = 'img/red_marker.png';
+							}
 						}
 
+						
 						$scope.map.markers.push(markerObj);
 						mapUtility.setBounds($scope.map.bounds, markerObj.latitude, markerObj.longitude);
 					});
