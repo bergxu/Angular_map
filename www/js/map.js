@@ -517,12 +517,12 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.workshopSearch = function(){
 		$scope.clickParameter = 'Workshop';
-		$('#menuView').fadeOut('400');
+		$('#menuView').fadeOut('200');
 	};
 
 	$scope.partsdealerSearch = function(){
 		$scope.clickParameter = 'Partsdealer';
-		$('#menuView').fadeOut('400');
+		$('#menuView').fadeOut('200');
 	};
 
 	$scope.websiteClick = function(){
@@ -570,7 +570,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		// } else {
 		// 	viewHelp.leftBodyHide();
 		// }
-		$('#menuView').fadeIn(400);
+		$('#menuView').fadeIn(200);
 	};
 
 

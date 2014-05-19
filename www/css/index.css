@@ -228,7 +228,9 @@
     }
 
     .mainViewBlock{
-
+      padding-top: 70px;
+      padding-left: 5%;
+      padding-right: 5%;
       top:0px;
       z-index:9999;
       position: fixed;
@@ -298,15 +300,15 @@
       font-size:15px;
     }    
 
-  .slidAnimate{
-    transition:width 0.5s;
-    -moz-transition:width 0.5s; /* Firefox 4 */
-    -webkit-transition:width 0.5s; /* Safari and Chrome */
-    -o-transition:width 0.5s; /* Opera */
-    -moz-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-    -webkit-transition-timing-function: ease-out;
-    -o-transition-timing-function: ease-out;
+    .slidAnimate{
+      transition:width 0.5s;
+      -moz-transition:width 0.5s; /* Firefox 4 */
+      -webkit-transition:width 0.5s; /* Safari and Chrome */
+      -o-transition:width 0.5s; /* Opera */
+      -moz-transition-timing-function: ease-out;
+      transition-timing-function: ease-out;
+      -webkit-transition-timing-function: ease-out;
+      -o-transition-timing-function: ease-out;
     }
 
     .gmnoprint a, .gmnoprint span {
@@ -328,12 +330,11 @@
 
     .menuBtnCls{
       background: #E1AE2E;
-      width: 86%;
+      width: 100%;
       height: 80px;
       margin-top: 50px;
-      margin-left: 7%;
       border-radius: 5px;
       color: white;
-      font-size: 22px;
+      font-size: 17px;
       line-height: 55px;
     }

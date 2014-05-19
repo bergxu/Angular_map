@@ -17,39 +17,16 @@
 
 <body ng-controller="appCtrl">
 
-  <!-- left toggle menu -->
-  <!-- <div class="leftMenu" style="display:none;" ng-click="leftBodyClick()">
-    <nav>
-      <ul class="sb-menu">
-        <li><a>Trader Search</a>
-        </li>
-        <li><a>Garage(workshop) Search</a>
-        </li>
-        <li><a ng-click="partDemandClick()">Parts on demand shop</a>
-        </li>
-        <li><a href="tel:{{emergencyCall}}">emergency call</a>
-        </li>
-      </ul>
-    </nav>
-    <div id="m1" class="marquee">
-      <span>The quick brown fox jumped over the lazy dog. She sells sea shells by the sea shore.</span>
-    </div>
-  </div> -->
-
   <!-- main body-->
   <div class="rightBody">
     <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top slidAnimate" role="navigation">
-      <a class="btn" style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
-        <div style="margin-top: 14px;">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </div>
+      <a style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
+       <img style="margin-left:10px;" src="img/back1_white.png" >
       </a>
       <a class="btn" style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
       </a>
-      <img style=" width: 175px;" src="img/logo.png" ng-click="brandClick()">
+      <img style=" width: 175px;" class="text-right" src="img/logo.png" ng-click="brandClick()">
     </nav>
 
     <div id="menuTool" class="slidAnimate">
@@ -140,21 +117,30 @@
 
 <!-- main menu-->
   <div id="menuView" class="mainViewBlock" >
-      <nav id="myself" class="navbar navbar-default navbar-fixed-top" style=" text-align: right; " role="navigation">
+      <nav id="myself" class="navbar navbar-default navbar-fixed-top" style="padding-top: 18px;" role="navigation">
 
-        <img style=" width: 175px;margin-top:20px;"  src="img/logo.png">
+          <a class="text-right" style="">
+            <img style=" width:175px;" src="img/logo.png">
+          </a>  
       </nav>
 
-      <a class="menuBtnCls btn btn-lg" style="margin-top:120px;" ng-click="workshopSearch()"><img style="height:30px;" src="img/tool.png"> Workshop</a>
-      <a class="menuBtnCls btn btn-lg" ng-click="partsdealerSearch()"><img style="height:30px;" src="img/hand.png"> Partsdealer</a>
-      <a class="menuBtnCls btn btn-lg" ng-click="partDemandClick()"><img style="height:30px;" src="img/pod.png"> Parts On Demand Shop</a>
-      <a class="menuBtnCls btn btn-lg" href="tel:{{emergencyCall}}"><img style="height:30px;" src="img/phone.png"> Emergency Call</a>
+      <a class="menuBtnCls btn btn-lg" ng-click="workshopSearch()"><img style="height:20px;" src="img/tool.png">&nbsp;&nbsp;Workshop</a>
+      <a class="menuBtnCls btn btn-lg" ng-click="partsdealerSearch()"><img style="height:20px;" src="img/hand.png">&nbsp;&nbsp;Partsdealer</a>
+      <a class="menuBtnCls btn btn-lg" ng-click="partDemandClick()"><img style="height:20px;" src="img/pod.png">&nbsp;&nbsp;Parts On Demand Shop</a>
+      <a class="menuBtnCls btn btn-lg" href="tel:{{emergencyCall}}"><img style="height:20px;" src="img/phone.png">&nbsp;&nbsp;Emergency Call</a>
 
   </div>
 
   <!--detail view-->
  <div id="detailView" class="detailViewBlock" >
- <a class="btn btn-info" style="margin-top:20px;margin-left:20px;" ng-click="closeDetail()">close</a>
+
+     <nav id="myself" class="navbar navbar-default navbar-fixed-top" style="padding-top: 20px;" role="navigation">
+        <a class="text-left" style="" ng-click="closeDetail()">
+          <img style="margin-left:10px;" src="img/back1_white.png" >
+        </a>
+        <img class="text-right" style=" width: 175px;"  src="img/logo.png">
+      </nav>
+
  <br><br>
  <table class="table" style="font-size:20px;">
   <tr>
