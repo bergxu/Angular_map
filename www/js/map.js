@@ -479,11 +479,13 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.workshopSearch = function(){
 		$scope.clickParameter = 'Workshop';
+	
 		$('#menuView').fadeOut('200');
 	};
 
 	$scope.partsdealerSearch = function(){
 		$scope.clickParameter = 'Partsdealer';
+
 		$('#menuView').fadeOut('200');
 	};
 
@@ -500,7 +502,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		}, 'fast', function() {
 			$scope.menuDown = !$scope.menuDown;
 		});
-		$('#menuTool').removeClass('menuBoxShadow');
 		viewHelp.startLoading();
 
 		var cb = function(searchedLatlng) {
@@ -528,19 +529,19 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.menuShowClick = function() {
-		// if (!$scope.menuFlag) {
-		// 	viewHelp.leftBodyShow();
-		// } else {
-		// 	viewHelp.leftBodyHide();
-		// }
 		$('#menuView').fadeIn(200);
+		$scope.gotoCurrentLocation();
+		$('#menuTool').animate({
+			top: '70px'
+		}, 'fast', function() {
+			$scope.menuDown = true;
+		});
+
+		$scope.metadata.distance = '20 km';
+		$('#searchInput').attr('value','');
+		$scope.search = '';
+
 	};
-
-
-
-	// $scope.leftBodyClick = function() {
-	// 	viewHelp.leftBodyHide();
-	// };
 
 	$scope.menuBlockClick = function() {
 		refreshMap();
@@ -556,14 +557,12 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			}, 'fast', function() {
 				$scope.menuDown = !$scope.menuDown;
 			});
-			$('#menuTool').removeClass('menuBoxShadow');
 		} else {
 			$('#menuTool').animate({
 				top: '70px'
 			}, 'normal', function() {
 				$scope.menuDown = !$scope.menuDown;
 			});
-			$('#menuTool').addClass('menuBoxShadow');
 		}
 	};
 
@@ -591,25 +590,23 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.exchangePostion = function() {
 		$scope.search = $scope.myCurrentLocation;
+		$('#searchInput').attr('value', $scope.myCurrentLocation);
 		$scope.getDataLocation.latitude = $scope.myLatLng.lat;
 		$scope.getDataLocation.longitude = $scope.myLatLng.lng;
 	};
 
 	$scope.onMarkerClicked = function(marker) {
-		// $scope.map.center = {};
-		// $scope.map.center = {
-		// 	latitude: marker.latitude,
-		// 	longitude: marker.longitude
-		// };
-		// setTimeout(function() {
-		// 	$('#markerClickBlock').fadeIn(200);
-		// }, 500);
-		// viewHelp.markerContentShow(marker.name, marker.phone, marker.street, marker.city, marker.country);
-		// $scope.$apply();
+
 		$('#detailView').fadeIn(400);
 		$scope.accountName = marker.name;
 		$scope.additionalName = marker.additionalName;
-		$scope.physicalAddress = marker.street + ' ' + marker.city + ' ' + marker.zipcode+ ' ' +marker.state+ ' ' +marker.country;
+		var markerStreet = typeof(marker.street) === 'undefined' ? '' : marker.street;
+		var markerCity = typeof(marker.city) === 'undefined' ? '' : marker.city;
+		var markerZipcode = typeof(marker.zipcode) === 'undefined' ? '' : marker.zipcode;
+		var markerState = typeof(marker.state) === 'undefined' ? '' : marker.state;
+		var markerCountry = typeof(marker.country) === 'undefined' ? '' : marker.country;
+		$scope.physicalAddress = markerStreet + ' ' + markerCity + ' ' + markerZipcode+ ' ' +markerState+ ' ' +markerCountry;
+
 		$scope.phoneNumber = marker.phone;
 		$scope.emergencyCallNumber = marker.emergencyCall;
 		$scope.website = marker.website;
