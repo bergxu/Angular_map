@@ -13,7 +13,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.BottomWidth = (window.innerWidth - 10) / 2;
 		$scope.marginWindowWidth = window.innerWidth - 10;
 		$scope.alertHeight = window.innerHeight / 2;
-		$scope.bottomHeight = window.innerHeight - 82;
+		$scope.bottomHeight = window.innerHeight - 75;
 
 		// data parameters
 		$scope.search = '';
@@ -23,7 +23,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		};
 		$scope.metadata = {
 			picklists: {
-				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 500]
+				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 50000]
 			},
 			distance: '20 km'
 		};
@@ -45,7 +45,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.BottomWidth = (window.innerWidth - 10) / 2;
 		$scope.marginWindowWidth = window.innerWidth - 10;
 		$scope.alertHeight = window.innerHeight / 2;
-		$scope.bottomHeight = window.innerHeight - 82;
+		$scope.bottomHeight = window.innerHeight - 75;
 		if (onSizeFlag) {
 			$scope.$apply();
 		}
@@ -250,7 +250,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	var utility = {
 		parseDistance : function(str) {
-			return str.substring(0, 3).trim();
+			return str.substring(0,str.length-3).trim();
 		},
 		spiltStr : function(str){
 			return str.split('\"')[1];
@@ -334,8 +334,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'lat': $scope.getDataLocation.latitude + '',
 				'lng': $scope.getDataLocation.longitude + '',
 				'distanceUnit': 'km',
-				//'distance': utility.parseDistance($scope.metadata.distance),
-				'distance': '50000',
+				'distance': utility.parseDistance($scope.metadata.distance),
+				//'distance': '50000',
 				'industries' :$scope.clickParameter 
 			};
 
@@ -488,7 +488,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.websiteClick = function(){
-		window.open('http://'+$scope.website , '_blank', 'location=yes');
+		window.open('http://'+$scope.website , '_blank', 'EnableViewPortScale=yes');
+               
 	};
 
 	//search button click
@@ -627,7 +628,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.partDemandClick = function() {
-		window.open('https://portal.saf-axles.com/', '_blank', 'location=yes');
+		 window.open('https://portal.saf-axles.com/', '_blank', 'EnableViewPortScale=yes');
+              
 	};
 });
 
@@ -635,9 +637,9 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
 		document.addEventListener('deviceready', function () {
 			angular.bootstrap(document, ['app']);
-			/*setTimeout(function() {
+			setTimeout(function() {
 				navigator.splashscreen.hide();
-			}, 500);*/
+			}, 500);
 		},false);
 	} else {
 	  angular.bootstrap(document, ['app']); //this is the browser
