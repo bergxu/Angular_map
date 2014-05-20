@@ -30,7 +30,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 		// flags
 		$scope.menuDown = true;
-		$scope.isHaveData = false;
+		//$scope.isHaveData = false;
 		$scope.showWindow = false;
 		$scope.menuFlag = false;
 		$scope.clickParameter = '';
@@ -240,7 +240,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				$('.leftMenu').hide();
 			}, 500);
 
-			if ($scope.isHaveData) {
+			if ($scope.map.markers.length > 0) {
 				$('#maplistArea').css('position', '');
 			}
 
@@ -341,7 +341,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 			var onSuccess = function(datas) {
 				if (datas.length <= 0) {
-					$scope.isHaveData = false;
+					//$scope.isHaveData = false;
 					$('#maplistArea').css('position', 'fixed');
 					viewHelp.stopLoading();
 					viewHelp.alertShow('Not Found......');
@@ -349,7 +349,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				}
 				$scope.safeApply(function() {
 					$('#maplistArea').css('position', '');
-					$scope.isHaveData = true;
+					//$scope.isHaveData = true;
 					$scope.map.markers = [];
 					$scope.map.bounds = {
 						northeast: {
@@ -408,7 +408,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			};
 
 			var onError = function() {
-				$scope.isHaveData = false;
+				//$scope.isHaveData = false;
 				viewHelp.stopLoading();
 				viewHelp.alertShow('get Date error');
 			};
@@ -540,6 +540,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.metadata.distance = '20 km';
 		$('#searchInput').attr('value','');
 		$scope.search = '';
+		$scope.map.markers = [];
 
 	};
 
@@ -582,7 +583,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		if ($('#clickList').hasClass('bottomBtnUnclick')) {
 			$('#clickMap').removeClass('bottomBtnClick').addClass('bottomBtnUnclick');
 			$('#clickList').removeClass('bottomBtnUnclick').addClass('bottomBtnClick');
-			if (!$scope.isHaveData) {
+			if ($scope.map.markers.length === 0) {
 				viewHelp.alertShow('No Data');
 			}
 		}
