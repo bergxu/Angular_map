@@ -21,15 +21,17 @@
   <div class="rightBody">
     <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top slidAnimate" role="navigation">
-      <a style="width: 70px;height:70px;border:0px;background:#E1AE2E;" ng-click="menuShowClick()">
-       <img style="margin-left:10px;" src="img/back1_white.png" >
-      </a>
-      <a class="btn " style="width:{{windowWidth}}px;height:70px;border:0px;margin-left: -4px;background:#E1AE2E;" ng-click="brandClick()">
-      </a>
-      <a class="text-right btn btn-lg" style="margin-top: -12px;margin-right: 41px;color:white;" ng-click="brandClick()"> 
-        <span><img src="img/search_white.png"></span>&nbsp;&nbsp;&nbsp;
-        <img style=" width: 175px;"  src="img/logo.png" >
-      </a>
+      <div style="float:left;width: 70px;height:70px;border:0px;" ng-click="menuShowClick()">
+          <span >
+            <img style="margin-left:10px;" src="img/back1_white.png" >
+          </span> 
+      </div>
+      <div style="float:left;width:{{windowWidth}}px;height:70px;border:0px;" ng-click="brandClick()">
+        <span class="text-right" style=" width: 222px; ">
+          <img src="img/search_white.png">&nbsp;&nbsp;&nbsp;
+          <img style=" width: 175px;margin-top: -2px;"  src="img/logo.png" >
+        </span>
+      </div>
     </nav>
 
     <div id="menuTool" class="slidAnimate">
@@ -104,7 +106,7 @@
                 <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
               <div class="lineDiv"></div>
               <div class="telDiv" ng-show="listItem.phone">
-                <a class="btn btn-default telA" href="tel:{{listItem.phone}}">
+                <a id="listBtn" class="btn btn-default telA" href="tel:{{listItem.phone}}">
                   <img src="img/phone_icon.png">&nbsp; {{listItem.phone}}
                 </a>
               </div>
@@ -121,24 +123,31 @@
 
 <!-- main menu-->
   <div id="menuView" class="mainViewBlock" style="height:{{blockHeight}}px;">
-      <nav id="myself" class="navbar navbar-default navbar-fixed-top" style="padding-top: 18px;" role="navigation">
-
+      <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
           <a class="text-right" style="">
             <img style=" width:175px;" src="img/logo.png">
           </a>  
       </nav>
 
-      <a class="menuBtnCls btn btn-lg" ng-click="workshopSearch()"><img style="height:20px;" src="img/tool.png">&nbsp;&nbsp;Workshop</a>
-      <a class="menuBtnCls btn btn-lg" ng-click="partsdealerSearch()"><img style="height:20px;" src="img/hand.png">&nbsp;&nbsp;Partsdealer</a>
-      <a class="menuBtnCls btn btn-lg" ng-click="partDemandClick()"><img style="height:20px;" src="img/pod.png">&nbsp;&nbsp;Parts On Demand Shop</a>
-      <a class="menuBtnCls btn btn-lg" href="tel:{{emergencyCall}}"><img style="height:20px;" src="img/phone.png">&nbsp;&nbsp;Emergency Call</a>
+      <button id="mainMenuBtns" class="btn btn-default" ng-click="workshopSearch()">
+          <img style="height:30px;" src="img/tool.png">&nbsp;&nbsp;Workshop
+      </button>
+      <button id="mainMenuBtns" class="btn btn-default" ng-click="partsdealerSearch()">
+        <img style="height:30px;" src="img/hand.png">&nbsp;&nbsp;Partsdealer
+      </button>
+      <button id="mainMenuBtns" class="btn btn-default" ng-click="partDemandClick()">
+        <img style="height:30px;" src="img/pod.png">&nbsp;&nbsp;Parts On Demand Shop
+      </button>
+      <button id="mainMenuBtns" class="btn btn-default" href="tel:{{emergencyCall}}">
+        <img style="height:30px;" src="img/phone.png">&nbsp;&nbsp;Emergency Call
+      </button>
 
   </div>
 
   <!--detail view-->
  <div id="detailView" class="detailViewBlock" style="padding-top: 75px;height:{{blockHeight}}px;">
 
-     <nav id="myself" class="navbar navbar-default navbar-fixed-top" style="padding-top: 20px;" role="navigation">
+     <nav id="myself" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <a class="text-left" style="" ng-click="closeDetail()">
           <img style="margin-left:10px;" src="img/back1_white.png" >
         </a>

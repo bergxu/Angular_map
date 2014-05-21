@@ -34,6 +34,7 @@
       border-radius: 0px;
       background:#E1AE2E;
       border: 0px;
+      padding-top: 18px;
     } 
 
     #menuTool{
@@ -340,14 +341,13 @@
 
     .marquee span {white-space:nowrap;}
 
-
-    .menuBtnCls{
-      background: #E1AE2E;
-      width: 100%;
-      height: 80px;
+    #mainMenuBtns{
+      font-size:20px;
+      width:100%;
+      height:80px;
       margin-top: 30px;
       border-radius: 5px;
-      color: white;
-      font-size: 17px;
-      line-height: 55px;
-    }
+      background:#E1AE2E;
+      border: 0px;
+      color:white;
+    } 

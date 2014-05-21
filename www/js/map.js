@@ -9,9 +9,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.blockHeight = window.innerHeight;
 		$scope.blockWidth = window.innerWidth;
 		$scope.height = window.innerHeight - 145;
-		$scope.windowWidth = window.innerWidth - 255;
-		$scope.BottomWidth = (window.innerWidth - 10) / 2;
-		$scope.marginWindowWidth = window.innerWidth - 10;
+		$scope.windowWidth = window.innerWidth - 70;
 		$scope.alertHeight = window.innerHeight / 2;
 		$scope.bottomHeight = window.innerHeight - 75;
 
@@ -41,9 +39,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		//$scope.blockHeight = window.innerHeight;
 		$scope.blockWidth = window.innerWidth;
 		$scope.height = window.innerHeight - 145;
-		$scope.windowWidth = window.innerWidth - 255;
-		$scope.BottomWidth = (window.innerWidth - 10) / 2;
-		$scope.marginWindowWidth = window.innerWidth - 10;
+		$scope.windowWidth = window.innerWidth - 70;
 		$scope.alertHeight = window.innerHeight / 2;
 		$scope.bottomHeight = window.innerHeight - 75;
 		if (onSizeFlag) {
@@ -480,13 +476,13 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	$scope.workshopSearch = function(){
 		$scope.clickParameter = 'Workshop';
 	
-		$('#menuView').fadeOut('200');
+		$('#menuView').fadeOut(100);
 	};
 
 	$scope.partsdealerSearch = function(){
 		$scope.clickParameter = 'Partsdealer';
 
-		$('#menuView').fadeOut('200');
+		$('#menuView').fadeOut(100);
 	};
 
 	$scope.websiteClick = function(){
@@ -529,7 +525,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.menuShowClick = function() {
-		$('#menuView').fadeIn(200);
+		$('#menuView').fadeIn(100);
 		$scope.gotoCurrentLocation();
 		$('#menuTool').animate({
 			top: '70px'
@@ -541,7 +537,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$('#searchInput').attr('value','');
 		$scope.search = '';
 		$scope.map.markers = [];
-
+		$('#clickMap').tab('show');
+		$scope.mapClick();
 	};
 
 	$scope.menuBlockClick = function() {
@@ -585,7 +582,10 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			$('#clickList').removeClass('bottomBtnUnclick').addClass('bottomBtnClick');
 			if ($scope.map.markers.length === 0) {
 				viewHelp.alertShow('No Data');
+			}else{
+				$('#listBtn').click(function(event){event.stopPropagation();});
 			}
+
 		}
 	};
 
@@ -598,7 +598,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.onMarkerClicked = function(marker) {
 
-		$('#detailView').fadeIn(400);
+		$('#detailView').fadeIn(100);
 		$scope.accountName = marker.name;
 		$scope.additionalName = marker.additionalName;
 		var markerStreet = typeof(marker.street) === 'undefined' ? '' : marker.street;
@@ -616,7 +616,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.closeDetail = function(){
-		$('#detailView').fadeOut(400);
+		$('#detailView').fadeOut(100);
 	};
 
 	$scope.blockClick = function() {
