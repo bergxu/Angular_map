@@ -2,7 +2,7 @@
 
 var app = angular.module('app', ['google-maps']);
 app.controller('appCtrl', function($rootScope, $scope, $http) {
-	google.maps.visualRefresh = true;
+	//google.maps.visualRefresh = true;
 	// init
 	(function(){
 		// UI parameters
@@ -46,11 +46,14 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			$scope.$apply();
 		}
 		$('.angular-google-map-container').css('height', $scope.height + 'px');
-		
+	};
+	$scope.showInfo = function(showId){
+		var str = 'this is an info block!';
+		$('#'+ showId).tooltip({title:str, placement:'bottom', html:true});
 	};
 
+	$scope.showInfo('legendInfoMain');
 	resize(false);
-	//moveTouchToOpen();
 	window.onresize = function() {
 		resize(true);
 	};
@@ -97,18 +100,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				icon: 'img/green_marker.png',
 				show: false
 			},
-			topServiceMarker: {
-				icon: ''
-			},
-			serviceTwoMarker: {
-				icon: ''
-			},
-			competenceMarker: {
-				icon: ''
-			},
-			officialMarker: {
-				icon: ''
-			},
 			markers: [],
 			infoWindowWithCustomClass: {
 				options: {
@@ -128,6 +119,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	var viewHelp = {
+		
 		createSpinner : function(){
 			var opts = {
 				lines: 13,
@@ -330,8 +322,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'lat': $scope.getDataLocation.latitude + '',
 				'lng': $scope.getDataLocation.longitude + '',
 				'distanceUnit': 'km',
-				'distance': utility.parseDistance($scope.metadata.distance),
-				//'distance': '50000',
+				//'distance': utility.parseDistance($scope.metadata.distance),
+				'distance': '50000',
 				'industries' :$scope.clickParameter 
 			};
 
@@ -371,28 +363,49 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 							country: data.Visit_Country__c,
 							zipcode:data.Visit_Zip_Code__c,
 							state:data.Visit_State__c,
-							emergencyCall : $scope.emergencyCall,
+							emergencyCall : data.Emergency_Phone_Number__c,
 							website : data.Website,
+							//emergencyCallNumber : data.Emergency_Phone_Number__c,
 							additionalName:data.Additional_Name__c,
-							wptype : data.Workshop_Partsdealer_Type__c
+							wptype : data.Workshop_Partsdealer_Type__c,
+							id : data.Id
 							//accountMarkericon : 'img/green2_marker.png'
 
 						};
 						var wptType = data.Workshop_Partsdealer_Type__c;
+						var myId = data.Id;
 						if($scope.clickParameter === 'Workshop'){
 							if(wptType.indexOf('Top Service Partner') >= 0){
-								markerObj.accountMarkericon = 'img/red_marker.png';
+								markerObj.accountMarkericon = 'img/TopService.png';
 								
 							}else if(wptType.indexOf('Service 24 Partner') >= 0){
-								markerObj.accountMarkericon = 'img/green2_marker.png';
+								markerObj.accountMarkericon = 'img/24werkstatt.png';
 								
 							}else if(wptType.indexOf('Competence') >= 0){
-								markerObj.accountMarkericon = 'img/yellow_marker.png';								
+								markerObj.accountMarkericon = 'img/Werkstatt.png';								
 							}
+
 						}else{
 							if(wptType.indexOf('Official Partsdealer') >= 0){
-								markerObj.accountMarkericon = 'img/red_marker.png';
+								markerObj.accountMarkericon = 'img/Ersatzteil.png';
 							}
+
+						}
+
+						if(wptType.indexOf('Top Service Partner') >= 0){
+								setTimeout(function(){$('#'+myId+'TopService').removeClass('ng-hide');},100);   
+						}
+
+						if(wptType.indexOf('Service 24 Partner') >= 0){
+							setTimeout(function(){$('#'+myId+'Servicetwofour').removeClass('ng-hide');},100); 
+						}
+
+						if(wptType.indexOf('Competence') >= 0){
+							setTimeout(function(){$('#'+myId+'Competence').removeClass('ng-hide');},100); 
+						}
+
+						if(wptType.indexOf('Official Partsdealer') >= 0){
+							setTimeout(function(){$('#'+myId+'Official').removeClass('ng-hide');},100); 
 						}
 
 						
@@ -428,6 +441,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 		
 	};
+
 
 	// get emergency call from salesforce
 	$scope.getCurrentEmergencyCall = function() {
@@ -475,13 +489,11 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.workshopSearch = function(){
 		$scope.clickParameter = 'Workshop';
-	
 		$('#menuView').fadeOut(100);
 	};
 
 	$scope.partsdealerSearch = function(){
 		$scope.clickParameter = 'Partsdealer';
-
 		$('#menuView').fadeOut(100);
 	};
 
@@ -526,7 +538,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.menuShowClick = function() {
 		$('#menuView').fadeIn(100);
-		$scope.gotoCurrentLocation();
+		$scope.showInfo('legendInfoMap');
 		$('#menuTool').animate({
 			top: '70px'
 		}, 'fast', function() {
@@ -536,7 +548,10 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.metadata.distance = '20 km';
 		$('#searchInput').attr('value','');
 		$scope.search = '';
-		$scope.map.markers = [];
+		if($scope.map.markers.length > 0){
+			$scope.map.markers = [];
+			$scope.gotoCurrentLocation();
+		}		
 		$('#clickMap').tab('show');
 		$scope.mapClick();
 	};
@@ -597,8 +612,13 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 
 	$scope.onMarkerClicked = function(marker) {
-
 		$('#detailView').fadeIn(100);
+		$scope.showInfo('legendInfoDetail');
+
+		if($('#websiteId').height() > 30){
+			$('#websiteId').html($('#websiteId').html().substring(0,20));
+		}
+
 		$scope.accountName = marker.name;
 		$scope.additionalName = marker.additionalName;
 		var markerStreet = typeof(marker.street) === 'undefined' ? '' : marker.street;
@@ -613,10 +633,56 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.website = marker.website;
 		$scope.wdType = marker.wptype;
 		$scope.gpsData = marker.latitude +','+marker.longitude;
+
+		$scope.typeItemId = marker.id;
+
+		if(marker.wptype.indexOf('Top Service Partner') < 0){
+			setTimeout(function(){
+				$('#'+$scope.typeItemId+'TopServiceDetail').addClass('ng-hide');
+			},100); 
+		}
+
+		if(marker.wptype.indexOf('Service 24 Partner') < 0){
+			setTimeout(function(){
+				$('#'+$scope.typeItemId+'ServicetwofourDetail').addClass('ng-hide');
+			},100); 
+		}
+
+		if(marker.wptype.indexOf('Competence') < 0){
+			setTimeout(function(){
+				$('#'+$scope.typeItemId+'CompetenceDetail').addClass('ng-hide');
+			},100); 
+		}
+
+		if(marker.wptype.indexOf('Official Partsdealer') < 0){
+			setTimeout(function(){
+				$('#'+$scope.typeItemId+'OfficialDetail').addClass('ng-hide');
+			},100); 
+		}
+
+		setNgShow($scope.accountName, 'accountNameLiId');
+		setNgShow($scope.additionalName, 'additionalNameLiId');
+		setNgShow($scope.phoneNumber, 'phoneNumLiId');
+		setNgShow($scope.physicalAddress, 'addressLiId');
+		setNgShow($scope.emergencyCallNumber, 'emergencyCallLiId');
+		setNgShow($scope.website, 'websiteLiId');
+		setNgShow($scope.wdType, 'typeLiId');
+		setNgShow($scope.gpsData, 'gpsDataLiId');
+
+	};
+
+
+	var setNgShow = function(obj, objId){
+		if(!obj){
+			$('#'+objId).addClass('ng-hide');
+		}
 	};
 
 	$scope.closeDetail = function(){
-		$('#detailView').fadeOut(100);
+		$('#detailView').fadeOut(100, function(){
+			$('.typeIcon').removeClass('ng-hide');
+		});
+
 	};
 
 	$scope.blockClick = function() {
@@ -638,6 +704,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			setTimeout(function() {
 				navigator.splashscreen.hide();
 			}, 500);
+
 		},false);
 	} else {
 	  angular.bootstrap(document, ['app']); //this is the browser

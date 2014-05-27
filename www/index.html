@@ -21,9 +21,9 @@
   <div class="rightBody">
     <!--top menu-->
     <nav id="myself" class="navbar navbar-default navbar-fixed-top slidAnimate" role="navigation">
-      <div style="float:left;width: 70px;height:70px;border:0px;" ng-click="menuShowClick()">
+      <div style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="menuShowClick()">
           <span >
-            <img style="margin-left:10px;" src="img/back1_white.png" >
+            <img style="margin-left:10px;" src="img/home_white.png" >
           </span> 
       </div>
       <div style="float:left;width:{{windowWidth}}px;height:70px;border:0px;" ng-click="brandClick()">
@@ -103,7 +103,15 @@
             <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;" ng-click="onMarkerClicked(listItem)">
               <div class="nameDiv" ng-show="listItem.name">{{listItem.name}}</div>
               <div class="addressDiv" ng-show="listItem.country">
-                <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}</div>
+                <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}
+              </div>
+
+              <div class="iconDiv">
+                <img id="{{listItem.id}}TopService" class="ng-hide" src="img/TopService.png">
+                <img id="{{listItem.id}}Servicetwofour" class="ng-hide" src="img/24werkstatt.png">
+                <img id="{{listItem.id}}Competence" class="ng-hide" src="img/Werkstatt.png">
+                <img id="{{listItem.id}}Official" class="ng-hide" src="img/Ersatzteil.png">
+              </div>
               <div class="lineDiv"></div>
               <div class="telDiv" ng-show="listItem.phone">
                 <a id="listBtn" class="btn btn-default telA" href="tel:{{listItem.phone}}">
@@ -124,23 +132,26 @@
 <!-- main menu-->
   <div id="menuView" class="mainViewBlock" style="height:{{blockHeight}}px;">
       <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
+          <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;">
+            <img  src="img/info_white.png" >
+          </div> 
           <a class="text-right" style="">
             <img style=" width:175px;" src="img/logo.png">
           </a>  
       </nav>
 
-      <button id="mainMenuBtns" class="btn btn-default" ng-click="workshopSearch()">
+      <a id="mainMenuBtns" class="btn btn-default" ng-click="workshopSearch()">
           <img style="height:30px;" src="img/tool.png">&nbsp;&nbsp;Workshop
-      </button>
-      <button id="mainMenuBtns" class="btn btn-default" ng-click="partsdealerSearch()">
+      </a>
+      <a id="mainMenuBtns" class="btn btn-default" ng-click="partsdealerSearch()">
         <img style="height:30px;" src="img/hand.png">&nbsp;&nbsp;Partsdealer
-      </button>
-      <button id="mainMenuBtns" class="btn btn-default" ng-click="partDemandClick()">
+      </a>
+      <a id="mainMenuBtns" class="btn btn-default" ng-click="partDemandClick()">
         <img style="height:30px;" src="img/pod.png">&nbsp;&nbsp;Parts On Demand Shop
-      </button>
-      <button id="mainMenuBtns" class="btn btn-default" href="tel:{{emergencyCall}}">
+      </a>
+      <a id="mainMenuBtns" class="btn btn-default" href="tel:{{emergencyCall}}">
         <img style="height:30px;" src="img/phone.png">&nbsp;&nbsp;Emergency Call
-      </button>
+      </a>
 
   </div>
 
@@ -148,56 +159,69 @@
  <div id="detailView" class="detailViewBlock" style="padding-top: 75px;height:{{blockHeight}}px;">
 
      <nav id="myself" class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <a class="text-left" style="" ng-click="closeDetail()">
-          <img style="margin-left:10px;" src="img/back1_white.png" >
-        </a>
+        <div style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="closeDetail()">
+          <span >
+            <img style="margin-left:10px;" src="img/back1_white.png" >
+          </span> 
+        </div>
+        <div id="legendInfoDetail" style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" >
+          <span >
+            <img style="margin-left:10px;" src="img/info_white.png" >
+          </span> 
+        </div>  
         <img class="text-right" style=" width: 175px;"  src="img/logo.png">
       </nav>
     <div>
        <ul class="detailUl" >
-        <li>
+        <li id="accountNameLiId">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Account Name</div>
             <div class="col-xs-7 col-sm-7 col-md-7">{{accountName}}</div>
           </div>
         </li>
-        <li>
+        <li id="additionalNameLiId">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Additional Name</div>
             <div class="col-xs-7 col-sm-7 col-md-7">{{additionalName}}</div>
           </div>
         </li>
-        <li>
+        <li id="addressLiId">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Physical Account Address</div>
             <div class="col-xs-7 col-sm-7 col-md-7">{{physicalAddress}}</div>
           </div>
         </li>
-        <li>
+        <li id="phoneNumLiId">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Phone Number</div>
             <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></div>
           </div>             
         </li>
-        <li>
+        <li id="emergencyCallLiId" >
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">24 Hours Emergency Call</div>
             <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{emergencyCallNumber}}">{{emergencyCallNumber}}</a></div>
           </div>
         </li>
-        <li>
+        <li id="websiteLiId">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Website</div>
-            <div class="col-xs-7 col-sm-7 col-md-7"><a ng-click="websiteClick()">{{website}}</a></div>
+            <!-- <div id="websiteId" class="col-xs-7 col-sm-7 col-md-7"><a ng-click="websiteClick()">{{website}}</a></div>-->
+            <div class="col-xs-7 col-sm-7 col-md-7"><a id="websiteId" ng-click="websiteClick()">nihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgalsnihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgalsnihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgalsnihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgals </a></div> 
           </div>
         </li>
-        <li>
+        <li id="typeLiId" >
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Type</div>
-            <div class="col-xs-7 col-sm-7 col-md-7">{{wdType}}</div>
+            <div class="col-xs-7 col-sm-7 col-md-7">
+                <img id="{{typeItemId}}TopServiceDetail" class="typeIcon" src="img/TopService.png">
+                <img id="{{typeItemId}}ServicetwofourDetail" class="typeIcon" src="img/24werkstatt.png">
+                <img id="{{typeItemId}}CompetenceDetail" class="typeIcon" src="img/Werkstatt.png">
+                <img id="{{typeItemId}}OfficialDetail" class="typeIcon" src="img/Ersatzteil.png">
+            </div>
           </div>
         </li>
-        <li>
+        <li id="gpsDataLiId">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">GPS Data</div>
             <div class="col-xs-7 col-sm-7 col-md-7">{{gpsData}}</div>
