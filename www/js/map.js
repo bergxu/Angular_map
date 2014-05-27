@@ -598,7 +598,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			if ($scope.map.markers.length === 0) {
 				viewHelp.alertShow('No Data');
 			}else{
-				$('#listBtn').click(function(event){event.stopPropagation();});
+				$('.listBtn').click(function(event){event.stopPropagation();});
 			}
 
 		}
