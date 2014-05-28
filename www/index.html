@@ -37,8 +37,9 @@
     <div id="menuTool" class="slidAnimate">
       <table style="width:100%;">
         <tr>
-          <td colspan="2">
+          <td colspan="2" style="position: relative;">
             <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="Input Address">
+            <span class="text-right" ng-show="search.length > 0" style=" position: absolute; top: 9px;width: 40px; " ng-click="clearInputText()"><img src="img/removeInput.png"></span>
           </td>
         </tr>
         <tr>
@@ -85,6 +86,9 @@
           </marker>
 
         </google-map>
+        <span>
+          <img style="position:absolute;right:20px;bottom:20px;" src="img/info.png" >
+        </span> 
 
         <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
         <div class="b" style="top:{{alertHeight}}px"></div>
@@ -173,55 +177,51 @@
       </nav>
     <div>
        <ul class="detailUl" >
-        <li id="accountNameLiId">
+         <li style="padding-bottom:5px;">
           <div class="row">
-            <div class="col-xs-5 col-sm-5 col-md-5">Account Name</div>
-            <div class="col-xs-7 col-sm-7 col-md-7">{{accountName}}</div>
+            <div class="col-xs-5 col-sm-5 col-md-5">
+                <img ng-show="topServiceoo" src="img/TopService.png">
+                <img ng-show="serviceTwooo" src="img/24werkstatt.png">
+                <img ng-show="competenceoo" src="img/Werkstatt.png">
+                <img ng-show="officialoo" src="img/Ersatzteil.png">
+            </div>
+            <div class="col-xs-7 col-sm-7 col-md-7">
+              <div id="accountNameLiId" ng-show="accountName.length > 0 ">{{accountName}}</div>
+              <div id="additionalNameLiId" ng-show="additionalName.length > 0 ">{{additionalName}}</div>
+            </div>
           </div>
-        </li>
-        <li id="additionalNameLiId">
-          <div class="row">
-            <div class="col-xs-5 col-sm-5 col-md-5">Additional Name</div>
-            <div class="col-xs-7 col-sm-7 col-md-7">{{additionalName}}</div>
-          </div>
-        </li>
-        <li id="addressLiId">
+
+        </li> 
+        <li id="addressLiId" ng-show="physicalAddress.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Physical Account Address</div>
             <div class="col-xs-7 col-sm-7 col-md-7">{{physicalAddress}}</div>
           </div>
         </li>
-        <li id="phoneNumLiId">
+        <li id="phoneNumLiId" ng-show="phoneNumber.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Phone Number</div>
             <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></div>
           </div>             
         </li>
-        <li id="emergencyCallLiId" >
+        <li id="emergencyCallLiId" ng-show="emergencyCallNumber.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">24 Hours Emergency Call</div>
             <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{emergencyCallNumber}}">{{emergencyCallNumber}}</a></div>
           </div>
         </li>
-        <li id="websiteLiId">
+        <li id="websiteLiId" ng-show="detailwebsite.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Website</div>
-            <!-- <div id="websiteId" class="col-xs-7 col-sm-7 col-md-7"><a ng-click="websiteClick()">{{website}}</a></div>-->
-            <div class="col-xs-7 col-sm-7 col-md-7"><a id="websiteId" ng-click="websiteClick()">nihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgalsnihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgalsnihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgalsnihasdfjashdfljasgdhlfjaghsdflkjsgalkdfggsdghaflasgdfljhsagdlfgsaldfgals </a></div> 
-          </div>
+            <div id="websiteId" class="col-xs-7 col-sm-7 col-md-7"><a ng-click="websiteClick()">{{detailwebsite}}</a></div>
         </li>
-        <li id="typeLiId" >
+        <li id="typeLiId" ng-show="wdType.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Type</div>
-            <div class="col-xs-7 col-sm-7 col-md-7">
-                <img id="{{typeItemId}}TopServiceDetail" class="typeIcon" src="img/TopService.png">
-                <img id="{{typeItemId}}ServicetwofourDetail" class="typeIcon" src="img/24werkstatt.png">
-                <img id="{{typeItemId}}CompetenceDetail" class="typeIcon" src="img/Werkstatt.png">
-                <img id="{{typeItemId}}OfficialDetail" class="typeIcon" src="img/Ersatzteil.png">
-            </div>
+            <div class="col-xs-7 col-sm-7 col-md-7">{{wdType}}</div>
           </div>
         </li>
-        <li id="gpsDataLiId">
+        <li id="gpsDataLiId" ng-show="gpsData.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">GPS Data</div>
             <div class="col-xs-7 col-sm-7 col-md-7">{{gpsData}}</div>

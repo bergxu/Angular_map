@@ -21,7 +21,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		};
 		$scope.metadata = {
 			picklists: {
-				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 50000]
+				distance: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80]
 			},
 			distance: '20 km'
 		};
@@ -49,7 +49,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	};
 	$scope.showInfo = function(showId){
 		var str = 'this is an info block!';
-		$('#'+ showId).tooltip({title:str, placement:'bottom', html:true});
+		$('#'+ showId).tooltip({title:str, placement:'bottom', html:true, trigger:'click'});
+		$('.tooltip-inner').addClass('myClass');
 	};
 
 	$scope.showInfo('legendInfoMain');
@@ -365,7 +366,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 							state:data.Visit_State__c,
 							emergencyCall : data.Emergency_Phone_Number__c,
 							website : data.Website,
-							//emergencyCallNumber : data.Emergency_Phone_Number__c,
 							additionalName:data.Additional_Name__c,
 							wptype : data.Workshop_Partsdealer_Type__c,
 							id : data.Id
@@ -393,7 +393,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 						}
 
 						if(wptType.indexOf('Top Service Partner') >= 0){
-								setTimeout(function(){$('#'+myId+'TopService').removeClass('ng-hide');},100);   
+							setTimeout(function(){$('#'+myId+'TopService').removeClass('ng-hide');},100);   
 						}
 
 						if(wptType.indexOf('Service 24 Partner') >= 0){
@@ -556,6 +556,12 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.mapClick();
 	};
 
+	$scope.clearInputText = function(){
+		$('#searchInput').val('');
+		$('#searchInput').focus();
+		$scope.search ='';
+	};
+
 	$scope.menuBlockClick = function() {
 		refreshMap();
 		if ($scope.menuFlag) {
@@ -630,53 +636,31 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 		$scope.phoneNumber = marker.phone;
 		$scope.emergencyCallNumber = marker.emergencyCall;
-		$scope.website = marker.website;
+		$scope.detailwebsite = marker.website;
+		//$scope.detailwebsite = '02020202';
 		$scope.wdType = marker.wptype;
 		$scope.gpsData = marker.latitude +','+marker.longitude;
 
 		$scope.typeItemId = marker.id;
 
-		if(marker.wptype.indexOf('Top Service Partner') < 0){
-			setTimeout(function(){
-				$('#'+$scope.typeItemId+'TopServiceDetail').addClass('ng-hide');
-			},100); 
-		}
+		if(marker.wptype.indexOf('Top Service Partner') >= 0){
+			$scope.topServiceoo = true;
+		}else{$scope.topServiceoo = false;}
 
-		if(marker.wptype.indexOf('Service 24 Partner') < 0){
-			setTimeout(function(){
-				$('#'+$scope.typeItemId+'ServicetwofourDetail').addClass('ng-hide');
-			},100); 
-		}
+		if(marker.wptype.indexOf('Service 24 Partner') >= 0){
+			$scope.serviceTwooo = true;
+		}else{$scope.serviceTwooo = false;}
 
-		if(marker.wptype.indexOf('Competence') < 0){
-			setTimeout(function(){
-				$('#'+$scope.typeItemId+'CompetenceDetail').addClass('ng-hide');
-			},100); 
-		}
+		if(marker.wptype.indexOf('Competence') >= 0){ 
+			$scope.competenceoo = true;
+		}else{$scope.competenceoo = false;}
 
-		if(marker.wptype.indexOf('Official Partsdealer') < 0){
-			setTimeout(function(){
-				$('#'+$scope.typeItemId+'OfficialDetail').addClass('ng-hide');
-			},100); 
-		}
-
-		setNgShow($scope.accountName, 'accountNameLiId');
-		setNgShow($scope.additionalName, 'additionalNameLiId');
-		setNgShow($scope.phoneNumber, 'phoneNumLiId');
-		setNgShow($scope.physicalAddress, 'addressLiId');
-		setNgShow($scope.emergencyCallNumber, 'emergencyCallLiId');
-		setNgShow($scope.website, 'websiteLiId');
-		setNgShow($scope.wdType, 'typeLiId');
-		setNgShow($scope.gpsData, 'gpsDataLiId');
-
+		if(marker.wptype.indexOf('Official Partsdealer') >= 0){
+					$scope.officialoo = true; 
+		}else{$scope.officialoo = false;}
+ 
 	};
 
-
-	var setNgShow = function(obj, objId){
-		if(!obj){
-			$('#'+objId).addClass('ng-hide');
-		}
-	};
 
 	$scope.closeDetail = function(){
 		$('#detailView').fadeOut(100, function(){

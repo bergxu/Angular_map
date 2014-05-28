@@ -355,4 +355,16 @@
       padding-top: 25px;
     } 
 
+    .tooltip-inner{
+        max-width:420px;
+        background: white;
+        color: black;
+        border: 2px solid #E1AE2E; 
+        border-radius: 3px;
+    }
     
+    .tooltip.bottom .tooltip-arrow {
+      border-bottom-color: #E1AE2E;
+    }
+
+
