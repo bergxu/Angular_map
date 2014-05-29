@@ -262,15 +262,6 @@
       margin-top: 5px;
     }
 
-
-    .menuBlock{ 
-      opacity: 0.6;
-      display: none;
-      top:0px;
-      z-index:9999;
-      position: fixed;
-    }
-
     .markerBlock{
       opacity: 0.6;
       display: none;

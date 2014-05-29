@@ -165,70 +165,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 			$('.b').fadeIn(400);
 			$('.markerContent').fadeIn(400);
-		},
-		leftBodyShow : function() {
-			$('#myself').animate({
-				left: 250
-			}, 500);
-			$('#bottomBar').animate({
-				left: 250
-			}, 500);
-			$('.tab-content').animate({
-				left: 250
-			}, 500);
-			$('#menuTool').animate({
-				left: 250
-			}, 500);
-			$('#menuBlocak').show();
-			$('#menuBlocak').animate({
-				left: 250
-			}, 500);
-			$('#bottomDiv').animate({
-				left: 250
-			}, 500);
-			$('.leftMenu').show();
-			$('#loadDiv').fadeOut(500);
-			$('#mapAlert').fadeOut(500);
-			$('.b').fadeOut(500);
-			$('.markerContent').fadeOut(500);
-			$('#markerClickBlock').fadeOut(500);
-			setTimeout(function() {
-				$('#maplistArea').css('position', 'fixed');
-				$('#mapArea').css('position', 'fixed');
-			}, 500);
-
-
-			$scope.menuFlag = !$scope.menuFlag;
-		},
-		leftBodyHide : function() {
-			$('#myself').animate({
-				left: 0
-			}, 500);
-			$('#bottomBar').animate({
-				left: 0
-			}, 500);
-			$('.tab-content').animate({
-				left: 0
-			}, 500);
-			$('#menuTool').animate({
-				left: 0
-			}, 500);
-			$('#bottomDiv').animate({
-				left: 0
-			}, 500);
-			$('#menuBlocak').animate({
-				left: 0
-			}, 500);
-			$('#menuBlocak').hide();
-			setTimeout(function() {
-				$('.leftMenu').hide();
-			}, 500);
-
-			if ($scope.map.markers.length > 0) {
-				$('#maplistArea').css('position', '');
-			}
-
-			$scope.menuFlag = !$scope.menuFlag;
 		}
 	};
 
@@ -549,13 +485,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$('#searchInput').val('');
 		$('#searchInput').focus();
 		$scope.search ='';
-	};
-
-	$scope.menuBlockClick = function() {
-		refreshMap();
-		if ($scope.menuFlag) {
-			viewHelp.leftBodyHide();
-		}
 	};
 
 	$scope.brandClick = function() {
