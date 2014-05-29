@@ -86,7 +86,7 @@
           </marker>
 
         </google-map>
-        <span>
+        <span id="mapInfo" data-toggle="modal" data-target="#myModal">
           <img style="position:absolute;right:20px;bottom:20px;" src="img/info.png" >
         </span> 
 
@@ -109,12 +109,8 @@
               <div class="addressDiv" ng-show="listItem.country">
                 <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}
               </div>
-
               <div class="iconDiv">
-                <img id="{{listItem.id}}TopService" class="ng-hide" src="img/TopService.png">
-                <img id="{{listItem.id}}Servicetwofour" class="ng-hide" src="img/24werkstatt.png">
-                <img id="{{listItem.id}}Competence" class="ng-hide" src="img/Werkstatt.png">
-                <img id="{{listItem.id}}Official" class="ng-hide" src="img/Ersatzteil.png">
+                <img src="{{listItem.listIconSrc}}">
               </div>
               <div class="lineDiv"></div>
               <div class="telDiv" ng-show="listItem.phone">
@@ -124,6 +120,9 @@
               </div>
             </li>
           </ul>
+          <span id="mapInfo" data-toggle="modal" data-target="#myModal">
+              <img style="position:absolute;right:20px;bottom:20px;" src="img/info.png" >
+          </span> 
         </div>
         <div style="height:70px;width:100%;"></div>
       </div>
@@ -136,7 +135,7 @@
 <!-- main menu-->
   <div id="menuView" class="mainViewBlock" style="height:{{blockHeight}}px;">
       <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
-          <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;">
+          <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" data-toggle="modal" data-target="#myModal">
             <img  src="img/info_white.png" >
           </div> 
           <a class="text-right" style="">
@@ -168,7 +167,7 @@
             <img style="margin-left:10px;" src="img/back1_white.png" >
           </span> 
         </div>
-        <div id="legendInfoDetail" style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" >
+        <div id="legendInfoDetail" style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" data-toggle="modal" data-target="#myModal">
           <span >
             <img style="margin-left:10px;" src="img/info_white.png" >
           </span> 
@@ -180,10 +179,7 @@
          <li style="padding-bottom:5px;">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">
-                <img ng-show="topServiceoo" src="img/TopService.png">
-                <img ng-show="serviceTwooo" src="img/24werkstatt.png">
-                <img ng-show="competenceoo" src="img/Werkstatt.png">
-                <img ng-show="officialoo" src="img/Ersatzteil.png">
+                <img src="{{detailIconSrc}}">
             </div>
             <div class="col-xs-7 col-sm-7 col-md-7">
               <div id="accountNameLiId" ng-show="accountName.length > 0 ">{{accountName}}</div>
@@ -236,6 +232,26 @@
       </ul>
     </div>
  </div>
+
+
+
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

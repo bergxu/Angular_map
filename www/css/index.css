@@ -221,19 +221,20 @@
       opacity: 0.6;
       display: none;
       top:0px;
-      z-index:9999;
+      z-index:1030;
       position: fixed;
       width: 100%;
       background: #EBEBEB;
     }
 
     .mainViewBlock{
-            
+      display: block;        
       padding-top: 80px;
       padding-left: 5%;
       padding-right: 5%;
       top:0px;
-      z-index:9999;
+      left:0px;
+      z-index:1030;
       position: fixed;
       width: 100%;
       background: #3d3e3e;
@@ -242,7 +243,7 @@
     .detailViewBlock{
       display: none;
       top:0px;
-      z-index:9999;
+      z-index:1030;
       position: fixed;
       width: 100%;
       background: #EBEBEB;
@@ -361,10 +362,11 @@
         color: black;
         border: 2px solid #E1AE2E; 
         border-radius: 3px;
+        width: 400px;
+        height: 600px;
     }
     
-    .tooltip.bottom .tooltip-arrow {
-      border-bottom-color: #E1AE2E;
+     .tooltip-arrow {
+      display: none;
     }
-
 
