@@ -363,8 +363,13 @@
 
     .modal-content{
       top:40px;
-      padding: 10px;
+/*      height:100px;
+      overflow:auto;
+      padding:50px;*/
     }
+
+    .incontainer{overflow:hidden;top:40px;}
+    .outcontainer{height:100px;overflow:auto;}
 
     #websiteId{
       white-space:nowrap;

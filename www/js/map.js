@@ -254,8 +254,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'lat': $scope.getDataLocation.latitude + '',
 				'lng': $scope.getDataLocation.longitude + '',
 				'distanceUnit': 'km',
-				//'distance': utility.parseDistance($scope.metadata.distance),
-				'distance': '50000',
+				'distance': utility.parseDistance($scope.metadata.distance),
+				//'distance': '50000',
 				'industries' :$scope.clickParameter 
 			};
 
@@ -538,10 +538,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	$scope.onMarkerClicked = function(marker) {
 		$('#detailView').fadeIn(100);
 
-		if($('#websiteId').height() > 30){
-			$('#websiteId').html($('#websiteId').html().substring(0,20));
-		}
-
 		$scope.accountName = marker.name;
 		$scope.additionalName = marker.additionalName;
 		var markerStreet = typeof(marker.street) === 'undefined' ? '' : marker.street;
@@ -550,8 +546,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		var markerState = typeof(marker.state) === 'undefined' ? '' : marker.state;
 		var markerCountry = typeof(marker.country) === 'undefined' ? '' : marker.country;
 		$scope.physicalAddress = markerStreet + ' ' + markerCity + ' ' + markerZipcode+ ' ' +markerState+ ' ' +markerCountry;
-
-		alert($('#websiteId').width());
 
 		$scope.phoneNumber = marker.phone;
 		$scope.emergencyCallNumber = marker.emergencyCall;
