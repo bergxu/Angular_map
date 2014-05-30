@@ -551,15 +551,14 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		var markerCountry = typeof(marker.country) === 'undefined' ? '' : marker.country;
 		$scope.physicalAddress = markerStreet + ' ' + markerCity + ' ' + markerZipcode+ ' ' +markerState+ ' ' +markerCountry;
 
+		alert($('#websiteId').width());
+
 		$scope.phoneNumber = marker.phone;
 		$scope.emergencyCallNumber = marker.emergencyCall;
 		$scope.detailwebsite = marker.website;
-		//$scope.detailwebsite = '02020202';
 		$scope.wdType = marker.wptype;
 		$scope.gpsData = marker.latitude +','+marker.longitude;
-		$scope.detailIconSrc = marker.listIconSrc;
-
- 
+		$scope.detailIconSrc = marker.listIconSrc; 
 	};
 
 
