@@ -39,7 +39,7 @@
         <tr>
           <td colspan="2" style="position: relative;">
             <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="Input Address">
-            <span class="text-right" ng-show="search.length > 0" style=" position: absolute; top: 9px;width: 40px; " ng-click="clearInputText()"><img src="img/removeInput.png"></span>
+            <span class="text-right" ng-show="search.length > 0" style=" position: absolute; top: 5px;width: 40px;height:40px; right: 5px;" ng-click="clearInputText()"><img width="22px"; style="margin-right:9px;margin-top:9px;" src="img/removeInput.png"></span>
           </td>
         </tr>
         <tr>
@@ -86,8 +86,8 @@
           </marker>
 
         </google-map>
-        <span data-toggle="modal" data-target=".bs-example-modal-lg">
-          <img style="position:fixed;right:20px;bottom:85px;" src="img/info.png" >
+        <span ng-click="clickInfo()">
+          <img style="position:fixed;right:20px;top:{{iconInfo}}px;" src="img/info.png" >
         </span> 
 
         <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
@@ -105,12 +105,13 @@
         <div>
           <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
             <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;" ng-click="onMarkerClicked(listItem)">
-              <div class="nameDiv" ng-show="listItem.name">{{listItem.name}}</div>
+                <div class="row">
+                  <div class="col-xs-2 col-sm-2 col-md-2" class="iconDiv" style="padding-left:2px;"><img src="{{listItem.listIconSrc}}"></div>
+                  <div class="col-xs-10 col-sm-10 col-md-10" class="nameDiv"><strong>{{listItem.name}}</strong></div>
+                </div>
+
               <div class="addressDiv" ng-show="listItem.country">
-                <img src="img/home_icon.png">&nbsp;{{listItem.street}}&nbsp;{{listItem.city}}&nbsp;{{listItem.country}}
-              </div>
-              <div class="iconDiv">
-                <img src="{{listItem.listIconSrc}}">
+                {{listItem.street}}<br>{{listItem.city}}<br>{{listItem.country}}
               </div>
               <div class="lineDiv"></div>
               <div class="telDiv" ng-show="listItem.phone">
@@ -120,9 +121,6 @@
               </div>
             </li>
           </ul>
-          <span data-toggle="modal" data-target=".bs-example-modal-lg">
-              <img style="position:fixed;right:20px;bottom:85px;" src="img/info.png" >
-          </span> 
         </div>
         <div style="height:70px;width:100%;"></div>
       </div>
@@ -134,7 +132,7 @@
 <!-- main menu-->
   <div id="menuView" class="mainViewBlock" style="height:{{blockHeight}}px;">
       <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
-          <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" data-toggle="modal" data-target=".bs-example-modal-lg">
+          <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" ng-click="clickInfo()">
             <img  src="img/info_white.png" >
           </div> 
           <a class="text-right" style="">
@@ -166,7 +164,7 @@
             <img style="margin-left:10px;" src="img/back1_white.png" >
           </span> 
         </div>
-        <div id="legendInfoDetail" style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" data-toggle="modal" data-target=".bs-example-modal-lg">
+        <div id="legendInfoDetail" style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="clickInfo()">
           <span >
             <img style="margin-left:10px;" src="img/info_white.png" >
           </span> 
@@ -177,25 +175,28 @@
        <ul class="detailUl" >
          <li style="padding-bottom:5px;">
           <div class="row">
-            <div class="col-xs-5 col-sm-5 col-md-5">
+            <div class="col-xs-2 col-sm-2 col-md-2">
                 <img src="{{detailIconSrc}}">
             </div>
-            <div class="col-xs-7 col-sm-7 col-md-7">
-              <div id="accountNameLiId" ng-show="accountName.length > 0 ">{{accountName}}</div>
-              <div id="additionalNameLiId" ng-show="additionalName.length > 0 ">{{additionalName}}</div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+              <div id="accountNameLiId" ng-show="accountName.length > 0 "><strong>{{accountName}}</strong></div>
+              <div id="additionalNameLiId" ng-show="additionalName.length > 0 "><strong>{{additionalName}}</strong></div>
             </div>
           </div>
 
         </li> 
-        <li id="addressLiId" ng-show="physicalAddress.length > 0 ">
+        <li id="addressLiId" ng-show="markerCountry.length > 0 ">
           <div class="row">
-            <div class="col-xs-5 col-sm-5 col-md-5">Physical Account Address</div>
-            <div class="col-xs-7 col-sm-7 col-md-7">{{physicalAddress}}</div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              {{markerStreet}}<br>
+              {{markerCity}}&nbsp;{{markerZipcode}}&nbsp;{{markerState}}<br>
+              {{markerCountry}}
+            </div>
           </div>
         </li>
         <li id="phoneNumLiId" ng-show="phoneNumber.length > 0 ">
           <div class="row">
-            <div class="col-xs-5 col-sm-5 col-md-5">Phone Number</div>
+            <div class="col-xs-5 col-sm-5 col-md-5">Phone</div>
             <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></div>
           </div>             
         </li>
@@ -213,7 +214,7 @@
         <li id="typeLiId" ng-show="wdType.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Type</div>
-            <div class="col-xs-7 col-sm-7 col-md-7">{{wdType}}</div>
+            <div class="col-xs-7 col-sm-7 col-md-7"><p>{{wdType}}</p></div>
           </div>
         </li>
         <li id="gpsDataLiId" ng-show="gpsData.length > 0 ">
@@ -234,7 +235,7 @@
 
 
 
- <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+ <!-- <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content outcontainer">
       <div class="incontainer">
@@ -262,7 +263,33 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+  <div class="infoBlock" ng-click="clickInfoBlock()"></div>
+  <div class="outcontainer">
+  <span style="position: fixed;right: 6%;top:11%"><img width="25px;" src="img/removeInput.png" ng-click="clickInfoBlock()"></span>
+      <div >
+        <img width="25px;" src="img/TopService.png"><span>- Top Service Partner</span><br>
+        <img width="25px;" src="img/24werkstatt.png"><span>- Service 24 Partner</span><br>
+        <img width="25px;" src="img/Werkstatt.png"><span>- Competence Partner</span><br>
+        <img width="25px;" src="img/Ersatzteil.png"><span>- Official Partsdealer</span>
+      </div>
+      <div>
+        <div>Responsible for the presentation</div>
+        <div>SAF-HOLLAND S.A.</div>
+        <p><strong>Domicile of the company</strong></p>
+        <div>68-70, boulevard de la Pétrusse</div>
+        <div>L-2320 Luxembourg</div>
+        <div>Luxembourg</div>
+        <p><span class="glyphicon glyphicon-envelope"></span> info@safholland.de</p>
+        <p><span class="glyphicon glyphicon-share"></span> www.safholland.com</p>
+        <p><strong>Trade register number: section B 113 090</strong></p>
+        <p><strong>VAT identification number: LU23748432</strong></p>
+        <div>Our website contains links to the websites of third parties (“external links”). As the content of these websites is not under our control, we cannot assume any liability for such external content. In all cases, the provider of information of the linked websites is liable for the content and accuracy of the information provided. At the point in time when the links were placed, no infringements of the law were recognisable to us. As soon as an infringement of the law becomes known to us, we will immediately remove the link in question. </div>
+        <p>Copyright © SAF-HOLLAND S.A. </p>
+        <p>All rights reserved. All data within the SAF HOLLAND domain are copyright protected and may not be used without the consent of the legal owner.</p>
+    </div>
+  </div>
 
 
 

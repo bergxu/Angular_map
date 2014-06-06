@@ -12,7 +12,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.windowWidth = window.innerWidth - 70;
 		$scope.alertHeight = window.innerHeight / 2;
 		$scope.bottomHeight = window.innerHeight - 75;
-
+        $scope.iconInfo = window.innerHeight -135;
 		// data parameters
 		$scope.search = '';
 		$scope.getDataLocation = {
@@ -44,6 +44,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.windowWidth = window.innerWidth - 70;
 		$scope.alertHeight = window.innerHeight / 2;
 		$scope.bottomHeight = window.innerHeight - 75;
+		$scope.iconInfo = window.innerHeight -135;
 		if (onSizeFlag) {
 			$scope.$apply();
 		}
@@ -200,7 +201,9 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 					$scope.myCurrentLocation = results[0].formatted_address;
 					if (callback) callback();
 				} else {
-					alert('Sorry, this search produced no results.');
+					viewHelp.stopLoading();
+					viewHelp.alertShow('Invalid address or no net!');
+					
 				}
 			});
 		},
@@ -218,7 +221,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 							longitude: loc.lng()
 						});
 					} else {
-						alert('Sorry, this search produced no results.');
+						viewHelp.stopLoading();
+						viewHelp.alertShow('Invalid address or no net!');
 					}
 				});
 			}
@@ -255,7 +259,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 				'lng': $scope.getDataLocation.longitude + '',
 				'distanceUnit': 'km',
 				'distance': utility.parseDistance($scope.metadata.distance),
-				//'distance': '50000',
+				//'distance': '5000',
 				'industries' :$scope.clickParameter 
 			};
 
@@ -312,7 +316,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 						var wptType = data.Workshop_Partsdealer_Type__c;
 						if($scope.clickParameter === 'Workshop'){
-							markerObj.wptype = topsStr + serviceTwoFour + competenceStr + officialStr;
+							//markerObj.wptype = [topsStr, serviceTwoFour, competenceStr, officialStr];
+							markerObj.wptype = topsStr+" "+serviceTwoFour+" "+competenceStr +" "+ officialStr;
 							if(wptType.indexOf('Top Service Partner') >= 0){
 								markerObj.accountMarkericon = 'img/TopService.png';
 								markerObj.listIconSrc = 'img/TopService.png';
@@ -326,7 +331,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 							}
 
 						}else{
-							markerObj.wptype =officialStr + topsStr + serviceTwoFour + competenceStr ;
+							//markerObj.wptype =[officialStr, topsStr, serviceTwoFour, competenceStr];
+							markerObj.wptype =officialStr+" "+topsStr+" "+serviceTwoFour+" "+competenceStr;
 							if(wptType.indexOf('Official Partsdealer') >= 0){
 								markerObj.accountMarkericon = 'img/Ersatzteil.png';
 								markerObj.listIconSrc = 'img/Ersatzteil.png';
@@ -403,6 +409,8 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 			// geo code latlng to address
 			// to get current address
 			mapUtility.geoCodeToAddress(latlng, function() {
+				$scope.search = $scope.myCurrentLocation;
+				$('#searchInput').attr('value', $scope.myCurrentLocation);
 				$scope.$apply();
 			});
 
@@ -422,6 +430,16 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.clickParameter = 'Partsdealer';
 		$('#menuView').fadeOut(100);
 	};
+               
+    $scope.clickInfo = function(){
+               $('.infoBlock').fadeIn('200');
+               $('.outcontainer').fadeIn('300');
+    };
+               
+    $scope.clickInfoBlock = function(){
+               $('.outcontainer').fadeOut('200');
+               $('.infoBlock').fadeOut('300');
+    };
 
 	$scope.websiteClick = function(){
 		window.open('http://'+$scope.website , '_blank', 'EnableViewPortScale=yes');
@@ -540,12 +558,12 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 		$scope.accountName = marker.name;
 		$scope.additionalName = marker.additionalName;
-		var markerStreet = typeof(marker.street) === 'undefined' ? '' : marker.street;
-		var markerCity = typeof(marker.city) === 'undefined' ? '' : marker.city;
-		var markerZipcode = typeof(marker.zipcode) === 'undefined' ? '' : marker.zipcode;
-		var markerState = typeof(marker.state) === 'undefined' ? '' : marker.state;
-		var markerCountry = typeof(marker.country) === 'undefined' ? '' : marker.country;
-		$scope.physicalAddress = markerStreet + ' ' + markerCity + ' ' + markerZipcode+ ' ' +markerState+ ' ' +markerCountry;
+		$scope.markerStreet = typeof(marker.street) === 'undefined' ? '' : marker.street.trim();
+		$scope.markerCity = typeof(marker.city) === 'undefined' ? '' : marker.city.trim();
+		$scope.markerZipcode = typeof(marker.zipcode) === 'undefined' ? '' : marker.zipcode.trim();
+		$scope.markerState = typeof(marker.state) === 'undefined' ? '' : marker.state.trim();
+		$scope.markerCountry = typeof(marker.country) === 'undefined' ? '' : marker.country.trim();
+		//$scope.physicalAddress = markerStreet + ' ' + markerCity + ' ' + markerZipcode+ ' ' +markerState+ ' ' +markerCountry;
 
 		$scope.phoneNumber = marker.phone;
 		$scope.emergencyCallNumber = marker.emergencyCall;
@@ -577,12 +595,12 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 (function(){
 	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-		document.addEventListener('deviceready', function () {
+		document.addEventListener('deviceready', function () {-
 			angular.bootstrap(document, ['app']);
 			setTimeout(function() {
 				navigator.splashscreen.hide();
 			}, 500);
-
+                                  
 		},false);
 	} else {
 	  angular.bootstrap(document, ['app']); //this is the browser
