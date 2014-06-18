@@ -63,7 +63,7 @@
 
     <!-- buttom menu -->
     <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%;top:{{bottomHeight}}px;">
-      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()">Map</button>
+      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()" disabled>Map</button>
       <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
     </nav>
 
@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px; position: fixed;">
+      <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px; position: fixed;overflow:scroll;">
         <div>
           <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
             <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;" ng-click="onMarkerClicked(listItem)">
@@ -122,7 +122,6 @@
             </li>
           </ul>
         </div>
-        <div style="height:70px;width:100%;"></div>
       </div>
     </div>
   </div>
@@ -130,7 +129,7 @@
   <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
 
 <!-- main menu-->
-  <div id="menuView" class="mainViewBlock" style="height:{{blockHeight}}px;">
+  <div id="menuView" class="mainViewBlock" style="height:{{mainBlockHeight}}px;">
       <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
           <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" ng-click="clickInfo()">
             <img  src="img/info_white.png" >
@@ -156,7 +155,7 @@
   </div>
 
   <!--detail view-->
- <div id="detailView" class="detailViewBlock" style="padding-top: 75px;height:{{blockHeight}}px;">
+ <div id="detailView" class="detailViewBlock" style="padding-top: 75px;height:{{detailBlockHeight}}px;">
 
      <nav id="myself" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="closeDetail()">
@@ -214,7 +213,7 @@
         <li id="typeLiId" ng-show="wdType.length > 0 ">
           <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">Type</div>
-            <div class="col-xs-7 col-sm-7 col-md-7"><p>{{wdType}}</p></div>
+            <div class="col-xs-7 col-sm-7 col-md-7"><p ng-repeat="item in wdType">{{item}}</p></div>
           </div>
         </li>
         <li id="gpsDataLiId" ng-show="gpsData.length > 0 ">
@@ -266,8 +265,9 @@
 </div> -->
 
   <div class="infoBlock" ng-click="clickInfoBlock()"></div>
+  <span class="closeIcon" style="position: fixed;right: 6%;top:11%;z-index: 1223;display:none;"><img width="25px;" src="img/removeInput.png" ng-click="clickInfoBlock()"></span>
   <div class="outcontainer">
-  <span style="position: fixed;right: 6%;top:11%"><img width="25px;" src="img/removeInput.png" ng-click="clickInfoBlock()"></span>
+      
       <div >
         <img width="25px;" src="img/TopService.png"><span>- Top Service Partner</span><br>
         <img width="25px;" src="img/24werkstatt.png"><span>- Service 24 Partner</span><br>
