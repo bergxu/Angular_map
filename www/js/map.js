@@ -1,6 +1,38 @@
 'use strict';
 
-var app = angular.module('app', ['google-maps']);
+var app = angular.module('app', ['google-maps', 'pascalprecht.translate']);
+
+
+app.config(['$translateProvider', function ($translateProvider) {
+	var getLanData = function(){
+		//$translateProvider.lanArray = [];
+		$.getJSON( 'data/globalData.json', function( data ) {
+		  		angular.forEach(data, function(dataItem) {
+				      $translateProvider.translations(dataItem.lanType, dataItem.lanContent);
+				  });
+	 	 },function(){
+	 	 	console.log('error');
+	 	 });
+	};
+	getLanData();
+
+//TODO   set then setting language
+ 
+   $translateProvider.preferredLanguage('de');
+
+
+
+  // function checkLanguage() {
+  //     navigator.globalization.getPreferredLanguage(
+  //       function (language) {alert('language: ' + language.value + '\n');},
+  //       function () {alert('Error getting language\n');}
+  //     );
+  //   }
+  //   checkLanguage();
+}]);
+
+
+
 app.controller('appCtrl', function($rootScope, $scope, $http) {
 	//google.maps.visualRefresh = true;
 	// init
@@ -37,7 +69,6 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 	})();
 
 	var resize = function(onSizeFlag) {
-		console.log(' window onresize ');
 		if($('#menuView').css('display') === 'block'){
 			$scope.mainBlockHeight = window.innerHeight;
 		}
@@ -59,6 +90,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$('.angular-google-map-container').css('height', $scope.height + 'px');
 	};
 	resize(false);
+	var scanner = cordova.require('com.phonegap.plugins.barcodescanner.barcodescanner');
 	window.onresize = function() {
 		resize(true);
 	};
@@ -442,12 +474,16 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 
 	$scope.workshopSearch = function(){
 		$scope.clickParameter = 'Workshop';
+		$scope.search = $scope.myCurrentLocation;
+		$('#searchInput').attr('value', $scope.myCurrentLocation);
 		$('#menuView').fadeOut(100);
 		
 	};
 
 	$scope.partsdealerSearch = function(){
 		$scope.clickParameter = 'Partsdealer';
+		$scope.search = $scope.myCurrentLocation;
+		$('#searchInput').attr('value', $scope.myCurrentLocation);
 		$('#menuView').fadeOut(100);
 	};
                
@@ -474,7 +510,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.blockClick();
 		if($('#maplistArea').hasClass('active') && !$('#maplistArea').hasClass('loadonlist')){
             $('#clickMap').tab('show');
-            $('#maplistArea').addClass('loadonlist')
+            $('#maplistArea').addClass('loadonlist');
        }
 		$('#menuTool').animate({
 			top: '-110px'
@@ -605,7 +641,7 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$scope.emergencyCallNumber = marker.emergencyCall;
 		$scope.detailwebsite = marker.website;
 		$scope.wdType = new Array();
-       for(var i = 0; i < marker.wptype.length;i++){
+       for(var i = 0; i < marker.wptype.length; i++){
             marker.wptype[i].length>0 ? $scope.wdType.push(marker.wptype[i]) : null;
        }
 		$scope.gpsData = marker.latitude +','+marker.longitude;
@@ -630,13 +666,26 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		 window.open('https://portal.saf-axles.com/', '_blank', 'EnableViewPortScale=yes');
               
 	};
+	
+	$scope.scannerCode = function(){
+		scanner.scan( function (result) { 
+            console.log("Scanner result: \n" +
+                "text: " + result.text + "\n" +
+                "format: " + result.format + "\n" +
+                "cancelled: " + result.cancelled + "\n");
+            console.log(result);
+        }, function (error) { 
+            console.log("Scanning failed: ", error); 
+        } );
+		
+	};
 });
 
 (function(){
 	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-		document.addEventListener('deviceready', function () {-
+		document.addEventListener('deviceready', function () {
 			angular.bootstrap(document, ['app']);
-			setTimeout(function() {
+			setTimeout(function(){
 				navigator.splashscreen.hide();
 			}, 500);
                                   
