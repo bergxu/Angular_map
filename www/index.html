@@ -122,7 +122,6 @@
             </li>
           </ul>
         </div>
-        <div style="height:70px;width:100%;"></div>
       </div>
     </div>
   </div>
@@ -132,14 +131,15 @@
 <!-- main menu-->
   <div id="menuView" class="mainViewBlock" style="height:{{mainBlockHeight}}px;">
       <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
-        <!--   <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" ng-click="clickInfo()">
+          <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" ng-click="clickInfo()">
             <img  src="img/info_white.png" >
-          </div> --> 
+          </div> 
           <a class="text-right" style="">
             <img style=" width:175px;" src="img/logo.png">
           </a>  
       </nav>
- <!--   <a id="mainMenuBtns" class="btn btn-default" ng-click="workshopSearch()">
+
+      <a id="mainMenuBtns" class="btn btn-default" ng-click="workshopSearch()">
           <img style="height:30px;" src="img/tool.png">&nbsp;&nbsp;Workshop
       </a>
       <a id="mainMenuBtns" class="btn btn-default" ng-click="partsdealerSearch()">
@@ -151,62 +151,7 @@
       <a id="mainMenuBtns" class="btn btn-default" href="tel:{{emergencyCall}}">
         <img style="height:30px;" src="img/phone.png">&nbsp;&nbsp;Emergency Call
       </a>
-    <a id="mainMenuBtns" class="btn btn-default" ng-click="scannerCode()">
-        {{ 'TITLE' | translate }}<br>
-        {{ 'FOO' | translate }}
-      </a>
 
-      <a id="mainMenuBtns" class="btn btn-default" ng-click="scannerCode()">
-        Scanner
-      </a>
-       -->
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
-          <tr>
-            <td class="Workshop" ng-click="workshopSearch()">
-              <button class="">
-                <img  src="img/Werkstatt.png" width="45px;"><br><br>
-                <p>Workshop</p>
-              </button>
-            </td>
-            <td class="Partsdealer" ng-click="partsdealerSearch()">
-              <button class="">
-                <img src="img/Ersatzteil.png" width="45px;"><br><br>
-                <p>Partsdealer</p>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="QRCodeScanner" ng-click="scannerCode()">
-              <button class="">
-                <img src="img/CodeScanner.png" width="45px;"><br><br>
-                <p>QR Code Scanner</p>
-              </button>
-            </td>
-            <td class="Pad" ng-click="partDemandClick()">
-              <button class="">
-                <img src="img/pod.png" width="70px;"><br><br>
-                <p>Parts On Demand Shop</p>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="EmergencyCall" >
-              <a href="tel:10086" style="height:100%">
-                <button class="">
-                  <img src="img/call.png" width="45px;"><br><br>
-                  <p>Emergency Call</p>
-                </button>
-              </a>
-            </td>
-            <td class="Impressum" ng-click="clickInfo()">
-              <button class="" >
-                  <img src="img/impressum.png" width="45px；"><br><br>
-                  <p>Impressum</p>
-              </button>
-            </td>
-          </tr>
-       
-      </table>
   </div>
 
   <!--detail view-->
@@ -287,6 +232,38 @@
     </div>
  </div>
 
+
+
+ <!-- <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content outcontainer">
+      <div class="incontainer">
+        <div >
+          <img width="25px;" src="img/TopService.png"><span>- Top Service Partner</span><br>
+          <img width="25px;" src="img/24werkstatt.png"><span>- Service 24 Partner</span><br>
+          <img width="25px;" src="img/Werkstatt.png"><span>- Competence Partner</span><br>
+          <img width="25px;" src="img/Ersatzteil.png"><span>- Official Partsdealer</span>
+        </div>
+        <div>
+          <div>Responsible for the presentation</div>
+          <div>SAF-HOLLAND S.A.</div>
+          <p><strong>Domicile of the company</strong></p>
+          <div>68-70, boulevard de la Pétrusse</div>
+          <div>L-2320 Luxembourg</div>
+          <div>Luxembourg</div>
+          <p><span class="glyphicon glyphicon-envelope"></span> info@safholland.de</p>
+          <p><span class="glyphicon glyphicon-share"></span> www.safholland.com</p>
+          <p><strong>Trade register number: section B 113 090</strong></p>
+          <p><strong>VAT identification number: LU23748432</strong></p>
+          <div>Our website contains links to the websites of third parties (“external links”). As the content of these websites is not under our control, we cannot assume any liability for such external content. In all cases, the provider of information of the linked websites is liable for the content and accuracy of the information provided. At the point in time when the links were placed, no infringements of the law were recognisable to us. As soon as an infringement of the law becomes known to us, we will immediately remove the link in question. </div>
+          <p>Copyright © SAF-HOLLAND S.A. </p>
+          <p>All rights reserved. All data within the SAF HOLLAND domain are copyright protected and may not be used without the consent of the legal owner.</p>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div> -->
+
   <div class="infoBlock" ng-click="clickInfoBlock()"></div>
   <span class="closeIcon" style="position: fixed;right: 6%;top:11%;z-index: 1223;display:none;"><img width="25px;" src="img/removeInput.png" ng-click="clickInfoBlock()"></span>
   <div class="outcontainer">
@@ -324,7 +301,6 @@
   <!--script type="text/javascript" src="libs/angular-1.2.16.min.js"></script-->
   <script type="text/javascript" src="libs/underscore-min.js"></script>
   <script type="text/javascript" src="libs/angular-google-maps.js"></script>
-  <script type="text/javascript" src="libs/angular-translate.js"></script>
   <script type="text/javascript" src="libs/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="libs/iscroll.js"></script>
