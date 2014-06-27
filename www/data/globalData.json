@@ -1,5 +1,5 @@
 [{
-	"lanType":"zh-CN",
+	"lanType":"zh",
 	"lanContent": {
 		"workshopProvider":"车间",
 		"partsdealerProvider":"经销商",
@@ -16,13 +16,13 @@
 		}
  },
  {
- 	"lanType": "en-US",
+ 	"lanType": "en",
  	"lanContent": {
  		"workshopProvider":"Workshop",
 		"partsdealerProvider":"Partsdealer",
 		"QRScannerProvider":"QR Code Scanner",
 		"podProvider":"Parts On Demand Shop",
-		"emergencyCallProvider":"Notruf",
+		"emergencyCallProvider":"Emergency Call",
 		"impressumProvider":"Impressum",
 		"mapBtnProvider":"Map",
 		"mapListBtnProvider":"List",
@@ -33,13 +33,13 @@
  	}
  },
  {
- 	"lanType" : "de-DE",
+ 	"lanType" : "de",
  	"lanContent": {
  		"workshopProvider":"Werkstatt",
 		"partsdealerProvider":"Teilehändler",
 		"QRScannerProvider":"QR Code",
 		"podProvider":"Parts On Demand Shop",
-		"emergencyCallProvider":"Emergency Call",
+		"emergencyCallProvider":"Notruf",
 		"impressumProvider":"Impressum",
 		"mapBtnProvider":"Karte",
 		"mapListBtnProvider":"Liste",

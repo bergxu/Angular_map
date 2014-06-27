@@ -38,14 +38,14 @@
       <table style="width:100%;">
         <tr>
           <td colspan="2" style="position: relative;">
-            <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="Input Address">
+            <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="{{'placeHolderAddressProvider' | translate}}">
             <span class="text-right" ng-show="search.length > 0" style=" position: absolute; top: 5px;width: 40px;height:40px; right: 5px;" ng-click="clearInputText()"><img width="22px"; style="margin-right:9px;margin-top:9px;" src="img/removeInput.png"></span>
           </td>
         </tr>
         <tr>
           <td style="width:150px;" ng-click="exchangePostion()">
             <span style="font-size:20px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;
-            <span style="font-size:20px;color:green">Locate Me</span>
+            <span style="font-size:20px;color:green">{{'locateMeProvider' | translate}}</span>
           </td>
           <td>
             <select id="selectedDistance" ng-model="metadata.distance" class="form-control">
@@ -55,7 +55,7 @@
         </tr>
         <tr>
           <td colspan="3">
-            <button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default">Go</button>
+            <button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default">{{'goProvider' | translate}}</button>
           </td>
         </tr>
       </table>
@@ -63,8 +63,8 @@
 
     <!-- buttom menu -->
     <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%;top:{{bottomHeight}}px;">
-      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()" disabled>Map</button>
-      <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">List</button>
+      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()" disabled>{{'impressumProvider' | translate}}</button>
+      <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">{{'impressumProvider' | translate}}</button>
     </nav>
 
     <div id="bottomDiv" style="width:100%;height:75px;background:#EBEBEB;position:fixed;bottom:0px;"></div>
@@ -139,39 +139,19 @@
             <img style=" width:175px;" src="img/logo.png">
           </a>  
       </nav>
- <!--   <a id="mainMenuBtns" class="btn btn-default" ng-click="workshopSearch()">
-          <img style="height:30px;" src="img/tool.png">&nbsp;&nbsp;Workshop
-      </a>
-      <a id="mainMenuBtns" class="btn btn-default" ng-click="partsdealerSearch()">
-        <img style="height:30px;" src="img/hand.png">&nbsp;&nbsp;Partsdealer
-      </a>
-      <a id="mainMenuBtns" class="btn btn-default" ng-click="partDemandClick()">
-        <img style="height:30px;" src="img/pod.png">&nbsp;&nbsp;Parts On Demand Shop
-      </a>
-      <a id="mainMenuBtns" class="btn btn-default" href="tel:{{emergencyCall}}">
-        <img style="height:30px;" src="img/phone.png">&nbsp;&nbsp;Emergency Call
-      </a>
-    <a id="mainMenuBtns" class="btn btn-default" ng-click="scannerCode()">
-        {{ 'TITLE' | translate }}<br>
-        {{ 'FOO' | translate }}
-      </a>
 
-      <a id="mainMenuBtns" class="btn btn-default" ng-click="scannerCode()">
-        Scanner
-      </a>
-       -->
       <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
           <tr>
             <td class="Workshop" ng-click="workshopSearch()">
               <button class="">
                 <img  style="margin-top:10px" src="img/Werkstatt.png" width="45px;"><br><br>
-                <p>Workshop</p>
+                <p>{{'workshopProvider' | translate}}</p>
               </button>
             </td>
             <td class="Partsdealer" ng-click="partsdealerSearch()">
               <button class="">
                 <img style="margin-top:10px" src="img/Ersatzteil.png" width="45px;"><br><br>
-                <p>Partsdealer</p>
+                <p>{{'partsdealerProvider' | translate}}</p>
               </button>
             </td>
           </tr>
@@ -179,13 +159,13 @@
             <td class="QRCodeScanner" ng-click="scannerCode()">
               <button class="">
                 <img style="margin-top:10px" src="img/CodeScanner.png" width="45px;"><br><br>
-                <p>QR Code Scanner</p>
+                <p>{{'QRScannerProvider' | translate}}</p>
               </button>
             </td>
             <td class="Pad" ng-click="partDemandClick()">
               <button class="">
                 <img style="margin-top:10px" src="img/pod.png" width="45px;"><br><br>
-                <p>Parts On Demand Shop</p>
+                <p>{{'podProvider' | translate}}</p>
               </button>
             </td>
           </tr>
@@ -194,14 +174,14 @@
               <a href="tel:{{emergencyCall}}" style="height:100%">
                 <button class="">
                   <img style="margin-top:10px" src="img/call.png" width="45px;"><br><br>
-                  <p>Emergency Call</p>
+                  <p>{{'emergencyCallProvider' | translate}}</p>
                 </button>
               </a>
             </td>
             <td class="Impressum" ng-click="clickInfo()">
               <button class="" >
                   <img style="margin-top:10px" src="img/impressum.png" width="45px；"><br><br>
-                  <p>Impressum</p>
+                  <p>{{'impressumProvider' | translate}}</p>
               </button>
             </td>
           </tr>

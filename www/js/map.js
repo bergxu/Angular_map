@@ -4,33 +4,42 @@ var app = angular.module('app', ['google-maps', 'pascalprecht.translate']);
 
 
 app.config(['$translateProvider', function ($translateProvider) {
+	
 	var getLanData = function(){
-		//$translateProvider.lanArray = [];
 		$.getJSON( 'data/globalData.json', function( data ) {
-		  		angular.forEach(data, function(dataItem) {
-				      $translateProvider.translations(dataItem.lanType, dataItem.lanContent);
-				  });
+	  		angular.forEach(data, function(dataItem) {
+			      $translateProvider.translations(dataItem.lanType, dataItem.lanContent);
+	  			  console.log('translate languages');
+			  });
+		  		
 	 	 },function(){
 	 	 	console.log('error');
 	 	 });
+		
+		 $translateProvider.registerAvailableLanguageKeys(['en', 'de', 'zh'], {
+			    'en-US': 'en',
+			    'en-UK': 'en',
+			    'de-DE': 'de',
+			    'de-CH': 'de',
+			    'zh-CN': 'zh',
+			    'zh_HK': 'zh'
+			  });
+	    $translateProvider.determinePreferredLanguage();
+		
+//		navigator.globalization.getPreferredLanguage(
+//	        function (language) {
+//	        	systemLanguage = language.value;
+//	        	console.log('get system languages');
+//        	},
+//        	function () {
+//        		console.log('Error getting language\n');
+//    		}
+//	      );
+		
 	};
+	
 	getLanData();
-
-//TODO   set then setting language
- 
-   $translateProvider.preferredLanguage('de');
-
-
-
-  // function checkLanguage() {
-  //     navigator.globalization.getPreferredLanguage(
-  //       function (language) {alert('language: ' + language.value + '\n');},
-  //       function () {alert('Error getting language\n');}
-  //     );
-  //   }
-  //   checkLanguage();
 }]);
-
 
 
 app.controller('appCtrl', function($rootScope, $scope, $http) {
