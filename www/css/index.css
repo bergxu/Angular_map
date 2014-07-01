@@ -272,12 +272,14 @@
 
     .Workshop,.Partsdealer,.QRCodeScanner,.Pad{
       width:50%;
-      padding:1.5%;
+      padding:1%;
     }
     
     .EmergencyCall,.Impressum{
       width:50%;
-      padding:1.5%;
+      padding-left:1%;
+      padding-right:1%;
+      padding-top:2%;
     }
     
     .mainViewBlock button{
@@ -293,10 +295,26 @@
     
     .mainViewBlock button p{
       color:white;
-      font-size:17px;
+      
       font-weight:bold
     }
     
+    @media screen and (max-width:750px){
+    	.mainViewBlock button p{
+    		font-size:17px;
+    	}
+    	.mainImg{
+    		width:45px;
+    	}
+    }
+	@media screen and (min-width:751px){
+		.mainViewBlock button p{
+    		font-size:20px;
+    	}
+    	.mainImg{
+    		width:80px;
+    	}
+	}
 
     .detailViewBlock{
       display: none;
