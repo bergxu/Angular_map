@@ -140,53 +140,54 @@
           </a>  
       </nav>
 
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
-          <tr>
-            <td class="Workshop" ng-click="workshopSearch()">
-              <button class="">
-                <img  style="margin-top:10px" src="img/Werkstatt_bg.png" width="45%;"><br><br>
-                <p>{{'workshopProvider' | translate}}</p>
-              </button>
-            </td>
-            <td class="Partsdealer" ng-click="partsdealerSearch()">
-              <button class="">
-                <img style="margin-top:10px" src="img/Ersatzteil_bg.png" width="45%;"><br><br>
-                <p>{{'partsdealerProvider' | translate}}</p>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="QRCodeScanner" ng-click="scannerCode()">
-              <button class="">
-                <img style="margin-top:10px" src="img/CodeScanner_bg.png" width="45%;"><br><br>
-                <p>{{'QRScannerProvider' | translate}}</p>
-              </button>
-            </td>
-            <td class="Pad" ng-click="partDemandClick()">
-              <button class="">
-                <img style="margin-top:10px" src="img/pod_bg.png" width="45%;"><br><br>
-                <p>{{'podProvider' | translate}}</p>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="EmergencyCall" >
-              <a href="tel:{{emergencyCall}}" style="height:100%">
-                <button class="">
-                  <img style="margin-top:10px" src="img/call_bg.png" width="45%;"><br><br>
-                  <p>{{'emergencyCallProvider' | translate}}</p>
-                </button>
-              </a>
-            </td>
-            <td class="Impressum" ng-click="clickInfo()">
-              <button class="" >
-                  <img style="margin-top:10px" src="img/impressum_bg.png" width="45%；"><br><br>
-                  <p>{{'impressumProvider' | translate}}</p>
-              </button>
-            </td>
-          </tr>
-       
-      </table>
+     <table class="upTbl" border="0" width="100%" height="70%">
+			<tr>
+				<td class="Workshop" ng-click="workshopSearch()">
+					 <button class="">
+		                <img  style="margin-top:10px" src="img/Werkstatt_bg.png" width="45;"><br><br>
+		                <p>{{'workshopProvider' | translate}}</p>
+		              </button>
+				</td>
+				<td class="Partsdealer" ng-click="partsdealerSearch()">
+					<button class="">
+		                <img style="margin-top:10px" src="img/Ersatzteil_bg.png" width="45;"><br><br>
+		                <p>{{'partsdealerProvider' | translate}}</p>
+	              </button>
+				</td>
+			</tr>
+			<tr>
+				<td class="QRCodeScanner" ng-click="scannerCode()">
+					<button class="">
+		                <img style="margin-top:10px" src="img/CodeScanner_bg.png" width="45;"><br><br>
+		                <p>{{'QRScannerProvider' | translate}}</p>
+	              </button>
+				</td>
+				<td class="Pad" ng-click="partDemandClick()">
+					<button class="">
+		                <img style="margin-top:10px" src="img/pod_bg.png" width="45;"><br><br>
+		                <p>{{'podProvider' | translate}}</p>
+	              </button>
+				</td>
+			</tr>
+		</table>
+		<table class="downTbl" border="0" width="100%" height="25%" style="margin-top:3%">
+			<tr>
+				<td class="EmergencyCall">
+					<a href="tel:{{emergencyCall}}" style="height:100%">
+		                <button class="">
+		                  <img style="margin-top:10px" src="img/call_bg.png" width="45;"><br><br>
+		                  <p>{{'emergencyCallProvider' | translate}}</p>
+		                </button>
+	              </a>
+				</td>
+				<td class="Impressum" ng-click="clickInfo()">
+					<button class="" >
+		                  <img style="margin-top:10px" src="img/impressum_bg.png" width="45；"><br><br>
+		                  <p>{{'impressumProvider' | translate}}</p>
+	              </button>
+				</td>
+			</tr>
+		</table>
   </div>
 
   <!--detail view-->
