@@ -99,6 +99,12 @@ app.controller('appCtrl', function($rootScope, $scope, $http) {
 		$('.angular-google-map-container').css('height', $scope.height + 'px');
 	};
 	resize(false);
+	var setBodyMarginTop = function(){
+        if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
+           $('#myself img').css('margin-top','10px');
+        }
+   };
+   setBodyMarginTop();
 	var scanner = cordova.require('com.phonegap.plugins.barcodescanner.barcodescanner');
 	window.onresize = function() {
 		resize(true);
