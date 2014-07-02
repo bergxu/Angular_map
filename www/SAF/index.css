@@ -1,0 +1,431 @@
+    body{
+      width: 100%;
+      height: 100%;
+      margin:0px;
+      background:#EBEBEB;
+    }
+
+
+    #bottomBar {
+      height: 70px;
+      padding: 0px 5px 5px 5px;
+      box-shadow:0 3px 25px black;
+      border-radius: 0px;
+      background:#EBEBEB;
+    }
+
+    .rightShadow{
+      box-shadow: -11px 0px 50px 0px black;
+    }
+
+    .angular-google-map-container {
+      margin-top: 70;
+      margin-bottom: 75;
+      width: 100%;
+    }
+
+    td{
+      padding:5px;
+    } 
+
+    #myself{
+      width:100%;
+      height:70px;
+      border-radius: 0px;
+      background:#E1AE2E;
+      border: 0px;
+    } 
+
+    #menuTool{
+      padding:10px 2px 10px 2px;
+      background:#EBEBEB;
+      z-index: 3;
+      position: fixed;
+      width: 100%;
+      top: 70px;
+    }
+
+    /*.menuBoxShadow
+    {
+      box-shadow: 0 -2px 25px black;
+    }*/
+
+    .tab-content{
+      position: absolute;
+      width: 100%;
+    }
+
+    .inputArea{
+      height: 40px;
+      font-size: 15px;
+      border-radius: 0px;
+      padding-right: 35px;
+    }
+
+    #selectedDistance{
+      width: 100%;
+      height:40px;
+      font-size:20px;
+      border-radius: 0px;
+      border: 0px;
+    }
+
+    #searchBtn{
+      font-size:20px;
+      width:100%;
+      height:50px;
+      background:#E1AE2E;
+      border: 0px;
+      color:white;
+    } 
+
+    .icon-bar {
+      display: block;
+      width: 35px;
+      height: 6px;
+      background-color: white;
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .leftBtn{
+      width:70px;
+      height:70px;
+      border: 0px;
+      background-color:#E1AE2E;
+    }
+
+    .text-right{
+      position:absolute;
+      top:20px;
+      right:10px;
+      width:200px;
+    }
+
+    .bottomBtnClick{
+      background:#E1AE2E;
+      color:white;
+      border:0px;
+      height:71px;
+      font-size:25px;
+    }
+
+    .bottomBtnUnclick{
+      background:#C3C3C3;
+      color:#999999;
+      border:0px;
+      height:71px;
+      font-size:25px;
+    }
+
+    .leftMenu {
+        left:0px;
+        top:0px;
+        float:left;
+        width: 250px;
+        height: 100%;
+        background: #4F4F4F;
+        position: fixed;
+    }
+
+    .sb-menu {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      }
+
+    .sb-menu li {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      border-bottom: 1px solid #888;
+      }
+
+   .sb-menu li a {
+      width: 100%;
+      display: inline-block;
+      padding: 1em;
+      font-size: 18px;
+      color: #f2f2f2;
+      text-decoration: none;
+      }
+
+    #maplistArea{
+      z-index:2;
+      background:#EBEBEB;
+      width: 100%;
+      margin-top: 70px;
+    }
+
+    #mapArea{
+      z-index:1;
+      width: 100%;
+      margin-top: 70px;
+    }
+
+    .b {
+      display: none;
+      width: 0px;
+      border:20px solid; 
+      /*border-color:transparent transparent #C4C4C4 transparent; */
+      border-color:transparent transparent #E1AE2E transparent;
+      position: fixed;
+      left: 50%;
+      top:50%;
+      margin-left: -20px;
+      margin-top: -20px;
+      opacity: 0.9;
+    }
+
+    .markerContent{
+      display: none;
+      width:300px;
+      height:180px;
+      position:fixed;
+      /*background:#C4C4C4;*/
+      background: #E1AE2E;
+      z-index:10;
+      left:50%;
+      top:50%;
+      margin-top: 20px;
+      margin-left:-150px;
+      opacity: 0.9;
+      border-radius: 10px;
+      font-size: 15px;
+      color: white;
+      padding-top: 10px;
+      padding-left: 10px;
+
+    }
+
+    .alertContent{
+      display:none;
+      width:250px;
+      height:200px;
+      position:fixed;
+      /*background:#C4C4C4;*/
+      background: #E1AE2E;
+      z-index:10;
+      top:50%;
+      left:50%;
+      margin-top: -100px;
+      margin-left:-125px;
+      opacity: 0.8;
+      border-radius: 10px;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      line-height: 200px;
+    }
+    
+    .infoBlock{
+      display: none;
+      opacity: 0.7;
+
+      top:0px;
+      z-index:1200;
+      position: fixed;
+      width: 100%;
+      height:100%;
+      background: #333;
+    }
+    
+    .outcontainer{
+      padding:15px;
+      display: none;
+      overflow:scroll;
+      -webkit-overflow-scrolling:touch;
+      top:10%;
+      left:50%;
+      border-radius: 8px;
+      margin-left:-45%;
+      z-index:1210;
+      position: fixed;
+      width: 90%;
+      height:80%;
+      background: #F0F0F0;
+    }
+
+    .block{
+      opacity: 0.8;
+      display: none;
+      top:0px;
+      z-index:1030;
+      position: fixed;
+      width: 100%;
+      background: #EBEBEB;
+    }
+
+    .mainViewBlock{
+      display: block;        
+      padding-top: 80px;
+      padding-left: 1%;
+      padding-right: 1%;
+      padding-bottom: 20px;
+      top:0px;
+      left:0px;
+      z-index:1030;
+      position: fixed;
+      width: 100%;
+      background: #ebebeb;
+    }
+
+    .Workshop,.Partsdealer,.QRCodeScanner,.Pad{
+      width:50%;
+      padding:1%;
+    }
+    
+    .EmergencyCall,.Impressum{
+      width:50%;
+      padding-left:1%;
+      padding-right:1%;
+      padding-top:2%;
+    }
+    
+    .mainViewBlock button{
+      width:100%;
+      height:100%;
+      background:#E1AE2E;
+      border-radius: 10px;
+      text-align:center;
+      vertical-align:middle;
+      line-height:100%;
+      border:0px;
+    }
+    
+    .mainViewBlock button p{
+      color:white;
+      
+      font-weight:bold
+    }
+    
+    @media screen and (max-width:750px){
+    	.mainViewBlock button p{
+    		font-size:17px;
+    	}
+    	.mainImg{
+    		width:45px;
+    	}
+    }
+	@media screen and (min-width:751px){
+		.mainViewBlock button p{
+    		font-size:20px;
+    	}
+    	.mainImg{
+    		width:80px;
+    	}
+	}
+
+    .detailViewBlock{
+      display: none;
+      top:0px;
+      z-index:1030;
+      position: fixed;
+      width: 100%;
+      background: #EBEBEB;
+    }
+
+    .detailUl{
+      font-size:15px;
+      list-style-type: none;
+      padding-left:5px;
+      padding-right:5px;
+    }
+    
+    .detailUl li{
+      border-bottom: 1px solid gray;
+      
+      margin-top: 5px;
+    }
+
+    .markerBlock{
+      opacity: 0.6;
+      display: none;
+      top:0px;
+      z-index:50;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    #alertBtn{
+      height:50px;
+      width:250px;
+      position:absolute;
+      top: 50%;
+      left: 50%;
+      margin-left:-125px;
+      margin-top:60px;
+    }
+
+    .nameDiv{
+      font-size:18px;
+    }
+    .addressDiv{
+      margin-top:5px;
+      font-size:16px;
+    }
+    .lineDiv{
+      margin:5px; 
+      border-bottom: 1px solid gray; 
+      height: 2px;
+    }
+    .telDiv{
+      margin-top:5px;
+      padding:3px;
+    }
+    .iconDiv{
+      margin-top:5px;
+    }
+    .telA{
+      background:#EBEBEB;
+      width:100%;
+      text-align: left;
+      font-size:15px;
+    }    
+
+    .slidAnimate{
+      transition:width 0.5s;
+      -moz-transition:width 0.5s; /* Firefox 4 */
+      -webkit-transition:width 0.5s; /* Safari and Chrome */
+      -o-transition:width 0.5s; /* Opera */
+      -moz-transition-timing-function: ease-out;
+      transition-timing-function: ease-out;
+      -webkit-transition-timing-function: ease-out;
+      -o-transition-timing-function: ease-out;
+    }
+
+    .gmnoprint a, .gmnoprint span {
+        display:none;
+    }
+
+    .marquee {
+        position:fixed;
+        overflow:hidden;
+        width:250px;
+        height:30px;
+        color:white;
+        font-size: 15px;
+        bottom: 0px;
+     }
+
+    .marquee span {white-space:nowrap;}
+
+    #mainMenuBtns{
+      font-size:17px;
+      width:100%;
+      height:80px;
+      margin-top: 30px;
+      border-radius: 5px;
+      background:#E1AE2E;
+      border: 0px;
+      color:white;
+      padding-top: 25px;
+    } 
+
+
+    #websiteId{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }

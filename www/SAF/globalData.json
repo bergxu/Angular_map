@@ -1,0 +1,52 @@
+[{
+	"lanType":"zh",
+	"lanContent": {
+		"workshopProvider":"车间",
+		"partsdealerProvider":"经销商",
+		"QRScannerProvider":"二维码",
+		"podProvider":"零件需求店",
+		"emergencyCallProvider":"急救电话",
+		"impressumProvider":"信息",
+		"mapBtnProvider":"地图",
+		"mapListBtnProvider":"数据列表",
+		"noDataProvider":"没有数据",
+		"locateMeProvider":"定位",
+		"goProvider":"搜索",
+		"placeHolderAddressProvider":"请输入地址"
+		}
+ },
+ {
+ 	"lanType": "en",
+ 	"lanContent": {
+ 		"workshopProvider":"Workshop",
+		"partsdealerProvider":"Partsdealer",
+		"QRScannerProvider":"QR Code Scanner",
+		"podProvider":"Parts On Demand Shop",
+		"emergencyCallProvider":"Emergency Call",
+		"impressumProvider":"Impressum",
+		"mapBtnProvider":"Map",
+		"mapListBtnProvider":"List",
+		"noDataProvider":"No Data",
+		"locateMeProvider":"Locate Me",
+		"goProvider":"Go",
+		"placeHolderAddressProvider":"Input Address"
+ 	}
+ },
+ {
+ 	"lanType" : "de",
+ 	"lanContent": {
+ 		"workshopProvider":"Werkstatt",
+		"partsdealerProvider":"Teilehändler",
+		"QRScannerProvider":"QR Code",
+		"podProvider":"Parts On Demand Shop",
+		"emergencyCallProvider":"Notruf",
+		"impressumProvider":"Impressum",
+		"mapBtnProvider":"Karte",
+		"mapListBtnProvider":"Liste",
+		"noDataProvider":"Keine Daten",
+		"locateMeProvider":"Locate Me",
+		"goProvider":"Gehen",
+		"placeHolderAddressProvider":"Eingangs Adresse"
+ 	}
+
+ }]

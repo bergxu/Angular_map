@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=0">-->
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap-glyphicons.css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,600,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+
+</head>
+
+<body ng-controller="appCtrl">
+
+  <!-- main body-->
+  <div class="rightBody">
+    <!--top menu-->
+    <nav id="myself" class="navbar navbar-default navbar-fixed-top slidAnimate" role="navigation">
+      <div style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="menuShowClick()">
+          <span >
+            <img style="margin-left:10px;" src="img/home_white.png" >
+          </span> 
+      </div>
+      <div style="float:left;width:{{windowWidth}}px;height:70px;border:0px;" ng-click="brandClick()">
+        <span class="text-right" style=" width: 222px; ">
+          <img src="img/search_white.png">&nbsp;&nbsp;&nbsp;
+          <img style=" width: 175px;margin-top: -2px;"  src="img/logo.png" >
+        </span>
+      </div>
+    </nav>
+
+    <div id="menuTool" class="slidAnimate">
+      <table style="width:100%;">
+        <tr>
+          <td colspan="2" style="position: relative;">
+            <input type="text" id="searchInput" ng-model="search" class="inputArea form-control" placeholder="{{'placeHolderAddressProvider' | translate}}">
+            <span class="text-right" ng-show="search.length > 0" style=" position: absolute; top: 5px;width: 40px;height:40px; right: 5px;" ng-click="clearInputText()"><img width="22px"; style="margin-right:9px;margin-top:9px;" src="img/removeInput.png"></span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:150px;" ng-click="exchangePostion()">
+            <span style="font-size:20px;color:green" class="glyphicon glyphicon-map-marker"></span>&nbsp;
+            <span style="font-size:20px;color:green">{{'locateMeProvider' | translate}}</span>
+          </td>
+          <td>
+            <select id="selectedDistance" ng-model="metadata.distance" class="form-control">
+              <option ng-repeat="c in metadata.picklists.distance">{{c}} km</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <button id="searchBtn" ng-disabled="search.length == 0" ng-click="clickSearch()" class="btn btn-default">{{'goProvider' | translate}}</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- buttom menu -->
+    <nav id="bottomBar" class="nav nav-tabs navbar-fixed-bottom slidAnimate" style="width:100%;top:{{bottomHeight}}px;">
+      <button id="clickMap" class="bottomBtnClick" style="width:50%;box-shadow: -1px 3px 9px 0px black;" href="#mapArea" data-toggle="tab" ng-click="mapClick()" disabled>{{'mapBtnProvider' | translate}}</button>
+      <button id="clickList" style="width:50%;margin-left:-4px;box-shadow: 9px 9px 16px 0px black;" class="bottomBtnUnclick" href="#maplistArea" data-toggle="tab" ng-click="listClick()">{{'mapListBtnProvider' | translate}}</button>
+    </nav>
+
+    <div id="bottomDiv" style="width:100%;height:75px;background:#EBEBEB;position:fixed;bottom:0px;"></div>
+
+    <!-- Tab panes -->
+    <div class="tab-content slidAnimate" id="mapBody">
+
+      <div class="tab-pane fade in active" id="mapArea" ng-click="clickMapArea()" style="height:{{height}}px;position: fixed;">
+        <google-map class="" center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" bounds="map.bounds" events="map.events" options="map.options" pan="true" control="map.control">
+
+          <!-- current -->
+          <marker ng-show="map.currentMarker.show" coords="map.currentMarker" icon='map.currentMarker.icon'></marker>
+
+          <!-- target -->
+          <marker ng-show="map.targetMarker.show" coords="map.targetMarker" icon='map.targetMarker.icon'></marker>
+
+          <!--account -->
+          <marker ng-repeat="m in map.markers" coords="m" click="onMarkerClicked(m)" icon='m.accountMarkericon'>
+          </marker>
+
+        </google-map>
+        <span ng-click="clickInfo()">
+          <img style="position:fixed;right:20px;top:{{iconInfo}}px;" src="img/info.png" >
+        </span> 
+
+        <div id="markerClickBlock" class="markerBlock" ng-click="blockClick()"></div>
+        <div class="b" style="top:{{alertHeight}}px"></div>
+        <div class="markerContent" style="top:{{alertHeight}}px">
+          <div>{{markerName}}</div>
+          <div>Phone : {{markerPhone}}</div>
+          <div>Street : {{markerStreet}}</div>
+          <div>City : {{markerCity}}</div>
+          <div>Country : {{markerCountry}}</div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="maplistArea" style="height:{{height}}px; position: fixed;overflow:scroll;">
+        <div>
+          <ul style="list-style-type:none;padding:10px;background:#EBEBEB;">
+            <li ng-repeat="listItem in map.markers" style="margin-bottom:20px;background:white;width:100%;border:1px solid gray;padding:5px;" ng-click="onMarkerClicked(listItem)">
+                <div class="row">
+                  <div class="col-xs-2 col-sm-2 col-md-2" class="iconDiv" style="padding-left:2px;"><img src="{{listItem.listIconSrc}}"></div>
+                  <div class="col-xs-10 col-sm-10 col-md-10" class="nameDiv"><strong>{{listItem.name}}</strong></div>
+                </div>
+
+              <div class="addressDiv" ng-show="listItem.country">
+                {{listItem.street}}<br>{{listItem.city}}<br>{{listItem.country}}
+              </div>
+              <div class="lineDiv"></div>
+              <div class="telDiv" ng-show="listItem.phone">
+                <a class="listBtn btn btn-default telA" href="tel:{{listItem.phone}}">
+                  <img src="img/phone_icon.png">&nbsp; {{listItem.phone}}
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div style="height:70px;width:100%;"></div>
+      </div>
+    </div>
+  </div>
+  <div id="mapAlert" class="alertContent" style="top:{{alertHeight}}px;">{{alertText}}</div>
+  <div id="loadDiv" class="block" style="height:{{blockHeight}}px;"></div>
+
+<!-- main menu-->
+  <div id="menuView" class="mainViewBlock" style="height:{{mainBlockHeight}}px;">
+      <nav id="myself" class="navbar navbar-default navbar-fixed-top"  role="navigation">
+        <!--   <div id="legendInfoMain" style="margin-left: 5%;padding-top: 18px;width: 70px;height: 70px;" ng-click="clickInfo()">
+            <img  src="img/info_white.png" >
+          </div> --> 
+          <a class="text-right" style="">
+            <img style=" width:175px;" src="img/logo.png">
+          </a>  
+      </nav>
+
+     	<table class="upTbl" border="0" width="100%" height="75%">
+			<tr>
+				<td class="Workshop" ng-click="workshopSearch()">
+					 <button class="">
+		                <img class="mainImg" style="margin-top:10px" src="img/Werkstatt_bg.png" ><br><br>
+		                <p>{{'workshopProvider' | translate}}</p>
+		              </button>
+				</td>
+				<td class="Partsdealer" ng-click="partsdealerSearch()">
+					<button class="">
+		                <img class="mainImg" style="margin-top:10px" src="img/Ersatzteil_bg.png"><br><br>
+		                <p>{{'partsdealerProvider' | translate}}</p>
+	              </button>
+				</td>
+			</tr>
+			<tr>
+				<td class="QRCodeScanner" ng-click="scannerCode()">
+					<button class="">
+		                <img class="mainImg" style="margin-top:10px" src="img/CodeScanner_bg.png"><br><br>
+		                <p>{{'QRScannerProvider' | translate}}</p>
+	              </button>
+				</td>
+				<td class="Pad" ng-click="partDemandClick()">
+					<button class="">
+		                <img class="mainImg" style="margin-top:10px" src="img/pod_bg.png"><br><br>
+		                <p>{{'podProvider' | translate}}</p>
+	              </button>
+				</td>
+			</tr>
+		</table>
+		<table class="downTbl" border="0" width="100%" height="25%" >
+			<tr>
+				<td class="EmergencyCall">
+					<a href="tel:{{emergencyCall}}" style="height:100%">
+		                <button class="">
+		                  <img class="mainImg" style="margin-top:10px" src="img/call_bg.png" ><br><br>
+		                  <p>{{'emergencyCallProvider' | translate}}</p>
+		                </button>
+	              </a>
+				</td>
+				<td class="Impressum" ng-click="clickInfo()">
+					<button class="" >
+		                  <img class="mainImg" style="margin-top:10px" src="img/impressum_bg.png" ><br><br>
+		                  <p>{{'impressumProvider' | translate}}</p>
+	              </button>
+				</td>
+			</tr>
+		</table>
+  </div>
+
+  <!--detail view-->
+ <div id="detailView" class="detailViewBlock" style="padding-top: 75px;height:{{detailBlockHeight}}px;">
+
+     <nav id="myself" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="closeDetail()">
+          <span >
+            <img style="margin-left:10px;" src="img/back1_white.png" >
+          </span> 
+        </div>
+        <div id="legendInfoDetail" style="float:left;width: 70px;height:70px;border:0px;padding-top: 18px;" ng-click="clickInfo()">
+          <span >
+            <img style="margin-left:10px;" src="img/info_white.png" >
+          </span> 
+        </div>  
+        <img class="text-right" style=" width: 175px;"  src="img/logo.png">
+      </nav>
+    <div>
+       <ul class="detailUl" >
+         <li style="padding-bottom:5px;">
+          <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <img src="{{detailIconSrc}}">
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10">
+              <div id="accountNameLiId" ng-show="accountName.length > 0 "><strong>{{accountName}}</strong></div>
+              <div id="additionalNameLiId" ng-show="additionalName.length > 0 "><strong>{{additionalName}}</strong></div>
+            </div>
+          </div>
+
+        </li> 
+        <li id="addressLiId" ng-show="markerCountry.length > 0 ">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              {{markerStreet}}<br>
+              {{markerCity}}&nbsp;{{markerZipcode}}&nbsp;{{markerState}}<br>
+              {{markerCountry}}
+            </div>
+          </div>
+        </li>
+        <li id="phoneNumLiId" ng-show="phoneNumber.length > 0 ">
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">Phone</div>
+            <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{phoneNumber}}">{{phoneNumber}}</a></div>
+          </div>             
+        </li>
+        <li id="emergencyCallLiId" ng-show="emergencyCallNumber.length > 0 ">
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">24 Hours Emergency Call</div>
+            <div class="col-xs-7 col-sm-7 col-md-7"><a href="tel:{{emergencyCallNumber}}">{{emergencyCallNumber}}</a></div>
+          </div>
+        </li>
+        <li id="websiteLiId" ng-show="detailwebsite.length > 0 ">
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">Website</div>
+            <div id="websiteId" class="col-xs-7 col-sm-7 col-md-7"><a ng-click="websiteClick()">{{detailwebsite}}</a></div>
+        </li>
+        <li id="typeLiId" ng-show="wdType.length > 0 ">
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">Type</div>
+            <div class="col-xs-7 col-sm-7 col-md-7"><p ng-repeat="item in wdType">{{item}}</p></div>
+          </div>
+        </li>
+        <li id="gpsDataLiId" ng-show="gpsData.length > 0 ">
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">GPS Data</div>
+            <div class="col-xs-7 col-sm-7 col-md-7">{{gpsData}}</div>
+          </div>
+        </li>
+<!--         <li>
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">supporting manufacturer</div>
+            <div class="col-xs-7 col-sm-7 col-md-7">this is supporting manufacturer</div>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+ </div>
+
+  <div class="infoBlock" ng-click="clickInfoBlock()"></div>
+  <span class="closeIcon" style="position: fixed;right: 6%;top:11%;z-index: 1223;display:none;"><img width="25px;" src="img/removeInput.png" ng-click="clickInfoBlock()"></span>
+  <div class="outcontainer">
+      
+      <div >
+        <img width="25px;" src="img/TopService.png"><span>- Top Service Partner</span><br>
+        <img width="25px;" src="img/24werkstatt.png"><span>- Service 24 Partner</span><br>
+        <img width="25px;" src="img/Werkstatt.png"><span>- Competence Partner</span><br>
+        <img width="25px;" src="img/Ersatzteil.png"><span>- Official Partsdealer</span>
+      </div>
+      <div>
+        <div>Responsible for the presentation</div>
+        <div>SAF-HOLLAND S.A.</div>
+        <p><strong>Domicile of the company</strong></p>
+        <div>68-70, boulevard de la Pétrusse</div>
+        <div>L-2320 Luxembourg</div>
+        <div>Luxembourg</div>
+        <p><span class="glyphicon glyphicon-envelope"></span> info@safholland.de</p>
+        <p><span class="glyphicon glyphicon-share"></span> www.safholland.com</p>
+        <p><strong>Trade register number: section B 113 090</strong></p>
+        <p><strong>VAT identification number: LU23748432</strong></p>
+        <div>Our website contains links to the websites of third parties (“external links”). As the content of these websites is not under our control, we cannot assume any liability for such external content. In all cases, the provider of information of the linked websites is liable for the content and accuracy of the information provided. At the point in time when the links were placed, no infringements of the law were recognisable to us. As soon as an infringement of the law becomes known to us, we will immediately remove the link in question. </div>
+        <p>Copyright © SAF-HOLLAND S.A. </p>
+        <p>All rights reserved. All data within the SAF HOLLAND domain are copyright protected and may not be used without the consent of the legal owner.</p>
+    </div>
+  </div>
+
+
+
+
+  <script type="text/javascript" src="libs/jquery.min.js"></script>
+  <!--script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false" ></script-->
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&v=3.14"></script>
+  <script type="text/javascript" src="libs/angular.min.js"></script>
+  <!--script type="text/javascript" src="libs/angular-1.2.16.min.js"></script-->
+  <script type="text/javascript" src="libs/underscore-min.js"></script>
+  <script type="text/javascript" src="libs/angular-google-maps.js"></script>
+  <script type="text/javascript" src="libs/angular-translate.js"></script>
+  <script type="text/javascript" src="libs/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="libs/iscroll.js"></script>
+  <script type="text/javascript" src="libs/spin.js"></script>
+  <script type="text/javascript" src="libs/marquee.js"></script>
+  <script type="text/javascript" src="js/map.js"></script>
+  <script type="text/javascript" src="js/mockAPI.js"></script>
+  <script type="text/javascript">
+  directives.api.utils.Logger.doLog = true;
+  </script>
+
+
+</body>
+
+</html>
